@@ -1,18 +1,12 @@
-from bs4 import BeautifulSoup
+import sample.website as web
 import urllib.request
-import requests
 import os
 import sample.date as date
 import sample.pdf as pdf
 
 
-
 def info(): #of the latest DGS report on Covid-19
-    page = requests.get('https://covid19.min-saude.pt/relatorio-de-situacao/')
-    soup = BeautifulSoup(page.content, 'html.parser')
-    div = soup.find("div", class_="single_content")
-    ul = div.find_all("ul")[0]
-    li_tags = ul.find_all('li')
+    li_tags = web.get_li_items()
     link = li_tags[0].a.get('href') #get the url from the upmost link (which is the most recent report)
     pdf_name = link.split('/2020/')[1][3:]
     most_recent_pdf_date = str(li_tags[0].text.split(' | ')[1])
