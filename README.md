@@ -4,11 +4,11 @@ This project has the goal of automating the process of searching and editing tab
 ## Requirements
 - Python 3
 - Beautiful Soup
-- Pdfminer
+- pdfminer
 
 ## How to use
 - Clone this repository and `cd` into it.
-- Download the required packages with `pip install -r requirements.txt`.
+- Download the required packages with `pip3 install -r requirements.txt`.
 - Run the command `python3 setup.py`.
 - Go to the folder `output/` and copy the content of the file `GraphsCasesByAgeAndGender.txt` to https://en.wikipedia.org/w/index.php?title=2020_coronavirus_pandemic_in_Portugal&action=edit&section=8.
 - Go to the folder `output/` and copy the content of the file `SummaryTable.txt` to https://en.wikipedia.org/w/index.php?title=2020_coronavirus_pandemic_in_Portugal&action=edit&section=6.
@@ -19,3 +19,4 @@ Thanks to [hagnat](https://github.com/hagnat/) for the inspiration (he did somet
 
 ## To do:
 - Implement parser for timeline graphs (confirmed cases, deaths, pacients hospitalized and in ICU, daily cases and daily deaths). The problem right now is that I can only get the data for each day (from the DGS report), and not the cumulative ones.
+- As a solution to the above problem, I could use a CSV file to update cumulative cases (that would not require a database).

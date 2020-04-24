@@ -1,15 +1,17 @@
-
 import sample.report as report
 import sample.generate as generate
+import sample.date as date
 
-if report.download():
+REPORT_PATH = 'var/DGS_report'+date.get_current_date()+'.pdf' #path for pdf report
+
+if report.download(REPORT_PATH):
     print('Parsing data from PDF file...')
 
-    summary = report.get_summary_data()
-    symptoms = report.get_symptoms_data()
-    cases = report.get_data_by_age_and_gender('cases')
-    deaths = report.get_data_by_age_and_gender('deaths')
-
+    summary = report.get_summary_data(REPORT_PATH)
+    symptoms = report.get_symptoms_data(REPORT_PATH)
+    cases = report.get_data_by_age_and_gender('cases', REPORT_PATH)
+    deaths = report.get_data_by_age_and_gender('deaths', REPORT_PATH)
+    
     print('Generating graphs and tables...')
 
     generate.summary_table(summary, symptoms)
@@ -17,3 +19,4 @@ if report.download():
     
     print('Graphs and tables generated succesfuly!')
     print('The text files were saved in the directory output/')
+    

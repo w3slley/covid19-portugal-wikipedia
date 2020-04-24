@@ -1,49 +1,49 @@
 from bs4 import BeautifulSoup
-import datetime
 import urllib.request
 import requests
 import os
+import sample.date as date
 import sample.pdf as pdf
 
 
-def info():
+
+def info(): #of the latest DGS report on Covid-19
     page = requests.get('https://covid19.min-saude.pt/relatorio-de-situacao/')
     soup = BeautifulSoup(page.content, 'html.parser')
     div = soup.find("div", class_="single_content")
     ul = div.find_all("ul")[0]
     li_tags = ul.find_all('li')
-    link = li_tags[0].a.get('href')
+    link = li_tags[0].a.get('href') #get the url from the upmost link (which is the most recent report)
     pdf_name = link.split('/2020/')[1][3:]
     most_recent_pdf_date = str(li_tags[0].text.split(' | ')[1])
     
     return {'link': link, 'report_date':most_recent_pdf_date}
 
-def download():
-    #formatting current date
-    now = datetime.datetime.now()
-    year = str(now.year)
-    month = str(now.month) if len(str(now.month))==2 else '0'+str(now.month)
-    day = str(now.day) if len(str(now.day))==2 else '0'+str(now.day)
-    curr_date = day+'/'+ month +'/'+year
-    
-    filename = 'var/most_recent_dgs_report.pdf'
-    data = info()
-    ##Checking if the latest report has today's date. If not, download it.
-    if os.path.isfile(filename) and curr_date == data['report_date']:
+def download(REPORT_PATH):
+    curr_date = date.get_current_date().replace('-', '/')
+    #if there is no report on DGS' website for the current day, download latest report (previous day)
+    if curr_date != info()['report_date']:
+        REPORT_PATH = 'var/DGS_report'+info()['report_date'].replace('/', '-')+'.pdf'
+    else:
+        REPORT_PATH = 'var/DGS_report'+date.get_current_date()+'.pdf'
+    #if not, there is a report for today and the date will be the current one for the path
+
+    ##Checking if the latest report was downloaded
+    if os.path.isfile(REPORT_PATH):
         print('Most recent PDF report was already downloaded!')
-        print(f"Date of most recent report: {data['report_date']}")
+        print(f"Date of most recent report: {info()['report_date']}")
     else:
         print('Downloading latest DGS report as a PDF file...')
-        urllib.request.urlretrieve(data['link'], filename)
+        urllib.request.urlretrieve(info()['link'], REPORT_PATH)
         print('PDF file downloaded successfuly!')
         return True
-        
+
     return False
 
 
 #right now I have to create and delete .txt files to take advantage of the readline() function. I have to improve that later. I also need to find a way to only call the convert_pdf_to_txt() function only once (for efficiency reasons)
-def get_summary_data():
-    page_summary = pdf.convert_pdf_to_txt('var/most_recent_dgs_report.pdf', pages=[0])
+def get_summary_data(REPORT_PATH):
+    page_summary = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[0])
     filename = 'var/page_summary.txt'
     g = open(filename, 'w+')
     g.write(page_summary)
@@ -79,13 +79,15 @@ def get_data_from_txt(filename, start, end):
             on = True
         if line==end:
             break
+        if line == '':
+            break
     f.close()
     
     return data_points
     
-def get_data_by_age_and_gender(option):
+def get_data_by_age_and_gender(option, REPORT_PATH):
     if option == 'cases':
-        page_cases = pdf.convert_pdf_to_txt('var/most_recent_dgs_report.pdf', pages=[1])
+        page_cases = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[1])
         filename = 'var/page_cases.txt'
         f = open(filename, 'w+')
         f.write(page_cases)
@@ -94,7 +96,7 @@ def get_data_by_age_and_gender(option):
         start = 'Total\n'
         end = 'Dados até dia 22 | ABRIL | 2020 | 24:00\n'
     elif option == 'deaths':
-        page_deaths = pdf.convert_pdf_to_txt('var/most_recent_dgs_report.pdf', pages=[3])
+        page_deaths = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[3])
         filename = 'var/page_deaths.txt'
         f = open(filename, 'w+')
         f.write(page_deaths)
@@ -109,6 +111,7 @@ def get_data_by_age_and_gender(option):
     women = ''
     n = 9 #number of fields in the graph (ranging from ages 0-09 to 80+)
     cases = get_data_from_txt(filename, start, end)
+
     for i in range(n):
         if i == n-1: 
             men+=cases[i]
@@ -120,8 +123,8 @@ def get_data_by_age_and_gender(option):
     os.remove(filename)#deleting txt file
     return {'men': men, 'women': women}
     
-def get_symptoms_data():
-    page_deaths = pdf.convert_pdf_to_txt('var/most_recent_dgs_report.pdf', pages=[3])
+def get_symptoms_data(REPORT_PATH):
+    page_deaths = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[3])
     filename = 'var/page_deaths.txt'
     f = open(filename, 'w+')
     f.write(page_deaths)
