@@ -1,11 +1,12 @@
 import sample.report as report
+import sample.date as date
 
 def summary_table(summary, symptoms):
     summary = [report.beautify_number(i) for i in summary]#applying formatting function to all numbers in summary array
     print('Generating Summary table...')
 
     link = report.info()['link']
-    date = report.info()['report_date']
+    date_summary = date.format_date_summary(report.info()['report_date'])
     suspected_cases = summary[0]
     confirmed_cases = summary[1]
     not_confirmed_cases = summary[2]
@@ -19,7 +20,7 @@ def summary_table(summary, symptoms):
     result="""== Summary ==
 {| class="wikitable" 
 |+COVID-19
-! colspan="2" |Cases ["""+link+""" """+date+"""]
+! colspan="2" |Cases ["""+link+""" """+report.info()['report_date']+"""]
 |-
 !total confirmed cases
 |"""+confirmed_cases+"""
@@ -61,7 +62,7 @@ def summary_table(summary, symptoms):
 | """+percentages[5]+"""
 |-
 |}
-There was only reported information regarding the occurrence of symptoms on """+occurrence+""" of confirmed cases.<ref>{{cite web|url="""+report.info()['link']+""" |title=COVID-19 RELATÓRIO DE SITUAÇÃO |date="""+report.info()['report_date'].replace('/', '-')+""" |website=covid19.min-saude.pt}}</ref>"""
+There was only reported information regarding the occurrence of symptoms on """+occurrence+""" of confirmed cases.<ref>{{cite web|url="""+link+""" |title=COVID-19 RELATÓRIO DE SITUAÇÃO |date="""+date_summary+""" |website=covid19.min-saude.pt}}</ref>"""
     
     f.write(result)
     f.close()

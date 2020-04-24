@@ -8,3 +8,7 @@ def get_current_date():
     day = str(now.day) if len(str(now.day))==2 else '0'+str(now.day)
     curr_date = day+'-'+ month +'-'+year
     return curr_date
+
+def format_date_summary(date):
+    d = date.split('/')
+    return d[2]+'-'+d[1]+'-'+d[0]
