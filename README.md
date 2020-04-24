@@ -1,4 +1,4 @@
-# Covid-19 table/graph generator for wikipedia page
+# Table/graph generator for Portugal's Covid-19 Wikipedia page
 This project has the goal of automating the process of searching and editing tables and graphs for the Portugal Covid-19 pandemic wikipedia page.
 
 ## Requirements
