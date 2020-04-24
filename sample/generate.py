@@ -28,7 +28,7 @@ def summary_table(summary, symptoms):
 |"""+not_confirmed_cases+"""
 |-
 !total suspected cases (since 1 January 2020)
-|"""+waiting_results+"""
+|"""+suspected_cases+"""
 |-
 !under surveillance
 |"""+under_surveillance+"""
@@ -61,7 +61,7 @@ def summary_table(summary, symptoms):
 | """+percentages[5]+"""
 |-
 |}
-There was only reported information regarding the occurrence of symptoms on """+waiting_results+""" of confirmed cases.<ref>{{cite web|url="""+report.info()['link']+""" |title=COVID-19 RELATÓRIO DE SITUAÇÃO |date="""+report.info()['report_date'].replace('/', '-')+""" |website=covid19.min-saude.pt}}</ref>"""
+There was only reported information regarding the occurrence of symptoms on """+occurrence+""" of confirmed cases.<ref>{{cite web|url="""+report.info()['link']+""" |title=COVID-19 RELATÓRIO DE SITUAÇÃO |date="""+report.info()['report_date'].replace('/', '-')+""" |website=covid19.min-saude.pt}}</ref>"""
     
     f.write(result)
     f.close()
