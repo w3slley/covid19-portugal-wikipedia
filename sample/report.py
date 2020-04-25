@@ -4,6 +4,8 @@ import os
 import sample.date as date
 import sample.pdf as pdf
 
+import re #regular expression
+
 
 def info(): #of the latest DGS report on Covid-19
     li_tags = web.get_li_items()
@@ -38,81 +40,60 @@ def download(REPORT_PATH):
     return True
 
 
-#right now I have to create and delete .txt files to take advantage of the readline() function. I have to improve that later. I also need to find a way to only call the convert_pdf_to_txt() function only once (for efficiency reasons)
+#I need to find a way to only call the convert_pdf_to_txt() function only once (for efficiency reasons)
 def get_summary_data(REPORT_PATH):
     page_summary = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[0])
-    filename = 'var/page_summary.txt'
-    g = open(filename, 'w+')
-    g.write(page_summary)
-    g.close()
-    f = open(filename, 'r')
+    lines = page_summary.splitlines()
     fields = ['suspected_cases','confirmed_cases','not_confirmed_cases', 'waiting_results','recovered','deaths','under_surveillance']
     results=[]
     on = False
-    while True:
-        line = f.readline()
-        if line == '2020) \n':#getting total suspected cases data
-            f.readline()#ignoring break line
-            results.append(f.readline().split('\n')[0])
-        if line=='Açores\n':
+    for line in lines:
+        if len(results)==7:#results list already has all values
             break
-        if on and line !='\n':#retrieving all the other data from front page
-            results.append(line.split('\n')[0])
-        if line == 'Saúde\n':
-            on = True 
-    f.close()
-    os.remove(filename)
+        first_char=line[0] if line !='' else ''
+        if on and first_char>='0' and first_char<='9':
+            results.append(line)
+        if line == '2020) ':#getting total suspected cases data
+            on = True
     obj = {}
     for i in range(len(results)):
         obj[fields[i]] = results[i] 
     return obj
 
 
-def get_data_from_txt(filename, start, end):
-    f = open(filename, 'r')
+def get_data_from_list(l, start, end):
     data_points = []
     on = False
-    while True:
-        line = f.readline()
-        if on and line !='\n':
-            data_points.append(line.split("\n")[0])
+    for line in l:
+        if on:
+            data_points.append(line)
         if line == start:
             on = True
-        if line==end:
+        if line == end:
             break
-        if line == '':
-            break
-    f.close()
-    
     return data_points
     
 def get_data_by_age_and_gender(option, REPORT_PATH):
+    #config for each option
     if option == 'cases':
-        page_cases = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[1])
-        filename = 'var/page_cases.txt'
-        f = open(filename, 'w+')
-        f.write(page_cases)
-        f.close()
-        
-        start = 'Total\n'
-        end = 'Dados até dia 22 | ABRIL | 2020 | 24:00\n'
+        txt = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[1]).splitlines()
+        start = 'Total'
+        end = 'Dados até dia 22 | ABRIL | 2020 | 24:00'
     elif option == 'deaths':
-        page_deaths = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[3])
-        filename = 'var/page_deaths.txt'
-        f = open(filename, 'w+')
-        f.write(page_deaths)
-        f.close()
-        
-        start = 'Total\n'
-        end = 'Saiba mais em https://covid19.min-saude.pt/\n'
+        txt = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[3]).splitlines()
+        start = 'Total'
+        end = 'Saiba mais em https://covid19.min-saude.pt/'
     else:
         raise TypeError('option must be either "cases" or "deaths"')
     #returning data as string
     men = ''
     women = ''
     n = 9 #number of fields in the graph (ranging from ages 0-09 to 80+)
-    cases = get_data_from_txt(filename, start, end)
-
+    list_of_data = get_data_from_list(txt, start, end)
+    cases = []
+    #removing empty strings from list
+    for i in list_of_data:
+        if i!='':cases.append(i)
     for i in range(n):
         if i == n-1: 
             men+=cases[i]
@@ -120,38 +101,39 @@ def get_data_by_age_and_gender(option, REPORT_PATH):
         else:
             men+=str(cases[i])+', '
             women+=str(cases[i+10])+', '
-
-    os.remove(filename)#deleting txt file
     return {'men': men, 'women': women}
 
 def get_hospitalized_data(REPORT_PATH):
-    page_hospitalized = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[3])
-    filename = 'var/page_hospitalized.txt'
-    f = open(filename, 'w+')
-    f.write(page_hospitalized)
-    f.close()
+    page_hospitalized = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[3]).splitlines()
+    
+    txt = get_data_from_list(page_hospitalized, 'COVID-19', 'FEBRE')
+    data = []
+    #parsing only the desired data (which are numbers and in that interval they are the only ones)
+    for i in txt:
+        #there are empty strings in the list and they should be ignored
+        if i=='': continue 
+        if i[0]>='0' and i[0]<='9':
+            data.append(i)
 
-    g=open(filename,'r')
-    data = get_data_from_txt(filename, 'NÚMERO  DE CASOS\n', 'FEBRE\n')
-    g.close()
-    os.remove(filename)
-    return {'hospital_stable': data[1], 'hospital_icu': data[4]}
+    return {'hospital_stable': data[0], 'hospital_icu': data[1]}
 
 
 def get_symptoms_data(REPORT_PATH):
-    page_deaths = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[3])
-    filename = 'var/page_deaths.txt'
-    f = open(filename, 'w+')
-    f.write(page_deaths)
-    f.close()
-
-    g=open(filename,'r')
-    data = get_data_from_txt(filename, 'GENERALIZADA\n', 'CARACTERIZAÇÃO DOS ÓBITOS OCORRIDOS\n')
-    percentages = data[:6]
-    occurrence = data[6].split('em ')[1].split(' dos')[0]
-    g.close()
-    os.remove(filename)
-
+    page_deaths = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[3]).splitlines()
+    data = get_data_from_list(page_deaths, 'FEBRE', 'GRUPO ETÁRIO')
+    percentages = []
+    phrase_occurance = []
+    for i in data:
+        #there are empty strings in the list and they should be ignored
+        if i=='': continue
+        #getting all percentages
+        if i[2]=='%':
+            percentages.append(i)
+        #getting occurrence data
+        elif i[:10]=='Informação':
+            phrase_occurance.append(i)
+    occurrence = phrase_occurance[0].split('em ')[1].split(' dos')[0]
+    
     return {'occurrence': occurrence, 'percentages': percentages}
 
 def add_comma(number: str):

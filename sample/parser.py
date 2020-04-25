@@ -1,5 +1,6 @@
 import sample.report as report
 import sample.date as date
+import pandas as pd
 
 def summary_table(summary, symptoms):
     print('Generating Summary table...')
@@ -72,8 +73,7 @@ def age_and_gender_graphs(cases, deaths):
     deaths_men = deaths['men']
     deaths_women = deaths['women']
 
-    result = """
-=== Cases by age and gender ===
+    result = """=== Cases by age and gender ===
 {{Graph:Chart
 |width=320
 |colors=blue,orange
