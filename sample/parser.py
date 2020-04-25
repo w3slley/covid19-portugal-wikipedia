@@ -2,18 +2,14 @@ import sample.report as report
 import sample.date as date
 
 def summary_table(summary, symptoms):
-    summary = [report.beautify_number(i) for i in summary]#applying formatting function to all numbers in summary array
     print('Generating Summary table...')
 
+    #adding comma formatting to numbers in results array
+    for k,v in summary.items(): 
+        summary[k] = report.add_comma(v)
+
     link = report.info()['link']
-    date_summary = date.format_date_summary(report.info()['report_date'])
-    suspected_cases = summary[0]
-    confirmed_cases = summary[1]
-    not_confirmed_cases = summary[2]
-    waiting_results = summary[3]
-    recovered = summary[4]
-    deaths = summary[5]
-    under_surveillance = summary[6]
+    date_summary = date.format_date_symptom(report.info()['report_date'])
  
     
     f = open('output/SummaryTable.txt', 'w+')
@@ -23,25 +19,25 @@ def summary_table(summary, symptoms):
 ! colspan="2" |Cases ["""+link+""" """+report.info()['report_date']+"""]
 |-
 !total confirmed cases
-|"""+confirmed_cases+"""
+|"""+summary['confirmed_cases']+"""
 |-
 !total not confirmed cases 
-|"""+not_confirmed_cases+"""
+|"""+summary['not_confirmed_cases']+"""
 |-
 !total suspected cases (since 1 January 2020)
-|"""+suspected_cases+"""
+|"""+summary['suspected_cases']+"""
 |-
 !under surveillance
-|"""+under_surveillance+"""
+|"""+summary['under_surveillance']+"""
 |-
 !waiting for results
-|"""+waiting_results+"""
+|"""+summary['waiting_results']+"""
 |-
 !recovered
-|"""+recovered+"""
+|"""+summary['recovered']+"""
 |-
 !deaths
-|"""+deaths+"""
+|"""+summary['deaths']+"""
 |-
 |}\n"""
 

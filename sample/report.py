@@ -23,16 +23,19 @@ def download(REPORT_PATH):
     #if not, there is a report for today and the date will be the current one for the path
 
     ##Checking if the latest report was downloaded
-    if os.path.isfile(REPORT_PATH):
-        print('Most recent PDF report was already downloaded!')
-        print(f"Date of most recent report: {info()['report_date']}")
+    if os.path.isfile('output/GraphsCasesByAgeAndGender.txt') and os.path.isfile('output/SummaryTable.txt'):
+        print('Tables and graphs were already generated!')
+        confirm = input('Do you still want to generate the Wikipedia graphs and tables? (y/n): ')
+        while confirm != 'y' and confirm != 'n':#while answer is not y/n
+            confirm = input('Not a valid response. Answer y (yes) or n (no): ')
+        if confirm == 'n':
+            return False
     else:
         print('Downloading latest DGS report as a PDF file...')
         urllib.request.urlretrieve(info()['link'], REPORT_PATH)
         print('PDF file downloaded successfuly!')
-        return True
-
-    return False
+     
+    return True
 
 
 #right now I have to create and delete .txt files to take advantage of the readline() function. I have to improve that later. I also need to find a way to only call the convert_pdf_to_txt() function only once (for efficiency reasons)
@@ -43,6 +46,7 @@ def get_summary_data(REPORT_PATH):
     g.write(page_summary)
     g.close()
     f = open(filename, 'r')
+    fields = ['suspected_cases','confirmed_cases','not_confirmed_cases', 'waiting_results','recovered','deaths','under_surveillance']
     results=[]
     on = False
     while True:
@@ -58,7 +62,10 @@ def get_summary_data(REPORT_PATH):
             on = True 
     f.close()
     os.remove(filename)
-    return results
+    obj = {}
+    for i in range(len(results)):
+        obj[fields[i]] = results[i] 
+    return obj
 
 
 def get_data_from_txt(filename, start, end):
@@ -116,7 +123,21 @@ def get_data_by_age_and_gender(option, REPORT_PATH):
 
     os.remove(filename)#deleting txt file
     return {'men': men, 'women': women}
-    
+
+def get_hospitalized_data(REPORT_PATH):
+    page_hospitalized = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[3])
+    filename = 'var/page_hospitalized.txt'
+    f = open(filename, 'w+')
+    f.write(page_hospitalized)
+    f.close()
+
+    g=open(filename,'r')
+    data = get_data_from_txt(filename, 'NÚMERO  DE CASOS\n', 'FEBRE\n')
+    g.close()
+    os.remove(filename)
+    return {'hospital_stable': data[1], 'hospital_icu': data[4]}
+
+
 def get_symptoms_data(REPORT_PATH):
     page_deaths = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[3])
     filename = 'var/page_deaths.txt'
@@ -133,7 +154,7 @@ def get_symptoms_data(REPORT_PATH):
 
     return {'occurrence': occurrence, 'percentages': percentages}
 
-def beautify_number(number: str):
+def add_comma(number: str):
     n = len(number)
     pos = []
     ans = ''

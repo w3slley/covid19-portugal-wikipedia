@@ -21,3 +21,4 @@ Thanks to [hagnat](https://github.com/hagnat/) for the inspiration (he did somet
 - Implement parser for timeline graphs (confirmed cases, deaths, pacients hospitalized and in ICU, daily cases and daily deaths). The problem right now is that I can only get the data for each day (from the DGS report), and not the cumulative ones.
 - As a solution to the above problem, I could use a CSV file to update cumulative cases (that would not require a database).
 - Implement testing.
+- Right now, the correctness of the information taken from the PDFs is based upon its formatting. If DGS changes it, some error will be thrown while parsing for the data.

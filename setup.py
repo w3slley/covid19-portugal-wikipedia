@@ -1,9 +1,10 @@
 import sample.report as report
 import sample.parser as parser
 import sample.date as date
+import sample.update_csv as csv
 
 REPORT_PATH = 'var/DGS_report'+date.get_current_date()+'.pdf' #path for pdf report
-
+csv.update()
 if report.download(REPORT_PATH):
     print('Parsing data from PDF file...')
 
