@@ -17,13 +17,10 @@ def info(): #of the latest DGS report on Covid-19
 
 def download(REPORT_PATH):
     curr_date = date.get_current_date().replace('-', '/')
-    #if there is no report on DGS' website for the current day, download latest report (previous day)
+    #if there is no report on DGS' website for the current day, download latest report (previous day)If not, there is a report for today and the date will be the current one for the path
     if curr_date != info()['report_date']:
         REPORT_PATH = 'var/DGS_report'+info()['report_date'].replace('/', '-')+'.pdf'
-    else:
-        REPORT_PATH = 'var/DGS_report'+date.get_current_date()+'.pdf'
-    #if not, there is a report for today and the date will be the current one for the path
-
+    
     ##Checking if the latest report was downloaded
     if os.path.isfile('output/GraphsCasesByAgeAndGender.txt') and os.path.isfile('output/SummaryTable.txt'):
         print('Tables and graphs were already generated!')
