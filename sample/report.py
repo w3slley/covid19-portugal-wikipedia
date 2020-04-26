@@ -4,9 +4,6 @@ import os
 import sample.date as date
 import sample.pdf as pdf
 
-import re #regular expression
-
-
 def info(): #of the latest DGS report on Covid-19
     li_tags = web.get_li_items()
     link = li_tags[0].a.get('href') #get the url from the upmost link (which is the most recent report)
@@ -16,19 +13,21 @@ def info(): #of the latest DGS report on Covid-19
     return {'link': link, 'report_date':most_recent_pdf_date}
 
 def download(REPORT_PATH):
+    #if there is no report on DGS' website for the current day, download latest report (previous day).If not, there is a report for today and the date will be the current one for the path
     curr_date = date.get_current_date().replace('-', '/')
-    #if there is no report on DGS' website for the current day, download latest report (previous day)If not, there is a report for today and the date will be the current one for the path
     if curr_date != info()['report_date']:
         REPORT_PATH = 'var/DGS_report'+info()['report_date'].replace('/', '-')+'.pdf'
     
-    ##Checking if the latest report was downloaded
-    if os.path.isfile('output/GraphsCasesByAgeAndGender.txt') and os.path.isfile('output/SummaryTable.txt'):
-        print('Tables and graphs were already generated!')
-        confirm = input('Do you still want to generate the Wikipedia graphs and tables? (y/n): ')
-        while confirm != 'y' and confirm != 'n':#while answer is not y/n
-            confirm = input('Not a valid response. Answer y (yes) or n (no): ')
-        if confirm == 'n':
-            return False
+    #Checking if the latest report was downloaded
+    if os.path.isfile(REPORT_PATH):
+        #in case there are .txt files in the output folder (which means the tables and graphs were already parsed)
+        if os.path.isfile('output/GraphsCasesByAgeAndGender.txt') and os.path.isfile('output/SummaryTable.txt'):
+            print('Tables and graphs were already generated!')
+            confirm = input('Do you still want to generate the Wikipedia graphs and tables? (y/n): ')
+            while confirm != 'y' and confirm != 'n':#while answer is not y/n
+                confirm = input('Not a valid response. Answer y (yes) or n (no): ')
+            if confirm == 'n':
+                return False
     else:
         print('Downloading latest DGS report as a PDF file...')
         urllib.request.urlretrieve(info()['link'], REPORT_PATH)
