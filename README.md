@@ -18,7 +18,5 @@ This project has the goal of automating the process of searching and editing tab
 Thanks to [hagnat](https://github.com/hagnat/) for the inspiration (he did something similar [here](https://github.com/hagnat/covid) but for the Brazilian wikipedia page).
 
 ## To do:
-- Implement parser for timeline graphs (confirmed cases, deaths, pacients hospitalized and in ICU, daily cases and daily deaths). The problem right now is that I can only get the data for each day (from the DGS report), and not the cumulative ones.
-- As a solution to the above problem, I could use a CSV file to update cumulative cases (that would not require a database).
 - Implement testing.
-- Right now, the correctness of the information taken from the PDFs is based upon its formatting. If DGS changes it, some error will be thrown while parsing for the data.
+- Right now, the correctness of the information taken from the PDFs is based upon its formatting. If DGS changes it, some error will be thrown while parsing for the data. That needs to be fixed (it's working for DGS reports starting on April 1 - I tested :).
