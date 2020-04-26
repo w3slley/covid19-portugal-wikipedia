@@ -16,8 +16,10 @@ if report.download(REPORT_PATH):
     print('Generating graphs and tables...')
 
     parser.summary_table(summary, symptoms)
-    parser.age_and_gender_graphs(cases, deaths)
-    parser.timeline_graphs()
+    parser.age_and_gender_graphs_english(cases, deaths)
+    parser. age_and_gender_graphs_portuguese(cases, deaths)
+    parser.timeline_graphs_english()
+    parser.timeline_graphs_portuguese()
     
     print('Graphs and tables generated succesfuly!')
     print('The text files were saved in the directory output/')

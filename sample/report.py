@@ -19,7 +19,7 @@ def download(REPORT_PATH):
     if os.path.isfile(REPORT_PATH):
         print('Most current PDF report was already downloaded')
         #in case there are .txt files in the output folder (which means the tables and graphs were already parsed)
-        if os.path.isfile('output/GraphsCasesByAgeAndGender.txt') and os.path.isfile('output/SummaryTable.txt'):
+        if os.path.isfile('output/english/SummaryTable.txt'): #cheking only one since they are generated together
             print('Tables and graphs were already generated!')
             confirm = input('Do you want to generate the Wikipedia graphs and tables again? (y/n): ')
             while confirm != 'y' and confirm != 'n':#while answer is not y/n

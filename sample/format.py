@@ -24,21 +24,39 @@ def date_for_csv(date): #DD/MM/YYYY
     year = d[2][2:]
     return day+'-'+month+'-'+year
 
-def date_timeline(date):
-    months = {
+def date_timeline(date, language):
+    if language=='english':
+        months = {
+            '1':'Jan',
+            '2':'Feb',
+            '3':'Mar',
+            '4':'Apr',
+            '5':'May',
+            '6':'Jun',
+            '7':'Jul',
+            '8':'Aug',
+            '9':'Sep',
+            '10':'Oct',
+            '11':'Nov',
+            '12':'Dec'
+        }
+    elif language =='portuguese':
+        months = {
         '1':'Jan',
-        '2':'Feb',
+        '2':'Fev',
         '3':'Mar',
-        '4':'Apr',
-        '5':'May',
+        '4':'Abr',
+        '5':'Mai',
         '6':'Jun',
         '7':'Jul',
-        '8':'Aug',
-        '9':'Sep',
-        '10':'Oct',
+        '8':'Ago',
+        '9':'Set',
+        '10':'Out',
         '11':'Nov',
-        '12':'Dec'
-    }
+        '12':'Dez'
+        }
+    else:
+        raise ValueError('Invalid option. Choose between english and portuguese.')
     d = date.split('-')
     return d[0]+' '+months[d[1]]
 
