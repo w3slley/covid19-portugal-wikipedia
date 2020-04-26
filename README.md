@@ -14,7 +14,7 @@ This project has the goal of automating the process of searching and editing tab
 - Go to the folder `output/` and:
     - copy the content of the file `SummaryTable.txt` to https://en.wikipedia.org/w/index.php?title=2020_coronavirus_pandemic_in_Portugal&action=edit&section=6.
     - copy the content of the file `GraphsCasesByAgeAndGender.txt` to https://en.wikipedia.org/w/index.php?title=2020_coronavirus_pandemic_in_Portugal&action=edit&section=8.
-    - copy the content of the file `TimelineGraphs.txt` to .
+    - copy the content of the file `TimelineGraphs.txt` to https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_Portugal?action=edit&section=9.
 
 ## Contributions
 Thanks to [hagnat](https://github.com/hagnat/) for the inspiration (he did something similar [here](https://github.com/hagnat/covid) but for the Brazilian wikipedia page).
