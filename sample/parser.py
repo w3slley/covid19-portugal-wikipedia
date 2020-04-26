@@ -1,16 +1,18 @@
 import sample.report as report
 import sample.date as date
+import sample.format as format
 import pandas as pd
+
 
 def summary_table(summary, symptoms):
     print('Generating Summary table...')
 
     #adding comma formatting to numbers in results array
     for k,v in summary.items(): 
-        summary[k] = report.add_comma(v)
+        summary[k] = format.add_commas(v)
 
     link = report.info()['link']
-    date_summary = date.format_date_symptom(report.info()['report_date'])
+    date_summary = format.date_symptom(report.info()['report_date'])
  
     
     f = open('output/SummaryTable.txt', 'w+')
@@ -110,3 +112,138 @@ def age_and_gender_graphs(cases, deaths):
     f = open('output/GraphsCasesByAgeAndGender.txt', 'w+')
     f.write(result)
     f.close()
+
+def timeline_graphs():
+    print('Generating timeline graphs...')
+    df = pd.read_csv('portugal_data.csv')
+    columns = list(df.columns)
+    date = [format.date_timeline(i) for i in list(df.date)]
+    data = {}
+    for i in columns:
+        if i=='date':
+            data[i] = format.data_for_timeline(date)
+        else:
+            data[i] = format.data_for_timeline(list(df[i]))
+
+    result = """=== Timeline graphs ===
+<!-- Cumulative Cases per day -->
+{{Graph:Chart
+|type=line
+|linewidth=1
+|showSymbols=1
+|width=700
+|colors=#F46D43,#A50026,#C4ADA0,#C4ADB0,#C4ADC0
+|showValues=
+|xAxisTitle=Date
+|xAxisAngle=-40
+|x= """+data['date']+"""
+|yAxisTitle=No. of cases
+|legend=Legend
+|y1= """+data['total_cases']+"""
+|y1Title=Total confirmed cases
+|yGrid= |xGrid=
+}}
+
+<!-- Cases per day -->
+
+{{Graph:Chart
+|width=700
+|colors=#F46D43
+|showValues=
+|xAxisTitle=Date
+|xAxisAngle=-40
+|type=rect
+|x= """+data['date']+"""
+|yAxisTitle=New cases
+|legend=Legend
+|y1= """+data['daily_cases']+"""
+|y1Title=New cases per day
+|yGrid= |xGrid=
+}}
+<br />
+
+<!-- Cumulative Deaths and Recoveries per day -->
+
+{{Graph:Chart
+|type=line
+|linewidth=1
+|showSymbols=1
+|width=700
+|colors=#A50026,SkyBlue,#FF0000
+|showValues=
+|xAxisTitle=Date
+|xAxisAngle=-40
+|x= """+data['date']+"""
+|yAxisTitle=No. of cases
+|legend=Legend
+|y1Title=Total confirmed deaths
+|y1= """+data['total_deaths']+"""
+|y2Title=Total confirmed recoveries
+|y2= """+data['recovered']+"""
+|yGrid= |xGrid=
+}}
+<br />
+
+<!-- Hospital admitted cases -->
+
+{{Graph:Chart
+|type=line
+|linewidth=1
+|showSymbols=1
+|width=700
+|colors=red, #FF4080
+|showValues=
+|xAxisTitle=Date
+|xAxisAngle=-40
+|x= """+data['date']+"""
+|yAxisTitle=No. of cases
+|legend=Legend
+|y1Title=ICU
+|y1= """+data['hospital_icu']+"""
+|y2Title=Stable
+|y2= """+data['hospital_stable']+"""
+|yGrid= |xGrid=
+}}
+<br />
+
+<!-- ICU Variation -->
+
+{{Graph:Chart
+|width=700
+|colors=#FF0000
+|showValues=offset:2
+|xAxisTitle=Date
+|xAxisAngle=-40
+|type=rect
+|x= """+data['date']+"""
+|yAxisTitle=Cases in ICU variation
+|legend=Legend
+|y1= """+data['icu_variation']+"""
+|y1Title = Cases in ICU variation per day
+|yGrid= |xGrid= 
+}}
+
+<!-- Deaths per day -->
+
+{{Graph:Chart
+|width=700
+|colors=black
+|showValues=
+|xAxisTitle=Date
+|xAxisAngle=-40
+|type=rect
+|x= """+data['date']+"""
+|yAxisTitle=New deaths
+|legend=Legend
+|y1=  """+data['daily_deaths']+"""
+|y1Title=New deaths per day
+|yGrid= |xGrid=
+}}
+<br />
+
+{{clear}}
+
+"""
+    with open('output/TimelineGraphs.txt', 'w+') as f:
+        f.write(result)
+    

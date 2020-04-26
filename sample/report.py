@@ -3,6 +3,7 @@ import urllib.request
 import os
 import sample.date as date
 import sample.pdf as pdf
+import sample.format as format
 
 def info(): #of the latest DGS report on Covid-19
     li_tags = web.get_li_items()
@@ -12,18 +13,15 @@ def info(): #of the latest DGS report on Covid-19
     
     return {'link': link, 'report_date':most_recent_pdf_date}
 
+#if there is no report on DGS' website for the current day, download latest report (previous day).If not, there is a report for today and the date will be the current one for the path
 def download(REPORT_PATH):
-    #if there is no report on DGS' website for the current day, download latest report (previous day).If not, there is a report for today and the date will be the current one for the path
-    curr_date = date.get_current_date().replace('-', '/')
-    if curr_date != info()['report_date']:
-        REPORT_PATH = 'var/DGS_report'+info()['report_date'].replace('/', '-')+'.pdf'
-    
     #Checking if the latest report was downloaded
     if os.path.isfile(REPORT_PATH):
+        print('Most current PDF report was already downloaded')
         #in case there are .txt files in the output folder (which means the tables and graphs were already parsed)
         if os.path.isfile('output/GraphsCasesByAgeAndGender.txt') and os.path.isfile('output/SummaryTable.txt'):
             print('Tables and graphs were already generated!')
-            confirm = input('Do you still want to generate the Wikipedia graphs and tables? (y/n): ')
+            confirm = input('Do you want to generate the Wikipedia graphs and tables again? (y/n): ')
             while confirm != 'y' and confirm != 'n':#while answer is not y/n
                 confirm = input('Not a valid response. Answer y (yes) or n (no): ')
             if confirm == 'n':
@@ -110,8 +108,9 @@ def get_hospitalized_data(REPORT_PATH):
         if i=='': continue 
         if i[0]>='0' and i[0]<='9':
             data.append(i)
-
-    return {'hospital_stable': data[0], 'hospital_icu': data[1]}
+    hospital_stable = data[0] if len(data)!=0 else '0'
+    hospital_icu = data[1] if len(data)!=0 else '0'
+    return {'hospital_stable':hospital_stable, 'hospital_icu': hospital_icu}
 
 
 def get_symptoms_data(REPORT_PATH):
@@ -132,18 +131,3 @@ def get_symptoms_data(REPORT_PATH):
     
     return {'occurrence': occurrence, 'percentages': percentages}
 
-def add_comma(number: str):
-    n = len(number)
-    pos = []
-    ans = ''
-    i=1
-    while n-i*3>0:
-        pos.append(n-i*3-1)
-        i+=1
-    for j in range(n):
-        ans+=str(number[j])
-        if j in pos:
-            ans+=','
-    return ans
-
-    

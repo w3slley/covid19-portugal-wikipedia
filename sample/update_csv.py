@@ -1,6 +1,7 @@
 import sample.date as date
 import sample.website as web
 import sample.report as report
+import sample.format as format
 import pandas as pd
 import urllib
 import os
@@ -38,15 +39,19 @@ def update():#method that updates csv file with data from reports until the most
         print('Data from '+str(n)+' DGS report(s) need to be parsed into the .csv file!')
     #download PDFs and updates csv file
     for i in report_urls:
+        # encode to urlencoded to prevent errors from acentos and other portuguese specific characters
+        url = urllib.parse.quote(i['url']).replace('%3A', ':') # %3A is : in urlencoded. I had to replace it because for some reason the browser (and urllib) was not recognizing %3A as ":".
+
         print('Updating portugal_data.csv file with data from the '+i['date']+' DGS report...')
-        REPORT_PATH = 'var/DGS_report'+date.format_date_path(i['date'])+'.pdf'
+        REPORT_PATH = 'var/DGS_report'+i['date'].replace('/','-')+'.pdf'
         if not os.path.isfile(REPORT_PATH):
             print('Downloading PDF file...')
-            urllib.request.urlretrieve(i['url'],REPORT_PATH)#download pdf report
+            urllib.request.urlretrieve(url,REPORT_PATH)#download pdf report
         old_df = pd.read_csv('portugal_data.csv')
         latest_index = old_df.tail(1).index.start
         old_total_cases = old_df.iloc[latest_index].total_cases
         old_total_deaths = old_df.iloc[latest_index].total_deaths
+        old_hospital_icu = old_df.iloc[latest_index].hospital_icu
 
         summary = report.get_summary_data(REPORT_PATH)
         total_cases = int(summary['confirmed_cases'])
@@ -55,14 +60,15 @@ def update():#method that updates csv file with data from reports until the most
         h = report.get_hospitalized_data(REPORT_PATH)
 
         new_data = {
-            'date': date.format_date_for_csv(i['date']),
+            'date': format.date_for_csv(i['date']),
             'total_cases': total_cases,
             'daily_cases': total_cases - old_total_cases,
             'total_deaths': total_deaths,
             'daily_deaths': total_deaths - old_total_deaths,
             'recovered': recovered,
             'hospital_stable': h['hospital_stable'],
-            'hospital_icu': h['hospital_icu']
+            'hospital_icu': h['hospital_icu'],
+            'icu_variation': int(h['hospital_icu'])-old_hospital_icu
         }
         new_data_values = list(new_data.values())
         new_df = pd.DataFrame([new_data], columns=list(new_data.keys()))
