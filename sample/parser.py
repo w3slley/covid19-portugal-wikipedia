@@ -120,6 +120,9 @@ def timeline_graphs_english():
             data[i] = format.data_for_timeline(list(df[i]))
 
     result = """=== Timeline graphs ===
+
+The following graphs show the evolution of the pandemic starting from 2 March 2020, the day the first cases were confirmed in the country<ref>{{Cite web|url=https://www.publico.pt/2020/03/02/sociedade/noticia/coronavirus-ha-dois-infectados-portugal-1905823|title=Coronavírus: há dois casos confirmados em Portugal|date=March 2, 2020|website=Público|url-status=live}}</ref>.
+
 <!-- Cumulative Cases per day -->
 {{Graph:Chart
 |type=line
