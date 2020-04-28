@@ -8,7 +8,6 @@ import sample.format as format
 def info(): #of the latest DGS report on Covid-19
     li_tags = web.get_li_items()
     link = li_tags[0].a.get('href') #get the url from the upmost link (which is the most recent report)
-    pdf_name = link.split('/2020/')[1][3:]
     most_recent_pdf_date = str(li_tags[0].text.split(' | ')[1])
     
     return {'link': link, 'report_date':most_recent_pdf_date}
@@ -19,7 +18,7 @@ def download(REPORT_PATH):
     if os.path.isfile(REPORT_PATH):
         print('Most current PDF report was already downloaded')
         #in case there are .txt files in the output folder (which means the tables and graphs were already parsed)
-        if date.get_current_date() != info()['report_date'] and os.path.isfile('output/english/SummaryTable.txt'): #cheking only one since they are generated together
+        if date.get_current_date().replace('-','/') != info()['report_date'] and os.path.isfile('output/english/SummaryTable.txt'): #cheking only one since they are generated together
             print('Tables and graphs were already generated!')
             confirm = input('Do you want to generate the Wikipedia graphs and tables again? (y/n): ')
             while confirm != 'y' and confirm != 'n':#while answer is not y/n
