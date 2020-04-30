@@ -218,7 +218,6 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 |colors=#FF0000
 |showValues=offset:2
 |xAxisTitle=Date
-|xAxisAngle=-40
 |xType=date
 |xAxisFormat=%b %e
 |x= """+data['date']+"""
