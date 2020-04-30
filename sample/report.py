@@ -18,7 +18,7 @@ def download(REPORT_PATH):
     if os.path.isfile(REPORT_PATH):
         print('Most current PDF report was already downloaded')
         #in case there are .txt files in the output folder (which means the tables and graphs were already parsed)
-        if date.get_current_date().replace('-','/') == info()['report_date'] and os.path.isfile('output/english/SummaryTable.txt'): #cheking only one since they are generated together
+        if date.get_current_date().replace('-','/') != info()['report_date'] and os.path.isfile('output/english/SummaryTable.txt'): #cheking only one since they are generated together
             print('Tables and graphs were already generated!')
             confirm = input('Do you want to generate the Wikipedia graphs and tables again? (y/n): ')
             while confirm != 'y' and confirm != 'n':#while answer is not y/n
@@ -71,11 +71,13 @@ def get_data_by_age_and_gender(option, REPORT_PATH):
     if option == 'cases':
         txt = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[1]).splitlines()
         start = 'Total'
-        end = 'Dados até dia 22 | ABRIL | 2020 | 24:00'
+        end = 'Dados até dia'
+        distance = 9 #distance between male and female data points (on pdf formatting) for confirmed cases
     elif option == 'deaths':
         txt = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[3]).splitlines()
         start = 'Total'
         end = 'Saiba mais em https://covid19.min-saude.pt/'
+        distance = 10 #different from the cases one due to change in the format of the PDF (by DGS)
     else:
         raise TypeError('option must be either "cases" or "deaths"')
     #returning data as string
@@ -89,11 +91,11 @@ def get_data_by_age_and_gender(option, REPORT_PATH):
         if i!='':cases.append(i)
     for i in range(n):
         if i == n-1: 
-            men+=cases[i]
-            women+=cases[i+10]
+            men+=cases[i] 
+            women+=cases[i+distance]
         else:
             men+=str(cases[i])+', '
-            women+=str(cases[i+10])+', '
+            women+=str(cases[i+distance])+', '
     return {'men': men, 'women': women}
 
 def get_hospitalized_data(REPORT_PATH):

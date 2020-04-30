@@ -111,7 +111,7 @@ def timeline_graphs_english():
     print('Generating english timeline graphs...')
     df = pd.read_csv('portugal_data.csv')
     columns = list(df.columns)
-    date = [format.date_timeline(i, 'english') for i in list(df.date)]
+    date = [format.date_timeline(i) for i in list(df.date)]
     data = {}
     for i in columns:
         if i=='date':
@@ -126,13 +126,14 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 <!-- Cumulative Cases per day -->
 {{Graph:Chart
 |type=line
-|linewidth=1
+|linewidth=1.5
 |showSymbols=1
 |width=700
 |colors=#F46D43,#A50026,#C4ADA0,#C4ADB0,#C4ADC0
 |showValues=
 |xAxisTitle=Date
-|xAxisAngle=-40
+|xType=date
+|xAxisFormat=%b %e
 |x= """+data['date']+"""
 |yAxisTitle=No. of cases
 |legend=Legend
@@ -144,12 +145,15 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 <!-- Cases per day -->
 
 {{Graph:Chart
+|type=line
+|linewidth=1.5
+|showSymbols=1
 |width=700
 |colors=#F46D43
 |showValues=
 |xAxisTitle=Date
-|xAxisAngle=-40
-|type=rect
+|xType=date
+|xAxisFormat=%b %e
 |x= """+data['date']+"""
 |yAxisTitle=New cases
 |legend=Legend
@@ -163,13 +167,14 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 
 {{Graph:Chart
 |type=line
-|linewidth=1
+|linewidth=1.5
 |showSymbols=1
 |width=700
 |colors=#A50026,SkyBlue,#FF0000
 |showValues=
 |xAxisTitle=Date
-|xAxisAngle=-40
+|xType=date
+|xAxisFormat=%b %e
 |x= """+data['date']+"""
 |yAxisTitle=No. of cases
 |legend=Legend
@@ -185,13 +190,14 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 
 {{Graph:Chart
 |type=line
-|linewidth=1
+|linewidth=1.5
 |showSymbols=1
 |width=700
 |colors=red, #FF4080
 |showValues=
 |xAxisTitle=Date
-|xAxisAngle=-40
+|xType=date
+|xAxisFormat=%b %e
 |x= """+data['date']+"""
 |yAxisTitle=No. of cases
 |legend=Legend
@@ -206,12 +212,15 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 <!-- ICU Variation -->
 
 {{Graph:Chart
+|type=line
+|linewidth=1.5
 |width=700
 |colors=#FF0000
 |showValues=offset:2
 |xAxisTitle=Date
 |xAxisAngle=-40
-|type=rect
+|xType=date
+|xAxisFormat=%b %e
 |x= """+data['date']+"""
 |yAxisTitle=Cases in ICU variation
 |legend=Legend
@@ -223,12 +232,15 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 <!-- Deaths per day -->
 
 {{Graph:Chart
+|type=line
+|linewidth=1.5
+|showSymbols=1
 |width=700
 |colors=black
 |showValues=
 |xAxisTitle=Date
-|xAxisAngle=-40
-|type=rect
+|xType=date
+|xAxisFormat=%b %e
 |x= """+data['date']+"""
 |yAxisTitle=New deaths
 |legend=Legend
@@ -291,7 +303,7 @@ def timeline_graphs_portuguese():
     print('Generating portuguese timeline graphs...')
     df = pd.read_csv('portugal_data.csv')
     columns = list(df.columns)
-    date = [format.date_timeline(i, 'portuguese') for i in list(df.date)]
+    date = [format.date_timeline(i) for i in list(df.date)]
     data = {}
     for i in columns:
         if i=='date':
@@ -305,12 +317,13 @@ def timeline_graphs_portuguese():
 {{Gráfico
 |type=line
 |linewidth=1
-|showSymbols=1
+|showSymbols=1.5
 |width=700
 |colors=#F46D43,#A50026,#C4ADA0,#C4ADB0,#C4ADC0
 |showValues= 
 |xAxisTitle=Data
-|xAxisAngle=-50
+|xType=date
+|xAxisFormat=%b %e
 |x= """+data['date']+"""
 |yAxisTitle=Nº de casos
 |y1= """+data['total_cases']+"""
@@ -322,13 +335,14 @@ def timeline_graphs_portuguese():
 <!-- Mortes e recuperações -->
 {{Gráfico
 |type=line
-|linewidth=1
+|linewidth=1.5
 |showSymbols=1
 |width=700
 |colors=#262626,#87CEEB,#9F0B0B
 |showValues=
 |xAxisTitle=Data
-|xAxisAngle=-40
+|xType=date
+|xAxisFormat=%b %e
 |x= """+data['date']+"""
 |yAxisTitle=Nº de casos
 |y1= """+data['total_deaths']+""" 
@@ -345,13 +359,14 @@ def timeline_graphs_portuguese():
 <!-- Internados -->
 {{Gráfico
 |type=line
-|linewidth=1
+|linewidth=1.5
 |showSymbols=1
 |width=700
 |colors=#FF0000, #FF4080
 |showValues=
 |xAxisTitle=Date
-|xAxisAngle=-40
+|xType=date
+|xAxisFormat=%b %e
 |x= """+data['date']+"""
 |yAxisTitle=Nº de casos
 |y1Title=UCI
@@ -368,12 +383,15 @@ def timeline_graphs_portuguese():
 
 <!-- Novos casos por dia -->
 {{Gráfico
+|type=line
+|linewidth=1.5
+|showSymbols=1
 |width=700
 |colors=#F46D43
 |showValues=
 |xAxisTitle=Data
-|xAxisAngle=-40
-|type=rect
+|xType=date
+|xAxisFormat=%b %e
 |x= """+data['date']+"""
 |yAxisTitle=Novos casos
 |y1= """+data['daily_cases']+"""
@@ -385,12 +403,15 @@ def timeline_graphs_portuguese():
 
 <!-- Mortes por dia -->
 {{Gráfico
+|type=line
+|linewidth=1.5
+|showSymbols=1
 |width=700
 |colors=#000000
 |showValues=
 |xAxisTitle=Data
-|xAxisAngle=-40
-|type=rect
+|xType=date
+|xAxisFormat=%b %e
 |x= """+data['date']+"""
 |yAxisTitle=Novas mortes
 |y1= """+data['daily_deaths']+"""

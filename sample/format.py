@@ -19,46 +19,11 @@ def date_symptom(date):
 
 def date_for_csv(date): #DD/MM/YYYY
     d = date.split('/')
-    day = d[0] if int(d[0])>=10 else d[0][1] #if day is like 04, turn into 4
-    month = d[1] if int(d[1])>=10 else d[1][1] #if month is 08, turn into 8
-    year = d[2][2:]
-    return day+'-'+month+'-'+year
+    return d[0]+'-'+d[1]+'-'+d[2][2:] #DD-MM-YY
 
-def date_timeline(date, language):
-    if language=='english':
-        months = {
-            '1':'Jan',
-            '2':'Feb',
-            '3':'Mar',
-            '4':'Apr',
-            '5':'May',
-            '6':'Jun',
-            '7':'Jul',
-            '8':'Aug',
-            '9':'Sep',
-            '10':'Oct',
-            '11':'Nov',
-            '12':'Dec'
-        }
-    elif language =='portuguese':
-        months = {
-        '1':'Jan',
-        '2':'Fev',
-        '3':'Mar',
-        '4':'Abr',
-        '5':'Mai',
-        '6':'Jun',
-        '7':'Jul',
-        '8':'Ago',
-        '9':'Set',
-        '10':'Out',
-        '11':'Nov',
-        '12':'Dez'
-        }
-    else:
-        raise ValueError('Invalid option. Choose between english and portuguese.')
+def date_timeline(date): #DD-MM-YY
     d = date.split('-')
-    return d[0]+' '+months[d[1]]
+    return '20'+d[2]+'/'+d[1]+'/'+d[0] #YYYY/MM/YY
 
 def data_for_timeline(data):
     res = ''
