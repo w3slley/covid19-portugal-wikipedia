@@ -45,7 +45,7 @@ def get_summary_data(REPORT_PATH):
             break
         first_char=line[0] if line !='' else ''
         if on and first_char>='0' and first_char<='9':
-            results.append(line)
+            results.append(format.remove_chars(line))
         if line == '2020) ':#getting total suspected cases data
             on = True
     obj = {}

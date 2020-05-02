@@ -35,3 +35,10 @@ def data_for_timeline(data):
         if (i+1)%10==0:
             res+='\n'
     return res
+
+def remove_chars(number):
+    res = ''
+    for i in number:
+        if i>='0' and i<='9':
+            res+=i
+    return res
