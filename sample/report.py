@@ -8,7 +8,7 @@ import sample.format as format
 def info(): #of the latest DGS report on Covid-19
     li_tags = web.get_li_items()
     link = li_tags[0].a.get('href') #get the url from the upmost link (which is the most recent report)
-    most_recent_pdf_date = str(li_tags[0].text.split(' | ')[1])
+    most_recent_pdf_date = str(li_tags[0].text[-10:])
     
     return {'link': link, 'report_date':most_recent_pdf_date}
 
