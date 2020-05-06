@@ -25,7 +25,6 @@ def get_urls_missing_reports(): #aka reports whose data are not in the csv file
     urls = []
     for i in li_tags:
         d = i.text[-10:] #date of each report
-        print(d)
         if d == latest_date:#if it's equal to latest date on csv file, get out of loop
             break
         urls.insert(0, {'url': i.a.get('href'), 'date':d})
