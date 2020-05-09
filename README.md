@@ -1,5 +1,5 @@
 # Table/graph generator for Portugal's Covid-19 Wikipedia page
-This project has the goal of automating the process of updating tables and graphs for the Portugal Covid-19 pandemic wikipedia page.
+This project has the goal of automating the process of updating tables and graphs for the Portugal's Covid-19 pandemic wikipedia page.
 
 ## Requirements
 - Python 3
