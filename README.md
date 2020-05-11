@@ -21,5 +21,6 @@ This project has the goal of automating the process of updating tables and graph
 Thanks to [hagnat](https://github.com/hagnat/) for the inspiration (he did something similar [here](https://github.com/hagnat/covid) but for the Brazilian wikipedia page).
 
 ## To do:
-- Implement testing.
-- Right now, the correctness of the information taken from the PDFs is based upon its formatting. If DGS changes it, some error will be thrown while parsing for the data. That needs to be fixed (it's working for DGS reports starting from April 1 - I tested :).
+- Implement testing
+- Right now, the correctness of the information taken from the PDFs is based upon its formatting. If DGS changes it, some error will be thrown while parsing for the data. That needs to be fixed (it's working for DGS reports starting from April 1 - I tested :)
+- Implement Cases By Region table
