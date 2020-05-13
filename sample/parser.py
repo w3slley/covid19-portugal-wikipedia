@@ -3,6 +3,32 @@ import sample.date as date
 import sample.format as format
 import pandas as pd
 
+def statistics_english(cases,deaths,summary,symptoms):
+    print('Generating tables and graphs for the english statistics page...')
+    
+    df = pd.read_csv('portugal_data.csv')
+    columns = list(df.columns)
+    date = [format.date_timeline(i) for i in list(df.date)]
+    data = {}
+    for i in columns:
+        if i=='date':
+            data[i] = format.data_for_timeline(date)
+        else:
+            data[i] = format.data_for_timeline(list(df[i]))
+    
+    f = open('output/PortugalCovid-19-Statistics.txt', 'w+')
+    result = ""
+    summary_table(summary,symptomes)
+    total_cases(data)
+    new_cases(data)
+    cases_by_age_and_gender(cases, deaths)
+    total_deaths_and_recoveries(data)
+    new_deaths(data)
+    deaths_by_age_and_gender(cases,deaths)
+    hospital_admitted(data)
+    icu_variation(data)
+    f.write(result)
+    f.close()
 
 def summary_table(summary, symptoms):
     print('Generating Summary table...')
@@ -14,9 +40,7 @@ def summary_table(summary, symptoms):
     link = report.info()['link']
     date_summary = format.date_symptom(report.info()['report_date'])
  
-    
-    f = open('output/english/SummaryTable.txt', 'w+')
-    result="""== Summary ==
+    result+="""== Current status ==
 {| class="wikitable" 
 |+COVID-19
 ! colspan="2" |Cases ["""+link+""" """+report.info()['report_date']+"""]
@@ -63,16 +87,15 @@ def summary_table(summary, symptoms):
 |}
 There was only reported information regarding the occurrence of symptoms on """+occurrence+""" of confirmed cases.<ref>{{cite web|url="""+link+""" |title=COVID-19 RELATÓRIO DE SITUAÇÃO |date="""+date_summary+""" |website=covid19.min-saude.pt}}</ref>"""
     
-    f.write(result)
-    f.close()
+    
 
 
-def age_and_gender_graphs_english(cases, deaths):
-    print('Generating cases by age and gender graphs in english...')
+def cases_by_age_and_gender_english(cases, deaths):
+    print('Generating cases by age and gender graph in english...')
 
-    result = """=== Cases by age and gender ===
+    result += """=== Total confirmed cases by age and gender ===
 {{Graph:Chart
-|width=320
+|width=600
 |colors=blue,orange
 |showValues=
 |xAxisTitle=Age
@@ -88,8 +111,13 @@ def age_and_gender_graphs_english(cases, deaths):
 |yGrid= |xGrid=
 }}
 <br>
+"""
+
+def deaths_by_age_and_gender_english(cases,deaths):
+    print('Generating deaths by age and gender graph in english...')
+    result += """=== Total confirmed deaths by age and gender ===
 {{Graph:Chart
-|width=320
+|width=600
 |colors=blue,orange
 |showValues=
 |xAxisTitle=Age
@@ -103,26 +131,12 @@ def age_and_gender_graphs_english(cases, deaths):
 |y1Title=Men
 |y2Title=Women
 |yGrid= |xGrid=
-}}"""
-    with open('output/english/GraphsCasesByAgeAndGender.txt', 'w+') as f:
-        f.write(result)
+}}
+<br>
+"""
 
-def timeline_graphs_english():
-    print('Generating english timeline graphs...')
-    df = pd.read_csv('portugal_data.csv')
-    columns = list(df.columns)
-    date = [format.date_timeline(i) for i in list(df.date)]
-    data = {}
-    for i in columns:
-        if i=='date':
-            data[i] = format.data_for_timeline(date)
-        else:
-            data[i] = format.data_for_timeline(list(df[i]))
-
-    result = """=== Timeline graphs ===
-
-The following graphs show the evolution of the pandemic starting from 2 March 2020, the day the first cases were confirmed in the country<ref>{{Cite web|url=https://www.publico.pt/2020/03/02/sociedade/noticia/coronavirus-ha-dois-infectados-portugal-1905823|title=Coronavírus: há dois casos confirmados em Portugal|date=March 2, 2020|website=Público|url-status=live}}</ref>.
-
+def total_cases(date):
+    results+="""
 <!-- Cumulative Cases per day -->
 {{Graph:Chart
 |type=line
@@ -141,9 +155,11 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 |y1Title=Total confirmed cases
 |yGrid= |xGrid=
 }}
+"""
 
+def new_cases(date):
+    result+="""
 <!-- Cases per day -->
-
 {{Graph:Chart
 |type=line
 |linewidth=1.5
@@ -162,7 +178,10 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 |yGrid= |xGrid=
 }}
 <br />
+"""
 
+def total_deaths_and_recoveries(date):
+    results+="""
 <!-- Cumulative Deaths and Recoveries per day -->
 
 {{Graph:Chart
@@ -185,7 +204,33 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 |yGrid= |xGrid=
 }}
 <br />
+"""
 
+def new_deaths(data):
+    results+="""
+<!-- Deaths per day -->
+
+{{Graph:Chart
+|type=line
+|linewidth=1.5
+|showSymbols=1
+|width=700
+|colors=black
+|showValues=
+|xAxisTitle=Date
+|xType=date
+|xAxisFormat=%b %e
+|x= """+data['date']+"""
+|yAxisTitle=New deaths
+|legend=Legend
+|y1=  """+data['daily_deaths']+"""
+|y1Title=New deaths per day
+|yGrid= |xGrid=
+}}
+<br />
+"""
+def hospital_admitted(data):
+    result+="""
 <!-- Hospital admitted cases -->
 
 {{Graph:Chart
@@ -208,7 +253,10 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 |yGrid= |xGrid=
 }}
 <br />
+"""
 
+def icu_variation(data):
+    result+="""
 <!-- ICU Variation -->
 
 {{Graph:Chart
@@ -227,34 +275,19 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 |y1Title = Cases in ICU variation per day
 |yGrid= |xGrid= 
 }}
+"""
+def timeline_graphs_english():
 
-<!-- Deaths per day -->
+    result = """=== Timeline graphs ===
 
-{{Graph:Chart
-|type=line
-|linewidth=1.5
-|showSymbols=1
-|width=700
-|colors=black
-|showValues=
-|xAxisTitle=Date
-|xType=date
-|xAxisFormat=%b %e
-|x= """+data['date']+"""
-|yAxisTitle=New deaths
-|legend=Legend
-|y1=  """+data['daily_deaths']+"""
-|y1Title=New deaths per day
-|yGrid= |xGrid=
-}}
-<br />
+The following graphs show the evolution of the pandemic starting from 2 March 2020, the day the first cases were confirmed in the country<ref>{{Cite web|url=https://www.publico.pt/2020/03/02/sociedade/noticia/coronavirus-ha-dois-infectados-portugal-1905823|title=Coronavírus: há dois casos confirmados em Portugal|date=March 2, 2020|website=Público|url-status=live}}</ref>.
+
+
 
 {{clear}}
-
 """
-    with open('output/english/TimelineGraphs.txt', 'w+') as f:
-        f.write(result)
-    
+
+#portuguese graphs
 def age_and_gender_graphs_portuguese(cases, deaths):
     print('Generating cases by age and gender graphs in portuguese...')
     result="""=== Casos por idade e sexo ===
