@@ -17,14 +17,6 @@ def download(REPORT_PATH):
     #Checking if the latest report was downloaded
     if os.path.isfile(REPORT_PATH):
         print('Most current PDF report was already downloaded')
-        #in case there are .txt files in the output folder (which means the tables and graphs were already parsed)
-        if date.get_current_date().replace('-','/') != info()['report_date'] and os.path.isfile('output/english/SummaryTable.txt'): #cheking only one since they are generated together
-            print('Tables and graphs were already generated!')
-            confirm = input('Do you want to generate the Wikipedia graphs and tables again? (y/n): ')
-            while confirm != 'y' and confirm != 'n':#while answer is not y/n
-                confirm = input('Not a valid response. Answer y (yes) or n (no): ')
-            if confirm == 'n':
-                return False
     else:
         print('Downloading latest DGS report as a PDF file...')
         urllib.request.urlretrieve(info()['link'], REPORT_PATH)

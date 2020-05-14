@@ -18,29 +18,38 @@ def statistics_english(cases,deaths,summary,symptoms):
     
     f = open('output/PortugalCovid-19-Statistics.txt', 'w+')
     result = ""
-    summary_table(summary,symptomes)
-    total_cases(data)
-    new_cases(data)
-    cases_by_age_and_gender(cases, deaths)
-    total_deaths_and_recoveries(data)
-    new_deaths(data)
-    deaths_by_age_and_gender(cases,deaths)
-    hospital_admitted(data)
-    icu_variation(data)
+    print('Generating Summary table...')
+    result += summary_table(summary,symptoms)
+    print('Generating Statistics charts...')
+    result += total_cases(data)
+    result += new_cases(data)
+    result += cases_by_age_and_gender_english(cases)
+    result += total_cases_log()
+    result += total_deaths_and_recoveries(data)
+    result += new_deaths(data)
+    result += deaths_by_age_and_gender_english(deaths)
+    result += hospital_admitted(data)
+    result += icu_variation(data)
+    result += cases_deaths_by_region()
+    result += deaths_cases_comparison()
+    result += footer()
     f.write(result)
     f.close()
 
 def summary_table(summary, symptoms):
-    print('Generating Summary table...')
-
     #adding comma formatting to numbers in results array
     for k,v in summary.items(): 
         summary[k] = format.add_commas(v)
 
     link = report.info()['link']
     date_summary = format.date_symptom(report.info()['report_date'])
- 
-    result+="""== Current status ==
+
+    #Symptoms occurrence table
+    percentages = symptoms['percentages']
+    occurrence = symptoms['occurrence']#watch out for {{}} problems while using string literals in python
+    return """{{main|COVID-19 pandemic in Portugal}}
+
+== Current status ==
 {| class="wikitable" 
 |+COVID-19
 ! colspan="2" |Cases ["""+link+""" """+report.info()['report_date']+"""]
@@ -66,13 +75,8 @@ def summary_table(summary, symptoms):
 !deaths
 |"""+summary['deaths']+"""
 |-
-|}\n"""
+|}
 
-    #Symptoms occurrence table
-
-    percentages = symptoms['percentages']
-    occurrence = symptoms['occurrence']#whatch out for {{}} problems while using string literals in python
-    result += """
 {| {{Table}} 
 !   !! high fever !! dry cough !! difficult breathing !! headache !! muscular pain !! tiredness
 |-
@@ -88,12 +92,56 @@ def summary_table(summary, symptoms):
 There was only reported information regarding the occurrence of symptoms on """+occurrence+""" of confirmed cases.<ref>{{cite web|url="""+link+""" |title=COVID-19 RELATÓRIO DE SITUAÇÃO |date="""+date_summary+""" |website=covid19.min-saude.pt}}</ref>"""
     
     
+def total_cases(data):
+    return"""
+== Statistics ==
+<section begin="Statistics"/>
+The following graphs show the evolution of the pandemic starting from 2 March 2020, the day the first cases were confirmed in the country<ref>{{Cite web|url=https://www.publico.pt/2020/03/02/sociedade/noticia/coronavirus-ha-dois-infectados-portugal-1905823|title=Coronavírus: há dois casos confirmados em Portugal|date=March 2, 2020|website=Público|url-status=live}}</ref>.
+
+<div style='display: inline-block; width: 800px; vertical-align: top;'>
+=== Total confirmed cases ===
+{{Graph:Chart
+|type=line
+|linewidth=1.5
+|showSymbols=1
+|width=600
+|colors=#F46D43,#A50026,#C4ADA0,#C4ADB0,#C4ADC0
+|showValues=
+|xAxisTitle=Date
+|xType=date
+|xAxisFormat=%b %e
+|x= """+data['date']+"""
+|yAxisTitle=No. of cases
+|y1= """+data['total_cases']+"""
+|y1Title=Total confirmed cases
+|yGrid= |xGrid=
+}}
+
+"""
+
+def new_cases(data):
+    return"""=== New cases per day ===
+{{Graph:Chart
+|type=rect
+|linewidth=1
+|showSymbols=1
+|width=600
+|colors={{Medical cases chart/Bar colors|3}}
+|showValues=offset:2
+|xAxisAngle=-60
+|xAxisTitle=Date
+|x= """+data['date']+"""
+|yAxisTitle=New cases
+|y1= """+data['daily_cases']+"""
+|y1Title=New cases per day
+|yGrid= |xGrid=
+}}
+
+"""
 
 
-def cases_by_age_and_gender_english(cases, deaths):
-    print('Generating cases by age and gender graph in english...')
-
-    result += """=== Total confirmed cases by age and gender ===
+def cases_by_age_and_gender_english(cases):
+    return"""=== Total confirmed cases by age and gender ===
 {{Graph:Chart
 |width=600
 |colors=blue,orange
@@ -110,12 +158,64 @@ def cases_by_age_and_gender_english(cases, deaths):
 |y2Title=Women
 |yGrid= |xGrid=
 }}
-<br>
+<noinclude>
+
 """
 
-def deaths_by_age_and_gender_english(cases,deaths):
-    print('Generating deaths by age and gender graph in english...')
-    result += """=== Total confirmed deaths by age and gender ===
+def total_cases_log():
+    return"""=== Total cases on logarithmic scale ===
+[[File:CoViD-19 PT.svg|left|Number of cases (blue) and number of deaths (red) on a [[logarithmic scale]].]]
+</noinclude>
+</div>
+
+"""
+
+def total_deaths_and_recoveries(data):
+    return"""<div style='display: inline-block; width: 800px; vertical-align: top;'>
+=== Total confirmed deaths, and confirmed recoveries ===
+{{Graph:Chart
+|type=line
+|linewidth=1.5
+|showSymbols=1
+|width=600
+|colors={{Medical cases chart/Bar colors|1}},{{Medical cases chart/Bar colors|2}}
+|showValues=
+|xAxisTitle=Date
+|xType=date
+|xAxisFormat=%b %e
+|x= """+data['date']+"""
+|yAxisTitle=No. of cases
+|legend=Legend
+|y1Title=Total confirmed deaths
+|y1= """+data['total_deaths']+"""
+|y2Title=Total confirmed recoveries
+|y2= """+data['recovered']+"""
+|yGrid= |xGrid=
+}}
+
+"""
+def new_deaths(data):
+    return"""=== New deaths per day ===
+{{Graph:Chart
+|type=rect
+|linewidth=1
+|showSymbols=1
+|width=600
+|colors={{Medical cases chart/Bar colors|1}}
+|showValues=offset:2
+|xAxisAngle=-60
+|xAxisTitle=Date
+|x= """+data['date']+"""
+|yAxisTitle=New deaths
+|y1=  """+data['daily_deaths']+"""
+|y1Title=New deaths per day
+|yGrid= |xGrid=
+}}
+
+"""
+
+def deaths_by_age_and_gender_english(deaths):
+    return"""=== Total confirmed deaths by age and gender ===
 {{Graph:Chart
 |width=600
 |colors=blue,orange
@@ -132,113 +232,19 @@ def deaths_by_age_and_gender_english(cases,deaths):
 |y2Title=Women
 |yGrid= |xGrid=
 }}
-<br>
+</div>
+<section end="Statistics"/>
+
 """
 
-def total_cases(date):
-    results+="""
-<!-- Cumulative Cases per day -->
-{{Graph:Chart
-|type=line
-|linewidth=1.5
-|showSymbols=1
-|width=700
-|colors=#F46D43,#A50026,#C4ADA0,#C4ADB0,#C4ADC0
-|showValues=
-|xAxisTitle=Date
-|xType=date
-|xAxisFormat=%b %e
-|x= """+data['date']+"""
-|yAxisTitle=No. of cases
-|legend=Legend
-|y1= """+data['total_cases']+"""
-|y1Title=Total confirmed cases
-|yGrid= |xGrid=
-}}
-"""
-
-def new_cases(date):
-    result+="""
-<!-- Cases per day -->
-{{Graph:Chart
-|type=line
-|linewidth=1.5
-|showSymbols=1
-|width=700
-|colors=#F46D43
-|showValues=
-|xAxisTitle=Date
-|xType=date
-|xAxisFormat=%b %e
-|x= """+data['date']+"""
-|yAxisTitle=New cases
-|legend=Legend
-|y1= """+data['daily_cases']+"""
-|y1Title=New cases per day
-|yGrid= |xGrid=
-}}
-<br />
-"""
-
-def total_deaths_and_recoveries(date):
-    results+="""
-<!-- Cumulative Deaths and Recoveries per day -->
-
-{{Graph:Chart
-|type=line
-|linewidth=1.5
-|showSymbols=1
-|width=700
-|colors=#A50026,SkyBlue,#FF0000
-|showValues=
-|xAxisTitle=Date
-|xType=date
-|xAxisFormat=%b %e
-|x= """+data['date']+"""
-|yAxisTitle=No. of cases
-|legend=Legend
-|y1Title=Total confirmed deaths
-|y1= """+data['total_deaths']+"""
-|y2Title=Total confirmed recoveries
-|y2= """+data['recovered']+"""
-|yGrid= |xGrid=
-}}
-<br />
-"""
-
-def new_deaths(data):
-    results+="""
-<!-- Deaths per day -->
-
-{{Graph:Chart
-|type=line
-|linewidth=1.5
-|showSymbols=1
-|width=700
-|colors=black
-|showValues=
-|xAxisTitle=Date
-|xType=date
-|xAxisFormat=%b %e
-|x= """+data['date']+"""
-|yAxisTitle=New deaths
-|legend=Legend
-|y1=  """+data['daily_deaths']+"""
-|y1Title=New deaths per day
-|yGrid= |xGrid=
-}}
-<br />
-"""
 def hospital_admitted(data):
-    result+="""
-<!-- Hospital admitted cases -->
-
+    return"""=== Hospital admitted cases ===
 {{Graph:Chart
 |type=line
 |linewidth=1.5
 |showSymbols=1
-|width=700
-|colors=red, #FF4080
+|width=600
+|colors={{Medical cases chart/Bar colors|4}},{{Medical cases chart/Bar colors|5}}
 |showValues=
 |xAxisTitle=Date
 |xType=date
@@ -252,18 +258,16 @@ def hospital_admitted(data):
 |y2= """+data['hospital_stable']+"""
 |yGrid= |xGrid=
 }}
-<br />
+
 """
 
 def icu_variation(data):
-    result+="""
-<!-- ICU Variation -->
-
+    return"""=== ICU Variation ===
 {{Graph:Chart
 |type=line
 |linewidth=1.5
-|width=700
-|colors=#FF0000
+|width=600
+|colors={{Medical cases chart/Bar colors|4}}
 |showValues=offset:2
 |xAxisTitle=Date
 |xType=date
@@ -275,17 +279,39 @@ def icu_variation(data):
 |y1Title = Cases in ICU variation per day
 |yGrid= |xGrid= 
 }}
+
 """
-def timeline_graphs_english():
 
-    result = """=== Timeline graphs ===
+def cases_deaths_by_region():
+    return """=== Confirmed cases and deaths, by region===
+{{COVID-19_pandemic_data/Portugal_medical_cases}}
 
-The following graphs show the evolution of the pandemic starting from 2 March 2020, the day the first cases were confirmed in the country<ref>{{Cite web|url=https://www.publico.pt/2020/03/02/sociedade/noticia/coronavirus-ha-dois-infectados-portugal-1905823|title=Coronavírus: há dois casos confirmados em Portugal|date=March 2, 2020|website=Público|url-status=live}}</ref>.
+"""
 
+def deaths_cases_comparison():
+    return"""=== 2009-20 deaths cases comparison ===
 
-
+According to the Portuguese mortality surveillance (EVM<ref>{{cite web|url=https://evm.min-saude.pt |title=SICO - eVM {{!}} Mortalidade em tempo real |publisher=Evm.min-saude.pt |date= |accessdate=2020-05-08}}</ref>), the following chart presents the total number of deaths per day in Portugal for the years 2009-2020 (updated on 1<sup>st</sup> of May).
+[[File:Total deaths portugal.png|thumb|left|720px|The total number of deaths per day in Portugal for various years including all ages.<ref>{{Cite web|url=https://evm.min-saude.pt/#shiny-tab-a_total|title=SICO - eVM {{!}} Mortalidade geral |publisher=Evm.min-saude.pt}}</ref>]]
 {{clear}}
+
+In the following two graphs, the total deaths per day and by age group are presented for the years 2019 and 2020.<ref>{{Cite web|url=https://evm.min-saude.pt/#shiny-tab-a_idade|title=SICO - eVM {{!}} Mortalidade por grupo etário |publisher=Evm.min-saude.pt}}</ref>
+<div style='display: inline-block; width: 800px; vertical-align: top;'>
+[[File:Total deaths portugal age 2019.png|thumb|left|720px|Total number of deaths per day for Portugal per age group for the year 2019.]]
+</div>
+<div style='display: inline-block; width: 800px; vertical-align: top;'>
+[[File:Total deaths portugal age 2020.png|thumb|left|720px|Total number of deaths per day for Portugal per age group for the year 2020.]]
+</div>
+{{clear}}
+
 """
+
+def footer():
+    return"""== References ==
+{{reflist|colwidth=30em}}
+
+{{2019-nCoV|state=expanded}}
+[[Category:COVID-19 pandemic in Portugal|statistics]]"""
 
 #portuguese graphs
 def age_and_gender_graphs_portuguese(cases, deaths):

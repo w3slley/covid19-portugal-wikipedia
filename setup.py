@@ -12,13 +12,8 @@ if report.download(REPORT_PATH):
     symptoms = report.get_symptoms_data(REPORT_PATH)
     cases = report.get_data_by_age_and_gender('cases', REPORT_PATH)
     deaths = report.get_data_by_age_and_gender('deaths', REPORT_PATH)
-    
-    print('Generating graphs and tables...')
 
-    parser.summary_table(summary, symptoms)
-    parser.age_and_gender_graphs_english(cases, deaths)
-    parser. age_and_gender_graphs_portuguese(cases, deaths)
-    parser.timeline_graphs_english()
+    parser.statistics_english(cases, deaths, summary, symptoms)
     parser.timeline_graphs_portuguese()
     
     print('Graphs and tables generated succesfuly!')

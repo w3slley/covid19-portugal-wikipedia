@@ -1,0 +1,326 @@
+{{main|COVID-19 pandemic in Portugal}}
+
+== Current status ==
+{| class="wikitable" 
+|+COVID-19
+! colspan="2" |Cases [https://covid19.min-saude.pt/wp-content/uploads/2020/05/72_DGS_boletim_20200513.pdf 13/05/2020]
+|-
+!total confirmed cases
+|28,132
+|-
+!total not confirmed cases 
+|252,143
+|-
+!total suspected cases (since 1 January 2020)
+|282,961
+|-
+!under surveillance
+|26,278
+|-
+!waiting for results
+|2,686
+|-
+!recovered
+|3,182
+|-
+!deaths
+|1,175
+|-
+|}
+
+{| {{Table}} 
+!   !! high fever !! dry cough !! difficult breathing !! headache !! muscular pain !! tiredness
+|-
+! % of cases with symptoms
+| 30%
+| 42%
+| 12%
+| 20%
+| 21%
+| 15%
+|-
+|}
+There was only reported information regarding the occurrence of symptoms on 89% of confirmed cases.<ref>{{cite web|url=https://covid19.min-saude.pt/wp-content/uploads/2020/05/72_DGS_boletim_20200513.pdf |title=COVID-19 RELATÓRIO DE SITUAÇÃO |date=2020-05-13 |website=covid19.min-saude.pt}}</ref>
+== Statistics ==
+<section begin="Statistics"/>
+The following graphs show the evolution of the pandemic starting from 2 March 2020, the day the first cases were confirmed in the country<ref>{{Cite web|url=https://www.publico.pt/2020/03/02/sociedade/noticia/coronavirus-ha-dois-infectados-portugal-1905823|title=Coronavírus: há dois casos confirmados em Portugal|date=March 2, 2020|website=Público|url-status=live}}</ref>.
+
+<div style='display: inline-block; width: 800px; vertical-align: top;'>
+=== Total confirmed cases ===
+{{Graph:Chart
+|type=line
+|linewidth=1.5
+|showSymbols=1
+|width=600
+|colors=#F46D43,#A50026,#C4ADA0,#C4ADB0,#C4ADC0
+|showValues=
+|xAxisTitle=Date
+|xType=date
+|xAxisFormat=%b %e
+|x= 2020/03/02, 2020/03/03, 2020/03/04, 2020/03/05, 2020/03/06, 2020/03/07, 2020/03/08, 2020/03/09, 2020/03/10, 2020/03/11, 
+2020/03/12, 2020/03/13, 2020/03/14, 2020/03/15, 2020/03/16, 2020/03/17, 2020/03/18, 2020/03/19, 2020/03/20, 2020/03/21, 
+2020/03/22, 2020/03/23, 2020/03/24, 2020/03/25, 2020/03/26, 2020/03/27, 2020/03/28, 2020/03/29, 2020/03/30, 2020/03/31, 
+2020/04/01, 2020/04/02, 2020/04/03, 2020/04/04, 2020/04/05, 2020/04/06, 2020/04/07, 2020/04/08, 2020/04/09, 2020/04/10, 
+2020/04/11, 2020/04/12, 2020/04/13, 2020/04/14, 2020/04/15, 2020/04/16, 2020/04/17, 2020/04/18, 2020/04/19, 2020/04/20, 
+2020/04/21, 2020/04/22, 2020/04/23, 2020/04/24, 2020/04/25, 2020/04/26, 2020/04/27, 2020/04/28, 2020/04/29, 2020/04/30, 
+2020/05/01, 2020/05/02, 2020/05/03, 2020/05/04, 2020/05/05, 2020/05/06, 2020/05/07, 2020/05/08, 2020/05/09, 2020/05/10, 
+2020/05/11, 2020/05/12, 2020/05/13
+|yAxisTitle=No. of cases
+|y1= 2, 4, 6, 9, 13, 21, 30, 39, 41, 59, 
+78, 112, 169, 245, 331, 448, 642, 785, 1020, 1280, 
+1600, 2060, 2362, 2995, 3544, 4268, 5170, 5962, 6408, 7443, 
+8251, 9034, 9886, 10524, 11278, 11730, 12442, 13141, 13956, 15472, 
+15987, 16585, 16934, 17448, 18091, 18841, 19022, 19685, 20206, 20863, 
+21379, 21982, 22353, 22797, 23392, 23864, 24027, 24322, 24505, 25045, 
+25351, 25190, 25282, 25524, 25702, 26182, 26715, 27268, 27406, 27581, 
+27679, 27913, 28132
+|y1Title=Total confirmed cases
+|yGrid= |xGrid=
+}}
+
+=== New cases per day ===
+{{Graph:Chart
+|type=rect
+|linewidth=1
+|showSymbols=1
+|width=600
+|colors={{Medical cases chart/Bar colors|3}}
+|showValues=offset:2
+|xAxisAngle=-60
+|xAxisTitle=Date
+|x= 2020/03/02, 2020/03/03, 2020/03/04, 2020/03/05, 2020/03/06, 2020/03/07, 2020/03/08, 2020/03/09, 2020/03/10, 2020/03/11, 
+2020/03/12, 2020/03/13, 2020/03/14, 2020/03/15, 2020/03/16, 2020/03/17, 2020/03/18, 2020/03/19, 2020/03/20, 2020/03/21, 
+2020/03/22, 2020/03/23, 2020/03/24, 2020/03/25, 2020/03/26, 2020/03/27, 2020/03/28, 2020/03/29, 2020/03/30, 2020/03/31, 
+2020/04/01, 2020/04/02, 2020/04/03, 2020/04/04, 2020/04/05, 2020/04/06, 2020/04/07, 2020/04/08, 2020/04/09, 2020/04/10, 
+2020/04/11, 2020/04/12, 2020/04/13, 2020/04/14, 2020/04/15, 2020/04/16, 2020/04/17, 2020/04/18, 2020/04/19, 2020/04/20, 
+2020/04/21, 2020/04/22, 2020/04/23, 2020/04/24, 2020/04/25, 2020/04/26, 2020/04/27, 2020/04/28, 2020/04/29, 2020/04/30, 
+2020/05/01, 2020/05/02, 2020/05/03, 2020/05/04, 2020/05/05, 2020/05/06, 2020/05/07, 2020/05/08, 2020/05/09, 2020/05/10, 
+2020/05/11, 2020/05/12, 2020/05/13
+|yAxisTitle=New cases
+|y1= 2, 2, 2, 3, 4, 8, 9, 9, 2, 18, 
+19, 34, 57, 76, 86, 117, 194, 143, 235, 260, 
+320, 460, 302, 633, 549, 724, 902, 792, 446, 1035, 
+808, 783, 852, 638, 754, 452, 712, 699, 815, 1516, 
+515, 598, 349, 514, 643, 750, 181, 663, 521, 657, 
+516, 603, 371, 444, 595, 472, 163, 295, 183, 540, 
+306, -161, 92, 242, 178, 480, 533, 553, 138, 175, 
+98, 234, 219
+|y1Title=New cases per day
+|yGrid= |xGrid=
+}}
+
+=== Total confirmed cases by age and gender ===
+{{Graph:Chart
+|width=600
+|colors=blue,orange
+|showValues=
+|xAxisTitle=Age
+|xAxisAngle=-50
+|type=rect
+|x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+ 
+|yAxisTitle=No. of cases
+|legend=Legend
+|y1= 245, 406, 1501, 1741, 1887, 1876, 1463, 1111, 1378
+|y2= 239, 466, 1910, 2331, 2841, 2870, 1704, 1271, 2892
+|y1Title=Men
+|y2Title=Women
+|yGrid= |xGrid=
+}}
+<noinclude>
+
+=== Total cases on logarithmic scale ===
+[[File:CoViD-19 PT.svg|left|Number of cases (blue) and number of deaths (red) on a [[logarithmic scale]].]]
+</noinclude>
+</div>
+
+<div style='display: inline-block; width: 800px; vertical-align: top;'>
+=== Total confirmed deaths, and confirmed recoveries ===
+{{Graph:Chart
+|type=line
+|linewidth=1.5
+|showSymbols=1
+|width=600
+|colors={{Medical cases chart/Bar colors|1}},{{Medical cases chart/Bar colors|2}}
+|showValues=
+|xAxisTitle=Date
+|xType=date
+|xAxisFormat=%b %e
+|x= 2020/03/02, 2020/03/03, 2020/03/04, 2020/03/05, 2020/03/06, 2020/03/07, 2020/03/08, 2020/03/09, 2020/03/10, 2020/03/11, 
+2020/03/12, 2020/03/13, 2020/03/14, 2020/03/15, 2020/03/16, 2020/03/17, 2020/03/18, 2020/03/19, 2020/03/20, 2020/03/21, 
+2020/03/22, 2020/03/23, 2020/03/24, 2020/03/25, 2020/03/26, 2020/03/27, 2020/03/28, 2020/03/29, 2020/03/30, 2020/03/31, 
+2020/04/01, 2020/04/02, 2020/04/03, 2020/04/04, 2020/04/05, 2020/04/06, 2020/04/07, 2020/04/08, 2020/04/09, 2020/04/10, 
+2020/04/11, 2020/04/12, 2020/04/13, 2020/04/14, 2020/04/15, 2020/04/16, 2020/04/17, 2020/04/18, 2020/04/19, 2020/04/20, 
+2020/04/21, 2020/04/22, 2020/04/23, 2020/04/24, 2020/04/25, 2020/04/26, 2020/04/27, 2020/04/28, 2020/04/29, 2020/04/30, 
+2020/05/01, 2020/05/02, 2020/05/03, 2020/05/04, 2020/05/05, 2020/05/06, 2020/05/07, 2020/05/08, 2020/05/09, 2020/05/10, 
+2020/05/11, 2020/05/12, 2020/05/13
+|yAxisTitle=No. of cases
+|legend=Legend
+|y1Title=Total confirmed deaths
+|y1= 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 1, 1, 2, 3, 6, 12, 
+14, 23, 33, 43, 60, 76, 100, 119, 140, 160, 
+187, 209, 246, 266, 295, 311, 345, 380, 409, 435, 
+470, 504, 535, 567, 599, 629, 657, 687, 714, 735, 
+762, 785, 820, 854, 880, 903, 928, 948, 973, 989, 
+1007, 1023, 1043, 1063, 1074, 1089, 1105, 1114, 1126, 1135, 
+1144, 1163, 1175
+|y2Title=Total confirmed recoveries
+|y2= 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+1, 1, 1, 2, 3, 3, 3, 3, 5, 5, 
+5, 14, 22, 22, 43, 43, 43, 43, 43, 43, 
+43, 68, 68, 75, 75, 140, 184, 196, 205, 233, 
+266, 277, 277, 347, 383, 493, 519, 610, 610, 610, 
+917, 1143, 1201, 1228, 1277, 1329, 1357, 1389, 1470, 1519, 
+1647, 1671, 1689, 1712, 1743, 2076, 2258, 2422, 2499, 2549, 
+2549, 3013, 3182
+|yGrid= |xGrid=
+}}
+
+=== New deaths per day ===
+{{Graph:Chart
+|type=rect
+|linewidth=1
+|showSymbols=1
+|width=600
+|colors={{Medical cases chart/Bar colors|1}}
+|showValues=offset:2
+|xAxisAngle=-60
+|xAxisTitle=Date
+|x= 2020/03/02, 2020/03/03, 2020/03/04, 2020/03/05, 2020/03/06, 2020/03/07, 2020/03/08, 2020/03/09, 2020/03/10, 2020/03/11, 
+2020/03/12, 2020/03/13, 2020/03/14, 2020/03/15, 2020/03/16, 2020/03/17, 2020/03/18, 2020/03/19, 2020/03/20, 2020/03/21, 
+2020/03/22, 2020/03/23, 2020/03/24, 2020/03/25, 2020/03/26, 2020/03/27, 2020/03/28, 2020/03/29, 2020/03/30, 2020/03/31, 
+2020/04/01, 2020/04/02, 2020/04/03, 2020/04/04, 2020/04/05, 2020/04/06, 2020/04/07, 2020/04/08, 2020/04/09, 2020/04/10, 
+2020/04/11, 2020/04/12, 2020/04/13, 2020/04/14, 2020/04/15, 2020/04/16, 2020/04/17, 2020/04/18, 2020/04/19, 2020/04/20, 
+2020/04/21, 2020/04/22, 2020/04/23, 2020/04/24, 2020/04/25, 2020/04/26, 2020/04/27, 2020/04/28, 2020/04/29, 2020/04/30, 
+2020/05/01, 2020/05/02, 2020/05/03, 2020/05/04, 2020/05/05, 2020/05/06, 2020/05/07, 2020/05/08, 2020/05/09, 2020/05/10, 
+2020/05/11, 2020/05/12, 2020/05/13
+|yAxisTitle=New deaths
+|y1=  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 1, 0, 1, 2, 2, 6, 
+2, 9, 10, 10, 17, 16, 24, 19, 21, 20, 
+27, 22, 37, 20, 29, 16, 34, 35, 29, 26, 
+35, 34, 31, 32, 32, 30, 28, 30, 27, 21, 
+27, 23, 35, 34, 26, 23, 25, 20, 25, 16, 
+18, 16, 20, 20, 11, 15, 16, 9, 12, 9, 
+9, 19, 12
+|y1Title=New deaths per day
+|yGrid= |xGrid=
+}}
+
+=== Total confirmed deaths by age and gender ===
+{{Graph:Chart
+|width=600
+|colors=blue,orange
+|showValues=
+|xAxisTitle=Age
+|xAxisAngle=-50
+|type=rect
+|x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+ 
+|yAxisTitle=No. of deaths
+|legend=Legend
+|y1=0, 0, 1, 0, 6, 28, 67, 136, 335
+|y2= 0, 0, 0, 0, 6, 10, 37, 96, 453
+|y1Title=Men
+|y2Title=Women
+|yGrid= |xGrid=
+}}
+</div>
+<section end="Statistics"/>
+
+=== Hospital admitted cases ===
+{{Graph:Chart
+|type=line
+|linewidth=1.5
+|showSymbols=1
+|width=600
+|colors={{Medical cases chart/Bar colors|4}},{{Medical cases chart/Bar colors|5}}
+|showValues=
+|xAxisTitle=Date
+|xType=date
+|xAxisFormat=%b %e
+|x= 2020/03/02, 2020/03/03, 2020/03/04, 2020/03/05, 2020/03/06, 2020/03/07, 2020/03/08, 2020/03/09, 2020/03/10, 2020/03/11, 
+2020/03/12, 2020/03/13, 2020/03/14, 2020/03/15, 2020/03/16, 2020/03/17, 2020/03/18, 2020/03/19, 2020/03/20, 2020/03/21, 
+2020/03/22, 2020/03/23, 2020/03/24, 2020/03/25, 2020/03/26, 2020/03/27, 2020/03/28, 2020/03/29, 2020/03/30, 2020/03/31, 
+2020/04/01, 2020/04/02, 2020/04/03, 2020/04/04, 2020/04/05, 2020/04/06, 2020/04/07, 2020/04/08, 2020/04/09, 2020/04/10, 
+2020/04/11, 2020/04/12, 2020/04/13, 2020/04/14, 2020/04/15, 2020/04/16, 2020/04/17, 2020/04/18, 2020/04/19, 2020/04/20, 
+2020/04/21, 2020/04/22, 2020/04/23, 2020/04/24, 2020/04/25, 2020/04/26, 2020/04/27, 2020/04/28, 2020/04/29, 2020/04/30, 
+2020/05/01, 2020/05/02, 2020/05/03, 2020/05/04, 2020/05/05, 2020/05/06, 2020/05/07, 2020/05/08, 2020/05/09, 2020/05/10, 
+2020/05/11, 2020/05/12, 2020/05/13
+|yAxisTitle=No. of cases
+|legend=Legend
+|y1Title=ICU
+|y1= 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 10, 9, 18, 17, 20, 30, 26, 35, 
+41, 47, 48, 61, 61, 71, 89, 136, 164, 188, 
+230, 240, 245, 251, 267, 270, 271, 245, 241, 226, 
+233, 228, 188, 218, 208, 229, 222, 228, 224, 215, 
+213, 207, 204, 188, 186, 182, 176, 172, 169, 172, 
+154, 150, 144, 143, 134, 136, 135, 127, 120, 112, 
+112, 113, 103
+|y2Title=Stable
+|y2= 0, 0, 0, 9, 13, 21, 30, 38, 40, 57, 
+107, 107, 114, 139, 139, 206, 89, 89, 126, 156, 
+169, 201, 203, 276, 191, 354, 418, 486, 571, 627, 
+726, 1042, 1058, 1075, 1084, 1099, 1180, 1211, 1173, 1179, 
+1175, 1177, 1187, 1227, 1200, 1302, 1284, 1253, 1243, 1208, 
+1172, 1146, 1095, 1068, 1040, 1005, 995, 936, 980, 968, 
+892, 855, 856, 813, 818, 838, 874, 842, 815, 797, 
+805, 709, 692
+|yGrid= |xGrid=
+}}
+
+=== ICU Variation ===
+{{Graph:Chart
+|type=line
+|linewidth=1.5
+|width=600
+|colors={{Medical cases chart/Bar colors|4}}
+|showValues=offset:2
+|xAxisTitle=Date
+|xType=date
+|xAxisFormat=%b %e
+|x= 2020/03/02, 2020/03/03, 2020/03/04, 2020/03/05, 2020/03/06, 2020/03/07, 2020/03/08, 2020/03/09, 2020/03/10, 2020/03/11, 
+2020/03/12, 2020/03/13, 2020/03/14, 2020/03/15, 2020/03/16, 2020/03/17, 2020/03/18, 2020/03/19, 2020/03/20, 2020/03/21, 
+2020/03/22, 2020/03/23, 2020/03/24, 2020/03/25, 2020/03/26, 2020/03/27, 2020/03/28, 2020/03/29, 2020/03/30, 2020/03/31, 
+2020/04/01, 2020/04/02, 2020/04/03, 2020/04/04, 2020/04/05, 2020/04/06, 2020/04/07, 2020/04/08, 2020/04/09, 2020/04/10, 
+2020/04/11, 2020/04/12, 2020/04/13, 2020/04/14, 2020/04/15, 2020/04/16, 2020/04/17, 2020/04/18, 2020/04/19, 2020/04/20, 
+2020/04/21, 2020/04/22, 2020/04/23, 2020/04/24, 2020/04/25, 2020/04/26, 2020/04/27, 2020/04/28, 2020/04/29, 2020/04/30, 
+2020/05/01, 2020/05/02, 2020/05/03, 2020/05/04, 2020/05/05, 2020/05/06, 2020/05/07, 2020/05/08, 2020/05/09, 2020/05/10, 
+2020/05/11, 2020/05/12, 2020/05/13
+|yAxisTitle=Cases in ICU variation
+|legend=Legend
+|y1= 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 10, -1, 9, -1, 3, 10, 6, 9, 
+6, 6, 1, 27, 0, 10, 18, 47, 28, 24, 
+42, 10, 5, 6, 16, 3, 1, -26, -4, -15, 
+7, -5, -40, 30, -10, 21, -7, 6, -4, -9, 
+-2, -6, -3, -16, -2, -4, -6, -4, -3, 3, 
+-18, -4, -6, -1, -9, 2, -1, -8, -7, -8, 
+0, 1, -10
+|y1Title = Cases in ICU variation per day
+|yGrid= |xGrid= 
+}}
+
+=== Confirmed cases and deaths, by region===
+{{COVID-19_pandemic_data/Portugal_medical_cases}}
+
+=== 2009-20 deaths cases comparison ===
+
+According to the Portuguese mortality surveillance (EVM<ref>{{cite web|url=https://evm.min-saude.pt |title=SICO - eVM {{!}} Mortalidade em tempo real |publisher=Evm.min-saude.pt |date= |accessdate=2020-05-08}}</ref>), the following chart presents the total number of deaths per day in Portugal for the years 2009-2020 (updated on 1<sup>st</sup> of May).
+[[File:Total deaths portugal.png|thumb|left|720px|The total number of deaths per day in Portugal for various years including all ages.<ref>{{Cite web|url=https://evm.min-saude.pt/#shiny-tab-a_total|title=SICO - eVM {{!}} Mortalidade geral |publisher=Evm.min-saude.pt}}</ref>]]
+{{clear}}
+
+In the following two graphs, the total deaths per day and by age group are presented for the years 2019 and 2020.<ref>{{Cite web|url=https://evm.min-saude.pt/#shiny-tab-a_idade|title=SICO - eVM {{!}} Mortalidade por grupo etário |publisher=Evm.min-saude.pt}}</ref>
+<div style='display: inline-block; width: 800px; vertical-align: top;'>
+[[File:Total deaths portugal age 2019.png|thumb|left|720px|Total number of deaths per day for Portugal per age group for the year 2019.]]
+</div>
+<div style='display: inline-block; width: 800px; vertical-align: top;'>
+[[File:Total deaths portugal age 2020.png|thumb|left|720px|Total number of deaths per day for Portugal per age group for the year 2020.]]
+</div>
+{{clear}}
+
+== References ==
+{{reflist|colwidth=30em}}
+
+{{2019-nCoV|state=expanded}}
+[[Category:COVID-19 pandemic in Portugal|statistics]]
