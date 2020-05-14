@@ -34,7 +34,8 @@ def update():#method that updates csv file with data from reports until the most
     report_urls= get_urls_missing_reports()
     n = len(report_urls)
     if n == 0:
-        print('The portugal_data.csv file is up to date with all DGS reports')
+        print('The portugal_data.csv file is up to date with all DGS reports.')
+        print('Most current PDF report was already downloaded! There is nothing else to do.')
     else:
         print('Data from '+str(n)+' DGS report(s) need to be parsed into the .csv file!')
     #download PDFs and updates csv file
@@ -43,21 +44,21 @@ def update():#method that updates csv file with data from reports until the most
         url = urllib.parse.quote(i['url']).replace('%3A', ':') # %3A is : in urlencoded. I had to replace it because for some reason the browser (and urllib) was not recognizing %3A as ":".
 
         print('Updating portugal_data.csv file with data from the '+i['date']+' DGS report...')
-        REPORT_PATH = 'var/DGS_report'+i['date'].replace('/','-')+'.pdf'
-        if not os.path.isfile(REPORT_PATH):
+        filepath = 'var/'+i['date'].replace('/','-')+'.pdf'
+        if not os.path.isfile(filepath):
             print('Downloading PDF file...')
-            urllib.request.urlretrieve(url,REPORT_PATH)#download pdf report
+            urllib.request.urlretrieve(url,filepath)#download pdf report
         old_df = pd.read_csv('portugal_data.csv')
         latest_index = old_df.tail(1).index.start
         old_total_cases = old_df.iloc[latest_index].total_cases
         old_total_deaths = old_df.iloc[latest_index].total_deaths
         old_hospital_icu = old_df.iloc[latest_index].hospital_icu
 
-        summary = report.get_summary_data(REPORT_PATH)
+        summary = report.get_summary_data(filepath)
         total_cases = int(summary['confirmed_cases'])
         total_deaths = int(summary['deaths'])
         recovered = int(summary['recovered'])
-        h = report.get_hospitalized_data(REPORT_PATH)
+        h = report.get_hospitalized_data(filepath)
 
         new_data = {
             'date': format.date_for_csv(i['date']),

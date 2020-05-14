@@ -122,13 +122,13 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 def new_cases(data):
     return"""=== New cases per day ===
 {{Graph:Chart
-|type=rect
-|linewidth=1
+|type=area
+|linewidth=2
 |showSymbols=1
 |width=600
-|colors={{Medical cases chart/Bar colors|3}}
-|showValues=offset:2
-|xAxisAngle=-60
+|colors=#80ff8000
+|xType=date
+|xAxisFormat=%b %e
 |xAxisTitle=Date
 |x= """+data['date']+"""
 |yAxisTitle=New cases
@@ -197,13 +197,14 @@ def total_deaths_and_recoveries(data):
 def new_deaths(data):
     return"""=== New deaths per day ===
 {{Graph:Chart
-|type=rect
-|linewidth=1
-|showSymbols=1
+|type=area
+|linewidth=2
+|showSymbols=
 |width=600
-|colors={{Medical cases chart/Bar colors|1}}
-|showValues=offset:2
+|colors=#80001e62
 |xAxisAngle=-60
+|xType=date
+|xAxisFormat=%b %e
 |xAxisTitle=Date
 |x= """+data['date']+"""
 |yAxisTitle=New deaths
