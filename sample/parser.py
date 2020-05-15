@@ -8,12 +8,14 @@ def statistics_english(cases,deaths,summary,symptoms):
     
     df = pd.read_csv('portugal_data.csv')
     columns = list(df.columns)
+    #dates for new cases/deaths graphs
+    date_daily = [format.date_timeline_daily_stats(i) for i in list(df.date)]
+    #dates for scatter plots
     date = [format.date_timeline(i) for i in list(df.date)]
-    data = {}
+    #objects which stores all data from portugal_data.csv file
+    data = {'date':format.data_for_timeline(date), 'date_daily':format.data_for_timeline(date_daily)}
     for i in columns:
-        if i=='date':
-            data[i] = format.data_for_timeline(date)
-        else:
+        if i!='date':#because date key was already assigned
             data[i] = format.data_for_timeline(list(df[i]))
     
     f = open('output/PortugalCovid-19-Statistics.txt', 'w+')
@@ -104,8 +106,8 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 |type=line
 |linewidth=1.5
 |showSymbols=1
-|width=600
-|colors=#F46D43,#A50026,#C4ADA0,#C4ADB0,#C4ADC0
+|width=650
+|colors=#F46D43
 |showValues=
 |xAxisTitle=Date
 |xType=date
@@ -122,19 +124,17 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 def new_cases(data):
     return"""=== New cases per day ===
 {{Graph:Chart
-|type=area
-|linewidth=2
-|showSymbols=1
-|width=600
-|colors=#80ff8000
-|xType=date
-|xAxisFormat=%b %e
+|type=rect
+|width=750
+|colors=#F46D43
+|xAxisAngle=-60
+|showValues= offset:2
 |xAxisTitle=Date
-|x= """+data['date']+"""
+|x= """+data['date_daily']+"""
 |yAxisTitle=New cases
 |y1= """+data['daily_cases']+"""
 |y1Title=New cases per day
-|yGrid= |xGrid=
+|yGrid=
 }}
 
 """
@@ -143,7 +143,7 @@ def new_cases(data):
 def cases_by_age_and_gender_english(cases):
     return"""=== Total confirmed cases by age and gender ===
 {{Graph:Chart
-|width=600
+|width=650
 |colors=blue,orange
 |showValues=
 |xAxisTitle=Age
@@ -177,7 +177,7 @@ def total_deaths_and_recoveries(data):
 |type=line
 |linewidth=1.5
 |showSymbols=1
-|width=600
+|width=650
 |colors={{Medical cases chart/Bar colors|1}},{{Medical cases chart/Bar colors|2}}
 |showValues=
 |xAxisTitle=Date
@@ -197,20 +197,17 @@ def total_deaths_and_recoveries(data):
 def new_deaths(data):
     return"""=== New deaths per day ===
 {{Graph:Chart
-|type=area
-|linewidth=2
-|showSymbols=
-|width=600
-|colors=#80001e62
+|type=rect
+|width=750
+|colors={{Medical cases chart/Bar colors|1}}
+|showValues=offset:2
 |xAxisAngle=-60
-|xType=date
-|xAxisFormat=%b %e
 |xAxisTitle=Date
-|x= """+data['date']+"""
+|x= """+data['date_daily']+"""
 |yAxisTitle=New deaths
 |y1=  """+data['daily_deaths']+"""
 |y1Title=New deaths per day
-|yGrid= |xGrid=
+|yGrid=
 }}
 
 """
@@ -218,7 +215,7 @@ def new_deaths(data):
 def deaths_by_age_and_gender_english(deaths):
     return"""=== Total confirmed deaths by age and gender ===
 {{Graph:Chart
-|width=600
+|width=650
 |colors=blue,orange
 |showValues=
 |xAxisTitle=Age
@@ -244,7 +241,7 @@ def hospital_admitted(data):
 |type=line
 |linewidth=1.5
 |showSymbols=1
-|width=600
+|width=650
 |colors={{Medical cases chart/Bar colors|4}},{{Medical cases chart/Bar colors|5}}
 |showValues=
 |xAxisTitle=Date
@@ -267,7 +264,7 @@ def icu_variation(data):
 {{Graph:Chart
 |type=line
 |linewidth=1.5
-|width=600
+|width=650
 |colors={{Medical cases chart/Bar colors|4}}
 |showValues=offset:2
 |xAxisTitle=Date

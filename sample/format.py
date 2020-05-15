@@ -21,6 +21,25 @@ def date_for_csv(date): #DD/MM/YYYY
     d = date.split('/')
     return d[0]+'-'+d[1]+'-'+d[2][2:] #DD-MM-YY
 
+def date_timeline_daily_stats(date): #DD-MM-YY
+    months = {
+        '01':'Jan',
+        '02':'Feb',
+        '03':'Mar',
+        '04':'Apr',
+        '05':'May',
+        '06':'Jun',
+        '07':'Jul',
+        '08':'Aug',
+        '09':'Sep',
+        '10':'Oct',
+        '11':'Nov',
+        '12':'Dec'
+    }
+    d = date.split('-')
+    day = d[0][1] if d[0][0]=='0' else d[0] #getting only the day number (remove preceding zero)
+    return day+' '+months[d[1]] #15 May
+
 def date_timeline(date): #DD-MM-YY
     d = date.split('-')
     return '20'+d[2]+'/'+d[1]+'/'+d[0] #YYYY/MM/YY
