@@ -292,16 +292,16 @@ def cases_deaths_by_region():
 def deaths_cases_comparison():
     return"""=== 2009-20 deaths cases comparison ===
 
-According to the Portuguese mortality surveillance (EVM<ref>{{cite web|url=https://evm.min-saude.pt |title=SICO - eVM {{!}} Mortalidade em tempo real |publisher=Evm.min-saude.pt |date= |accessdate=2020-05-08}}</ref>), the following chart presents the total number of deaths per day in Portugal for the years 2009-2020 (updated on 1<sup>st</sup> of May).
-[[File:Total deaths portugal.png|thumb|left|720px|The total number of deaths per day in Portugal for various years including all ages.<ref>{{Cite web|url=https://evm.min-saude.pt/#shiny-tab-a_total|title=SICO - eVM {{!}} Mortalidade geral |publisher=Evm.min-saude.pt}}</ref>]]
+According to the Portuguese mortality surveillance (EVM<ref>{{cite web|url=https://evm.min-saude.pt |title=SICO - eVM {{!}} Mortalidade em tempo real |publisher=Evm.min-saude.pt |date= |accessdate=2020-05-08}}</ref>), the following chart presents the total number of deaths per day in Portugal for the years 2009-2020 (updated on 14<sup>st</sup> of May).
+[[File:Total_number_of_deaths_2009_2020.png|thumb|left|720px|The total number of deaths per day in Portugal for various years including all ages.<ref>{{Cite web|url=https://evm.min-saude.pt/#shiny-tab-a_total|title=SICO - eVM {{!}} Mortalidade geral |publisher=Evm.min-saude.pt}}</ref>]]
 {{clear}}
 
 In the following two graphs, the total deaths per day and by age group are presented for the years 2019 and 2020.<ref>{{Cite web|url=https://evm.min-saude.pt/#shiny-tab-a_idade|title=SICO - eVM {{!}} Mortalidade por grupo etário |publisher=Evm.min-saude.pt}}</ref>
 <div style='display: inline-block; width: 800px; vertical-align: top;'>
-[[File:Total deaths portugal age 2019.png|thumb|left|720px|Total number of deaths per day for Portugal per age group for the year 2019.]]
+[[File:Deaths_per_age_group_2019.png|thumb|left|720px|Total number of deaths per day for Portugal per age group for the year 2019.]]
 </div>
 <div style='display: inline-block; width: 800px; vertical-align: top;'>
-[[File:Total deaths portugal age 2020.png|thumb|left|720px|Total number of deaths per day for Portugal per age group for the year 2020.]]
+[[File:Deaths_per_age_group_2020.png|thumb|left|720px|Total number of deaths per day for Portugal per age group for the year 2020.]]
 </div>
 {{clear}}
 
