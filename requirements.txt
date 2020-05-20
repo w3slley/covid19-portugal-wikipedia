@@ -1,3 +1,4 @@
+pandas
 pdfminer
 beautifulsoup4
 requests
