@@ -3,6 +3,7 @@ This project has the goal of automating the process of updating tables and graph
 
 ## Requirements
 - Python 3
+- pandas
 - Beautiful Soup
 - pdfminer
 - requests
