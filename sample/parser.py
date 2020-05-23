@@ -32,6 +32,7 @@ def statistics_english(cases,deaths,summary,symptoms):
     result += deaths_by_age_and_gender_english(deaths)
     result += hospital_admitted(data)
     result += icu_variation(data)
+    result += growth()
     result += cases_deaths_by_region()
     result += deaths_cases_comparison()
     result += footer()
@@ -280,9 +281,100 @@ def icu_variation(data):
 
 """
 
+def growth(): #right now this is only the static version. I need to implement this using data from the csv file
+    return """
+<noinclude>
+
+=== Growth  ===
+{{Side box
+|position=Left
+|metadata=No
+|above='''Growth of confirmed cases'''<br/><small>a rising straight line indicates exponential growth, while a horizontal line indicates linear growth</small>
+|abovestyle=text-align:center
+|below=<small>Source: #insert source#</small>
+|text= {{Graph:Chart
+    |type=line
+    |linewidth=2
+    |width=600
+    |colors={{Medical cases chart/Bar colors|3}}
+    |showValues=
+    |xAxisTitle=Total confirmed cases
+    |xAxisAngle=-30
+    |xScaleType=log
+    |x=2, 4, 6, 9, 13, 21, 30, 39, 41, 59, 
+78, 112, 169, 245, 331, 448, 642, 785, 1020, 1280, 
+1600, 2060, 2362, 2995, 3544, 4268, 5170, 5962, 6408, 7443, 
+8251, 9034, 9886, 10524, 11278, 11730, 12442, 13141, 13956, 15472, 
+15987, 16585, 16934, 17448, 18091, 18841, 19022, 19685, 20206, 20863, 
+21379, 21982, 22353, 22797, 23271, 23683, 23846, 24141, 24324, 24692, 
+24987, 25190, 25282, 25524, 25702, 26182, 26715, 27268, 27406, 27581, 
+27679, 27913, 28132, 28319
+    |yAxisTitle=New confirmed cases
+    |yScaleType=log
+    |y=2, 2, 2, 3, 4, 8, 9, 9, 2, 18, 
+19, 34, 57, 76, 86, 117, 194, 143, 235, 260, 
+320, 460, 302, 633, 549, 724, 902, 792, 446, 1035, 
+808, 783, 852, 638, 754, 452, 712, 699, 815, 1516, 
+515, 598, 349, 514, 643, 750, 181, 663, 521, 657, 
+516, 603, 371, 444, 474, 412, 163, 295, 183, 368, 
+295, 203, 92, 242, 178, 480, 533, 553, 138, 175, 
+98, 234, 219, 187
+    |yGrid= |xGrid=
+    }}
+}}
+<br>
+{{Side box
+|position=Left
+|metadata=No
+|above='''Growth of confirmed deaths'''<br/><small>a rising straight line indicates exponential growth, while a horizontal line indicates linear growth</small>
+|abovestyle=text-align:center
+|below=<small>Source: #insert source#</small>
+|text= {{Graph:Chart
+    |type=line
+    |linewidth=2
+    |width=600
+    |colors={{Medical cases chart/Bar colors|1}}
+    |showValues=
+    |xAxisTitle=Total confirmed deaths
+    |xAxisAngle=-30
+    |xScaleType=log
+    |x=1, 2, 3, 6, 12, 
+14, 23, 33, 43, 60, 76, 100, 119, 140, 160, 
+187, 209, 246, 266, 295, 311, 345, 380, 409, 435, 
+470, 504, 535, 567, 599, 629, 657, 687, 714, 735, 
+762, 785, 820, 854, 880, 903, 928, 948, 973, 989, 
+1007, 1023, 1043, 1063, 1074, 1089, 1105, 1114, 1126, 1135, 
+1144, 1163, 1175, 1184
+    |yAxisTitle=New confirmed deaths
+    |yScaleType=log
+    |y=1, 1, 2, 2, 6, 
+2, 9, 10, 10, 17, 16, 24, 19, 21, 20, 
+27, 22, 37, 20, 29, 16, 34, 35, 29, 26, 
+35, 34, 31, 32, 32, 30, 28, 30, 27, 21, 
+27, 23, 35, 34, 26, 23, 25, 20, 25, 16, 
+18, 16, 20, 20, 11, 15, 16, 9, 12, 9, 
+9, 19, 12, 9
+    |yGrid= |xGrid=
+    }}
+}}
+
+</noinclude>
+
+
+The following graph presents the total number of COVID-19 cases per day for the six most affected municipalities of Portugal, according to the Data Science for Social Good Portugal<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |website=DSSG Portugal |title=Dados relativos à pandemia COVID-19 em Portugal |access-date=16 May 2020}}</ref>.
+[[File:Total cases per concelho.png|thumb|left|800px|The total number of Covid-19 cases per municipality for the 6 most affected municipalities. The legend shows which municipality corresponds to which coloured line in the graph. The vertical black line denotes the 4th of May 2020 as the end of the quarantine state.]]
+{{clear}}
+
+"""
+
 def cases_deaths_by_region():
     return """=== Confirmed cases and deaths, by region===
 {{COVID-19_pandemic_data/Portugal_medical_cases}}
+
+
+The following graph shows the daily cases of Covid-19 for each region of Portugal (updated on 17th of May) according to DGS<ref>https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal/</ref> visualising the table above.
+[[File:Daily cases per region.png|thumb|left|800px|Daily cases of Covid-19 per region in Portugal. The lines are smoothed for better visualisation and are coloured according to each region of Portugal. The negative values are not shown here for better visualisation.]]
+{{clear}}
 
 """
 
