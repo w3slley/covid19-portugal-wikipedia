@@ -376,8 +376,8 @@ def cases_deaths_by_region():
 {{COVID-19_pandemic_data/Portugal_medical_cases}}
 
 
-The following graph shows the daily cases of Covid-19 for each region of Portugal (updated on 17th of May) according to DGS<ref>https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal/</ref> visualising the table above.
-[[File:Daily cases per region.png|thumb|left|800px|Daily cases of Covid-19 per region in Portugal. The lines are smoothed for better visualisation and are coloured according to each region of Portugal. The negative values are not shown here for better visualisation.]]
+The following graph shows the daily cases of Covid-19 for each region of Portugal (updated on 27th of May) according to DGS<ref>https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal/</ref> visualising the table above.
+[[File:Daily cases per region update.png|left|800px|thumb|Daily cases of Covid-19 per region in Portugal. The lines are smoothed for better visualisation and are coloured according to each region of Portugal. The negative values are not shown here for better visualisation.]]
 {{clear}}
 
 """
