@@ -27,7 +27,8 @@ def statistics_english(cases,deaths,summary,symptoms):
     result += new_cases(data)
     result += cases_by_age_and_gender_english(cases)
     result += total_cases_log()
-    result += total_deaths_and_recoveries(data)
+    result += total_deaths(data)
+    result += total_recoveries(data)
     result += new_deaths(data)
     result += deaths_by_age_and_gender_english(deaths)
     result += hospital_admitted(data)
@@ -124,10 +125,9 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 
 def new_cases(data):
     return"""=== New cases per day ===
-<div style="max-width: 850px; overflow-x: scroll;">
 {{Graph:Chart
 |type=rect
-|width=1000
+|width=750
 |colors=#F46D43
 |xAxisAngle=-60
 |showValues= offset:2
@@ -138,7 +138,6 @@ def new_cases(data):
 |y1Title=New cases per day
 |yGrid=
 }}
-</div>
 
 """
 
@@ -172,37 +171,54 @@ def total_cases_log():
 </div>
 
 """
-
-def total_deaths_and_recoveries(data):
+def total_deaths(data):
     return"""<div style='display: inline-block; width: 800px; vertical-align: top;'>
-=== Total confirmed deaths, and confirmed recoveries ===
+=== Total confirmed deaths ===
 {{Graph:Chart
 |type=line
 |linewidth=1.5
 |showSymbols=1
 |width=650
-|colors={{Medical cases chart/Bar colors|1}},{{Medical cases chart/Bar colors|2}}
+|colors={{Medical cases chart/Bar colors|1}}
 |showValues=
 |xAxisTitle=Date
 |xType=date
 |xAxisFormat=%b %e
 |x= """+data['date']+"""
-|yAxisTitle=No. of cases
-|legend=Legend
-|y1Title=Total confirmed deaths
-|y1= """+data['total_deaths']+"""
-|y2Title=Total confirmed recoveries
-|y2= """+data['recovered']+"""
+|yAxisTitle=No. of confirmed deaths
+|y= """+data['total_deaths']+"""
 |yGrid= |xGrid=
 }}
+</div>
+
+"""
+
+def total_recoveries(data):
+    return"""<div style='display: inline-block; width: 800px; vertical-align: top;'>
+=== Total confirmed recoveries ===
+{{Graph:Chart
+|type=line
+|linewidth=1.5
+|showSymbols=1
+|width=650
+|colors={{Medical cases chart/Bar colors|2}}
+|showValues=
+|xAxisTitle=Date
+|xType=date
+|xAxisFormat=%b %e
+|x= """+data['date']+"""
+|yAxisTitle=No. of confirmed recoveries
+|y= """+data['recovered']+"""
+|yGrid= |xGrid=
+}}
+</div>
 
 """
 def new_deaths(data):
     return"""=== New deaths per day ===
-<div style="max-width: 850px; overflow-x: scroll;">
 {{Graph:Chart
 |type=rect
-|width=1000
+|width=750
 |colors={{Medical cases chart/Bar colors|1}}
 |showValues=offset:2
 |xAxisAngle=-60
@@ -213,7 +229,6 @@ def new_deaths(data):
 |y1Title=New deaths per day
 |yGrid=
 }}
-</div>
 
 """
 
@@ -365,8 +380,8 @@ def growth(): #right now this is only the static version. I need to implement th
 </noinclude>
 
 
-The following graph presents the total number of COVID-19 cases per day for the six most affected municipalities of Portugal, according to the Data Science for Social Good Portugal<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |website=DSSG Portugal |title=Dados relativos à pandemia COVID-19 em Portugal |access-date=16 May 2020}}</ref>.
-[[File:Total cases per concelho.png|thumb|left|800px|The total number of Covid-19 cases per municipality for the 6 most affected municipalities. The legend shows which municipality corresponds to which coloured line in the graph. The vertical black line denotes the 4th of May 2020 as the end of the quarantine state.]]
+The following graph presents the total number of Covid-19 cases per day for the municipalities of Portugal with more than 1000 confirmed cases (updated on 30th of May), according to the Data Science for Social Good Portugal<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |website=DSSG Portugal |title=Dados relativos à pandemia COVID-19 em Portugal |access-date=16 May 2020}}</ref>.
+[[File:Total deaths per region.png|thumb|left|800px|The total number of Covid-19 cases per municipality for those municipalities with more than 1000 confirmed cases. The legend shows which municipality corresponds to which coloured line in the graph and the vertical black line denotes the 4th of May 2020 as the end of the quarantine state.]]
 {{clear}}
 
 """
