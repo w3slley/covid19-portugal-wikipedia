@@ -14,6 +14,7 @@ cases = report.get_data_by_age_and_gender('cases', REPORT_PATH)
 deaths = report.get_data_by_age_and_gender('deaths', REPORT_PATH)
 
 parser.statistics_english(cases, deaths, summary, symptoms)
+parser.age_and_gender_graphs_portuguese(cases, deaths)
 parser.timeline_graphs_portuguese()
 
 print('Graphs and tables generated succesfuly!')
