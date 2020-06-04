@@ -64,7 +64,7 @@ def get_data_by_age_and_gender(option, REPORT_PATH):
         txt = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[1]).splitlines()
         start = 'Total'
         end = 'Dados até dia'
-        distance = 10 #distance between male and female data points (on pdf formatting) for confirmed cases
+        distance = 9 #distance between male and female data points (on pdf formatting) for confirmed cases
     elif option == 'deaths':
         txt = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[3]).splitlines()
         start = 'Total'

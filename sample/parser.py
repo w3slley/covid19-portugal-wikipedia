@@ -147,7 +147,7 @@ def cases_by_age_and_gender_english(cases):
 {{Graph:Chart
 |width=650
 |colors=blue,orange
-|showValues=
+|showValues=offset:2
 |xAxisTitle=Age
 |xAxisAngle=-50
 |type=rect
@@ -237,7 +237,7 @@ def deaths_by_age_and_gender_english(deaths):
 {{Graph:Chart
 |width=650
 |colors=blue,orange
-|showValues=
+|showValues=offset:2
 |xAxisTitle=Age
 |xAxisAngle=-50
 |type=rect
@@ -434,7 +434,7 @@ def age_and_gender_graphs_portuguese(cases, deaths):
 {{Gráfico
 |width=450
 |colors=blue,orange
-|showValues=
+|showValues=offset:2
 |xAxisTitle=Idade
 |xAxisAngle=-50
 |type=rect
@@ -452,7 +452,7 @@ def age_and_gender_graphs_portuguese(cases, deaths):
 {{Gráfico
 |width=450
 |colors=blue,orange
-|showValues=
+|showValues=offset:2
 |xAxisTitle=Idade
 |xAxisAngle=-50
 |type=rect
