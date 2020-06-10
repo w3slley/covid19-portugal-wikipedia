@@ -391,13 +391,13 @@ def cases_deaths_by_region():
 {{COVID-19_pandemic_data/Portugal_medical_cases}}
 
 
-The following graph shows the daily cases of Covid-19 for each region of Portugal (updated on the 27th of May) according to DGS<ref>https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal/</ref> visualising the table above.
-[[File:Daily cases per region update.png|left|800px|thumb|Daily cases of Covid-19 per region in Portugal. The lines are smoothed for better visualisation and are coloured according to each region of Portugal. The negative values are not shown here for better visualisation.]]
+The following graph shows the daily cases of Covid-19 for each region of Portugal (updated on the 10th of June) according to DGS<ref>https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal/</ref> visualising the table above.
+[[File:Daily cases per region update 2.png|left|800px|thumb|Daily cases of Covid-19 per region in Portugal. The lines are smoothed for better visualisation and are coloured according to each region of Portugal. The negative values are not shown here for better visualisation.]]
 {{clear}}
 
 
-Similarly, the following graph presents the daily deaths by Covid-19 for each region of Portugal (updated on the 29th of May) according to DGS<ref>https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal/</ref>.
-[[File:Daily deaths per region.png|left|800px|thumb|Daily deaths from Covid-19 per region in Portugal. The lines are smoothed for better visualisation and are coloured according to each region of Portugal. The negative values are not shown here for better visualisation.]]
+Similarly, the following graph presents the daily deaths by Covid-19 for each region of Portugal (updated on the 10th of June) according to DGS<ref>https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal/</ref>.
+[[File:Daily deaths per region 2.png|left|800px|thumb|Daily deaths from Covid-19 per region in Portugal. The lines are smoothed for better visualisation and are coloured according to each region of Portugal. The negative values are not shown here for better visualisation.]]
 {{clear}}
 
 """
@@ -405,8 +405,8 @@ Similarly, the following graph presents the daily deaths by Covid-19 for each re
 def deaths_cases_comparison():
     return"""=== 2009-20 deaths cases comparison ===
 
-According to the Portuguese mortality surveillance (EVM<ref>{{cite web|url=https://evm.min-saude.pt |title=SICO - eVM {{!}} Mortalidade em tempo real |publisher=Evm.min-saude.pt |date= |accessdate=2020-05-08}}</ref>), the following chart presents the total number of deaths per day in Portugal for the years 2009-2020 (updated on 14<sup>st</sup> of May).
-[[File:Total_number_of_deaths_2009_2020.png|thumb|left|720px|The total number of deaths per day in Portugal for various years including all ages.<ref>{{Cite web|url=https://evm.min-saude.pt/#shiny-tab-a_total|title=SICO - eVM {{!}} Mortalidade geral |publisher=Evm.min-saude.pt}}</ref>]]
+According to the Portuguese mortality surveillance (EVM<ref>{{cite web|url=https://evm.min-saude.pt |title=SICO - eVM {{!}} Mortalidade em tempo real |publisher=Evm.min-saude.pt |date= |accessdate=2020-05-08}}</ref>), the following chart presents the total number of deaths per day in Portugal for the years 2009-2020 (updated on 10<sup>th</sup> of June).
+[[File:Deaths_2009_2020.png|thumb|left|720px|The total number of deaths per day in Portugal for various years including all ages.<ref>{{Cite web|url=https://evm.min-saude.pt/#shiny-tab-a_total|title=SICO - eVM {{!}} Mortalidade geral |publisher=Evm.min-saude.pt}}</ref>]]
 {{clear}}
 
 In the following two graphs, the total deaths per day and by age group are presented for the years 2019 and 2020.<ref>{{Cite web|url=https://evm.min-saude.pt/#shiny-tab-a_idade|title=SICO - eVM {{!}} Mortalidade por grupo etário |publisher=Evm.min-saude.pt}}</ref>
