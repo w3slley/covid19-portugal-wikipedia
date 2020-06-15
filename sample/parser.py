@@ -108,10 +108,11 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 |type=line
 |linewidth=1.5
 |showSymbols=1
-|width=650
+|width=750
 |colors=#F46D43
 |showValues=
 |xAxisTitle=Date
+|xAxisAngle=-40
 |xType=date
 |xAxisFormat=%b %e
 |x= """+data['date']+"""
@@ -125,9 +126,10 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 
 def new_cases(data):
     return"""=== New cases per day ===
+<div style="max-width: 850px; overflow-x: scroll;">
 {{Graph:Chart
 |type=rect
-|width=750
+|width=1100
 |colors=#F46D43
 |xAxisAngle=-60
 |showValues= offset:2
@@ -138,6 +140,7 @@ def new_cases(data):
 |y1Title=New cases per day
 |yGrid=
 }}
+</div>
 
 """
 
@@ -182,6 +185,7 @@ def total_deaths(data):
 |colors={{Medical cases chart/Bar colors|1}}
 |showValues=
 |xAxisTitle=Date
+|xAxisAngle=-40
 |xType=date
 |xAxisFormat=%b %e
 |x= """+data['date']+"""
@@ -204,6 +208,7 @@ def total_recoveries(data):
 |colors={{Medical cases chart/Bar colors|2}}
 |showValues=
 |xAxisTitle=Date
+|xAxisAngle=-40
 |xType=date
 |xAxisFormat=%b %e
 |x= """+data['date']+"""
@@ -216,9 +221,10 @@ def total_recoveries(data):
 """
 def new_deaths(data):
     return"""=== New deaths per day ===
+<div style="max-width: 850px; overflow-x: scroll;">
 {{Graph:Chart
 |type=rect
-|width=750
+|width=1100
 |colors={{Medical cases chart/Bar colors|1}}
 |showValues=offset:2
 |xAxisAngle=-60
@@ -229,6 +235,7 @@ def new_deaths(data):
 |y1Title=New deaths per day
 |yGrid=
 }}
+</div>
 
 """
 
@@ -265,6 +272,7 @@ def hospital_admitted(data):
 |colors={{Medical cases chart/Bar colors|4}},{{Medical cases chart/Bar colors|5}}
 |showValues=
 |xAxisTitle=Date
+|xAxisAngle=-40
 |xType=date
 |xAxisFormat=%b %e
 |x= """+data['date']+"""
@@ -288,6 +296,7 @@ def icu_variation(data):
 |colors={{Medical cases chart/Bar colors|4}}
 |showValues=offset:2
 |xAxisTitle=Date
+|xAxisAngle=-40
 |xType=date
 |xAxisFormat=%b %e
 |x= """+data['date']+"""
@@ -504,13 +513,13 @@ def timeline_graphs_portuguese():
 }}<small>
 * {{caixa cor|#F46D43}} casos totais confirmados</small>
 
-<!-- Mortes e recuperações -->
+<!-- Mortes  -->
 {{Gráfico
 |type=line
 |linewidth=1.5
 |showSymbols=1
 |width=700
-|colors=#262626,#87CEEB,#9F0B0B
+|colors=#262626
 |showValues=
 |xAxisTitle=Data
 |xType=date
@@ -518,13 +527,32 @@ def timeline_graphs_portuguese():
 |x= """+data['date']+"""
 |yAxisTitle=Nº de casos
 |y1= """+data['total_deaths']+""" 
-|y2= """+data['recovered']+"""
 |yGrid= |xGrid=
 |y1Title=total de mortes confirmadas
-|y2Title=total de recuperações confirmadas
 }}
 <small>{{div col|2}}
 * {{caixa cor|#262626}} total de mortes confirmadas
+{{div col fim}}</small><br />
+
+<!-- Recuperações -->
+
+{{Gráfico
+|type=line
+|linewidth=1.5
+|showSymbols=1
+|width=700
+|colors=#87CEEB
+|showValues=
+|xAxisTitle=Data
+|xType=date
+|xAxisFormat=%b %e
+|x= """+data['date']+"""
+|yAxisTitle=Nº de casos
+|y1= """+data['recovered']+"""
+|yGrid= |xGrid=
+|y1Title=total de recuperações confirmadas
+}}
+<small>{{div col|2}}
 * {{caixa cor|#87CEEB}} total de recuperações confirmadas
 {{div col fim}}</small><br />
 
