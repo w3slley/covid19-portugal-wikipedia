@@ -10,8 +10,9 @@ print('Parsing data from PDF file...')
 
 summary = report.get_summary_data(REPORT_PATH)
 symptoms = report.get_symptoms_data(REPORT_PATH)
-cases = report.get_data_by_age_and_gender('cases', REPORT_PATH)
+#cases = report.get_data_by_age_and_gender('cases', REPORT_PATH)
 deaths = report.get_data_by_age_and_gender('deaths', REPORT_PATH)
+cases = []
 
 parser.statistics_english(cases, deaths, summary, symptoms)
 parser.age_and_gender_graphs_portuguese(cases, deaths)

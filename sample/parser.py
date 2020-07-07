@@ -147,6 +147,8 @@ def new_cases(data):
 
 def cases_by_age_and_gender_english(cases):
     return"""=== Total confirmed cases by age and gender ===
+Data from the last DGS report (July 2nd, 2020)<ref>{{cite web |url=https://covid19.min-saude.pt/wp-content/uploads/2020/07/121_DGS_boletim_20200701-002.pdf |title=DGS report, July 2nd}}</ref> to contain the information about the total number of confirmed cases by age and gender.
+
 {{Graph:Chart
 |width=650
 |colors=blue,orange
@@ -154,11 +156,11 @@ def cases_by_age_and_gender_english(cases):
 |xAxisTitle=Age
 |xAxisAngle=-50
 |type=rect
-|x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+ 
+|x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+, Unknown 
 |yAxisTitle=No. of cases
 |legend=Legend
-|y1= """+cases['men']+"""
-|y2= """+cases['women']+"""
+|y1= 670, 803, 2867, 3198, 3120, 2789, 2050, 1436, 1719, 19
+|y2= 573, 937, 3348, 3591, 3932, 3865, 2324, 1617, 3581, 15
 |y1Title=Men
 |y2Title=Women
 |yGrid= |xGrid=
@@ -251,7 +253,7 @@ def deaths_by_age_and_gender_english(deaths):
 |x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+ 
 |yAxisTitle=No. of deaths
 |legend=Legend
-|y1="""+deaths['men']+"""
+|y1= """+deaths['men']+"""
 |y2= """+deaths['women']+"""
 |y1Title=Men
 |y2Title=Women
@@ -440,6 +442,8 @@ def footer():
 def age_and_gender_graphs_portuguese(cases, deaths):
     print('Generating cases by age and gender graphs in portuguese...')
     result="""=== Casos por idade e sexo ===
+Dados do último relatório da DGS (2 de Julho de 2020)<ref>{{cite web |url=https://covid19.min-saude.pt/wp-content/uploads/2020/07/121_DGS_boletim_20200701-002.pdf |title=Relatório de situação DGS, 2 de Julho de 2020}}</ref> que contém informações referentes ao número total de casos confirmados por idade e sexo.
+
 {{Gráfico
 |width=450
 |colors=blue,orange
@@ -447,11 +451,11 @@ def age_and_gender_graphs_portuguese(cases, deaths):
 |xAxisTitle=Idade
 |xAxisAngle=-50
 |type=rect
-|x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+ 
+|x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+, Desconhecido
 |yAxisTitle=Número de casos
 |legend=Legenda
-|y1= """+cases['men']+"""
-|y2= """+cases['women']+"""
+|y1= 670, 803, 2867, 3198, 3120, 2789, 2050, 1436, 1719, 19
+|y2= 573, 937, 3348, 3591, 3932, 3865, 2324, 1617, 3581, 15
 |y1Title=Men
 |y1Title=Homens
 |y2Title=Mulheres
