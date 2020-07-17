@@ -496,6 +496,9 @@ def timeline_graphs_portuguese():
 
     result = """
 === Gráficos da evolução dos casos ===
+<div style="float:left;margin-right:12px;">{{Dados da pandemia de COVID-19/Gráfico de casos médicos em Portugal}}
+</div>[[Imagem:CoViD-19 PT.svg|left|thumb|500px|Evolução diária do número de casos (a azul {{caixa cor|#004586}}) e de óbitos — totais acumulado (a vermelho {{caixa cor|#FF420E}}) e dos últimos 10 dias (a tracejado preto e branco <span style="font-size:175%;">◨</span>) —, em escala logarítmica (dados até 13 de Julho)]]<div style="clear:left;" />
+
 <!-- Total casos confirmados -->
 {{Gráfico
 |type=line
@@ -504,6 +507,7 @@ def timeline_graphs_portuguese():
 |width=700
 |colors=#F46D43,#A50026,#C4ADA0,#C4ADB0,#C4ADC0
 |showValues= 
+|xAxisAngle=-40
 |xAxisTitle=Data
 |xType=date
 |xAxisFormat=%b %e
@@ -523,6 +527,7 @@ def timeline_graphs_portuguese():
 |width=700
 |colors=#262626
 |showValues=
+|xAxisAngle=-40
 |xAxisTitle=Data
 |xType=date
 |xAxisFormat=%b %e
@@ -545,6 +550,7 @@ def timeline_graphs_portuguese():
 |width=700
 |colors=#87CEEB
 |showValues=
+|xAxisAngle=-40
 |xAxisTitle=Data
 |xType=date
 |xAxisFormat=%b %e
@@ -566,6 +572,7 @@ def timeline_graphs_portuguese():
 |width=700
 |colors=#FF0000, #FF4080
 |showValues=
+|xAxisAngle=-40
 |xAxisTitle=Date
 |xType=date
 |xAxisFormat=%b %e
@@ -591,6 +598,7 @@ def timeline_graphs_portuguese():
 |width=700
 |colors=#F46D43
 |showValues=
+|xAxisAngle=-40
 |xAxisTitle=Data
 |xType=date
 |xAxisFormat=%b %e
@@ -611,6 +619,7 @@ def timeline_graphs_portuguese():
 |width=700
 |colors=#000000
 |showValues=
+|xAxisAngle=-40
 |xAxisTitle=Data
 |xType=date
 |xAxisFormat=%b %e
