@@ -129,7 +129,7 @@ def new_cases(data):
 <div style="max-width: 850px; overflow-x: scroll;">
 {{Graph:Chart
 |type=rect
-|width=1100
+|width=1300
 |colors=#F46D43
 |xAxisAngle=-60
 |showValues= offset:2
@@ -225,7 +225,7 @@ def new_deaths(data):
 <div style="max-width: 850px; overflow-x: scroll;">
 {{Graph:Chart
 |type=rect
-|width=1100
+|width=1300
 |colors={{Medical cases chart/Bar colors|1}}
 |showValues=offset:2
 |xAxisAngle=-60
