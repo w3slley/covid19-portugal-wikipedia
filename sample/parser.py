@@ -121,12 +121,12 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 |y1Title=Total confirmed cases
 |yGrid= |xGrid=
 }}
-
+</div>
 """
 
 def new_cases(data):
-    return"""=== New cases per day ===
-<div style="max-width: 850px; overflow-x: scroll;">
+    return"""<div style="max-width: 850px; overflow-x: scroll;">
+=== New cases per day ===
 {{Graph:Chart
 |type=rect
 |width=1300
@@ -146,8 +146,8 @@ def new_cases(data):
 
 
 def cases_by_age_and_gender_english(cases):
-    return"""=== Total confirmed cases by age and gender ===
-
+    return"""<div style='display: inline-block; width: 800px; vertical-align: top; margin-top:50px'>
+=== Total confirmed cases by age and gender ===
 {{Graph:Chart
 |width=650
 |colors=blue,orange
@@ -164,15 +164,15 @@ def cases_by_age_and_gender_english(cases):
 |y2Title=Women
 |yGrid= |xGrid=
 }}
-<noinclude>
+</div>
 
 """
 
 def total_cases_log():
-    return"""=== Total cases on logarithmic scale ===
+    return"""<noinclude>
+=== Total cases on logarithmic scale ===
 [[File:CoViD-19 PT.svg|left|Number of cases (blue) and number of deaths (red) on a [[logarithmic scale]].]]
 </noinclude>
-</div>
 
 """
 def total_deaths(data):
@@ -221,8 +221,8 @@ def total_recoveries(data):
 
 """
 def new_deaths(data):
-    return"""=== New deaths per day ===
-<div style="max-width: 850px; overflow-x: scroll;">
+    return"""<div style="max-width: 850px; overflow-x: scroll;">
+=== New deaths per day ===
 {{Graph:Chart
 |type=rect
 |width=1300
@@ -241,7 +241,8 @@ def new_deaths(data):
 """
 
 def deaths_by_age_and_gender_english(deaths):
-    return"""=== Total confirmed deaths by age and gender ===
+    return"""<div style='display: inline-block; width: 800px; vertical-align: top; margin-top:50px'>
+=== Total confirmed deaths by age and gender ===
 {{Graph:Chart
 |width=650
 |colors=blue,orange
