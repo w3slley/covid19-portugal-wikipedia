@@ -75,7 +75,7 @@ def get_data_by_age_and_gender(option, REPORT_PATH):
     #returning data as string
     men = ''
     women = ''
-    n = 10 #number of fields in the graph (ranging from ages 0-09 to 80+)
+    n = 10 #number of fields in the graph (ranging from age group 0-09 to unknown)
     list_of_data = get_data_from_list(txt, start, end)
     cases = []
     #removing empty strings from list
@@ -115,6 +115,11 @@ def get_symptoms_data(REPORT_PATH):
         #there are empty strings in the list and they should be ignored
         if i=='': continue
         #getting all percentages
+        #in case it's a one digit number, add to array and continue
+        if i[1]=='%':
+            percentages.append(i)
+            continue
+        #in case it's a two digit number, add to array
         if i[2]=='%':
             percentages.append(i)
         #getting occurrence data
