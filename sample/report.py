@@ -29,7 +29,7 @@ def download(REPORT_PATH):
 def get_summary_data(REPORT_PATH):
     page_summary = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[0])
     lines = page_summary.splitlines()
-    fields = ['suspected_cases','confirmed_cases','not_confirmed_cases', 'waiting_results','recovered','deaths','under_surveillance']
+    fields = ['confirmed_cases', 'active', 'recovered','deaths','under_surveillance']
     results=[]
     on = False
     for line in lines:
