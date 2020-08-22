@@ -3,7 +3,7 @@ import sample.date as date
 import sample.format as format
 import pandas as pd
 
-def statistics_english(cases,deaths,summary,symptoms):
+def graphs_english(summary):
     print('Generating tables and graphs for the english statistics page...')
     
     df = pd.read_csv('portugal_data.csv')
@@ -14,6 +14,8 @@ def statistics_english(cases,deaths,summary,symptoms):
     date = [format.date_timeline(i) for i in list(df.date)]
     #objects which stores all data from portugal_data.csv file
     data = {'date':format.data_for_timeline(date), 'date_daily':format.data_for_timeline(date_daily)}
+    
+    #Formatting data from .csv file and putting into the dictionary 'data'
     for i in columns:
         if i!='date':#because date key was already assigned
             data[i] = format.data_for_timeline(list(df[i]))
@@ -21,26 +23,28 @@ def statistics_english(cases,deaths,summary,symptoms):
     f = open('output/PortugalCovid-19-Statistics.txt', 'w+')
     result = ""
     print('Generating Summary table...')
-    result += summary_table(summary,symptoms)
+    result += summary_table(summary)
     print('Generating Statistics charts...')
     result += total_cases(data)
     result += new_cases(data)
-    result += cases_by_age_and_gender_english(cases)
+    result += cases_by_age_and_gender_english()
     result += total_cases_log()
     result += total_deaths(data)
     result += total_recoveries(data)
     result += new_deaths(data)
-    result += deaths_by_age_and_gender_english(deaths)
+    result += deaths_by_age_and_gender_english()
     result += hospital_admitted(data)
     result += icu_variation(data)
     result += growth()
+    result += weekly_cases()
+    result += weekly_deaths()
     result += cases_deaths_by_region()
     result += deaths_cases_comparison()
     result += footer()
     f.write(result)
     f.close()
 
-def summary_table(summary, symptoms):
+def summary_table(summary):
     #adding comma formatting to numbers in results array
     for k,v in summary.items(): 
         summary[k] = format.add_commas(v)
@@ -48,58 +52,50 @@ def summary_table(summary, symptoms):
     link = report.info()['link']
     date_summary = format.date_symptom(report.info()['report_date'])
 
-    #Symptoms occurrence table
-    percentages = symptoms['percentages']
-    occurrence = symptoms['occurrence']#watch out for {{}} problems while using string literals in python
     return """{{main|COVID-19 pandemic in Portugal}}
 
-== Current status ==
+== Statistics ==
+<section begin="Statistics"/>
+<div style='width: 400px;margin: 0 auto;'>
 {| class="wikitable" 
-|+COVID-19
-! colspan="2" |Cases ["""+link+""" """+report.info()['report_date']+"""]
+|+COVID-19 Summary
+! colspan="2" |DGS latest Covid-19 report: ["""+link+""" """+report.info()['report_date']+"""]
 |-
-!total confirmed cases
+!Total confirmed cases
 |"""+summary['confirmed_cases']+"""
 |-
-!total not confirmed cases 
-|"""+summary['not_confirmed_cases']+"""
+!Active cases
+|"""+summary['active']+"""
 |-
-!total suspected cases (since 1 January 2020)
-|"""+summary['suspected_cases']+"""
+!Total cases (men)
+|"""+summary['cases_men']+"""
 |-
-!under surveillance
+!Total cases (women)
+|"""+summary['cases_women']+"""
+|-
+!Total deaths (men)
+|"""+summary['deaths_men']+"""
+|-
+!Total deaths (women)
+|"""+summary['deaths_women']+"""
+|-
+!Under surveillance
 |"""+summary['under_surveillance']+"""
 |-
-!waiting for results
-|"""+summary['waiting_results']+"""
-|-
-!recovered
+!Recovered
 |"""+summary['recovered']+"""
 |-
-!deaths
+!Deaths
 |"""+summary['deaths']+"""
 |-
 |}
+</div>
+<br>
+"""
 
-{| {{Table}} 
-!   !! high fever !! dry cough !! difficult breathing !! headache !! muscular pain !! tiredness
-|-
-! % of cases with symptoms
-| """+percentages[0]+"""
-| """+percentages[1]+"""
-| """+percentages[2]+"""
-| """+percentages[3]+"""
-| """+percentages[4]+"""
-| """+percentages[5]+"""
-|-
-|}
-There was reported information regarding the occurrence of symptoms on """+occurrence+""" of confirmed cases.<ref>{{cite web|url="""+link+""" |title=COVID-19 RELATÓRIO DE SITUAÇÃO |date="""+date_summary+""" |website=covid19.min-saude.pt}}</ref>"""
-    
-    
 def total_cases(data):
     return"""
-== Statistics ==
-<section begin="Statistics"/>
+
 The following graphs show the evolution of the pandemic starting from 2 March 2020, the day the first cases were confirmed in the country<ref>{{Cite web|url=https://www.publico.pt/2020/03/02/sociedade/noticia/coronavirus-ha-dois-infectados-portugal-1905823|title=Coronavírus: há dois casos confirmados em Portugal|date=March 2, 2020|website=Público|url-status=live}}</ref>.
 
 <div style='display: inline-block; width: 800px; vertical-align: top;'>
@@ -112,7 +108,6 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 |colors=#F46D43
 |showValues=
 |xAxisTitle=Date
-|xAxisAngle=-40
 |xType=date
 |xAxisFormat=%b %e
 |x= """+data['date']+"""
@@ -131,7 +126,7 @@ def new_cases(data):
 |type=rect
 |width=1300
 |colors=#F46D43
-|xAxisAngle=-60
+|xAxisAngle=-90
 |showValues= offset:2
 |xAxisTitle=Date
 |x= """+data['date_daily']+"""
@@ -145,9 +140,10 @@ def new_cases(data):
 """
 
 
-def cases_by_age_and_gender_english(cases):
+def cases_by_age_and_gender_english():
     return"""<div style='display: inline-block; width: 800px; vertical-align: top; margin-top:50px'>
 === Total confirmed cases by age and gender ===
+The following chart present the data from the last published DGS report where information regarding the total number of cases by age and gender was available (August 17th 2020).
 {{Graph:Chart
 |width=650
 |colors=blue,orange
@@ -158,8 +154,8 @@ def cases_by_age_and_gender_english(cases):
 |x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+, Unknown 
 |yAxisTitle=No. of cases
 |legend=Legend
-|y1= """+cases['men']+"""
-|y2= """+cases['women']+"""
+|y1= 
+|y2= 
 |y1Title=Men
 |y2Title=Women
 |yGrid= |xGrid=
@@ -186,7 +182,6 @@ def total_deaths(data):
 |colors={{Medical cases chart/Bar colors|1}}
 |showValues=
 |xAxisTitle=Date
-|xAxisAngle=-40
 |xType=date
 |xAxisFormat=%b %e
 |x= """+data['date']+"""
@@ -209,7 +204,6 @@ def total_recoveries(data):
 |colors={{Medical cases chart/Bar colors|2}}
 |showValues=
 |xAxisTitle=Date
-|xAxisAngle=-40
 |xType=date
 |xAxisFormat=%b %e
 |x= """+data['date']+"""
@@ -220,6 +214,7 @@ def total_recoveries(data):
 </div>
 
 """
+
 def new_deaths(data):
     return"""<div style="max-width: 850px; overflow-x: scroll;">
 === New deaths per day ===
@@ -228,7 +223,7 @@ def new_deaths(data):
 |width=1300
 |colors={{Medical cases chart/Bar colors|1}}
 |showValues=offset:2
-|xAxisAngle=-60
+|xAxisAngle=-90
 |xAxisTitle=Date
 |x= """+data['date_daily']+"""
 |yAxisTitle=New deaths
@@ -240,9 +235,10 @@ def new_deaths(data):
 
 """
 
-def deaths_by_age_and_gender_english(deaths):
+def deaths_by_age_and_gender_english():
     return"""<div style='display: inline-block; width: 800px; vertical-align: top; margin-top:50px'>
 === Total confirmed deaths by age and gender ===
+The following chart present the data from the last published DGS report where information regarding the total number of deaths by age and gender was available (August 17th 2020).
 {{Graph:Chart
 |width=650
 |colors=blue,orange
@@ -253,14 +249,13 @@ def deaths_by_age_and_gender_english(deaths):
 |x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+ 
 |yAxisTitle=No. of deaths
 |legend=Legend
-|y1= """+deaths['men']+"""
-|y2= """+deaths['women']+"""
+|y1= 
+|y2= 
 |y1Title=Men
 |y2Title=Women
 |yGrid= |xGrid=
 }}
 </div>
-<section end="Statistics"/>
 
 """
 
@@ -286,6 +281,7 @@ def hospital_admitted(data):
 |y2= """+data['hospital_stable']+"""
 |yGrid= |xGrid=
 }}
+<section end="Statistics"/>
 
 """
 
@@ -397,8 +393,81 @@ The following graph presents the total number of Covid-19 cases per day for the 
 
 """
 
+def weekly_cases():
+    return """
+<div style="max-width: 900px; overflow-x: scroll;">
+=== New cases per week ===
+{{Graph:Chart
+|type=rect
+|width=800
+|colors=#F46D43
+|xAxisAngle=-60
+|showValues= offset:2
+|xAxisTitle=Week
+|x= 2 Mar - 8 Mar, 9 Mar - 15 Mar, 16 Mar - 22 Mar, 23 Mar - 29 Mar, 30 Mar -5 Apr, 
+6 Apr - 12 Apr, 13 Apr - 19 Apr, 20 Apr - 26 Apr, 27 Apr - 3 May, 4 May - 10 May, 
+11 May - 17 May, 18 May - 24 May, 25 May - 31 May, 1 Jun - 7 Jun, 8 Jun - 14 Jun, 
+15 Jun - 21 Jun, 22 Jun - 28 Jun, 29 Jun - 5 Jul, 6 Jul - 12 Jul, 13 Jul - 19 Jul, 
+20 Jul - 26 Jul, 27 Jul - 2 Aug, 3 Aug - 9 Aug, 10 Aug - 16 Aug (5 days)
+|yAxisTitle=New cases
+|y1=  30 <!--2, 2, 2, 3, 4, 8, 9-->, 215 <!--9, 2, 18, 19, 34, 57, 76-->, 
+1355 <!--86, 117, 194, 143, 235, 260, 320-->, 4362 <!--460, 302, 633, 549, 724, 902, 792-->, 
+5316 <!--446, 1035, 808, 783, 852, 638, 754-->, 5307 <!--452, 712, 699, 815, 1516, 515, 598-->, 
+3621 <!--349, 514, 643, 750, 181, 663, 521-->, 3467 <!--657, 516, 603, 371, 444, 474, 412-->,
+1609 <!--163, 295, 183, 368, 295, 203, 92-->, 2299 <!--242, 178, 480, 533, 553, 138, 175-->, 
+1455 <!--98, 234, 219, 187, 264, 227, 226-->, 1587 <!--173, 223, 228, 252, 288, 271, 152-->, 
+1877 <!--165, 219, 285, 304, 350, 257, 297-->, 2193 <!--200, 195, 366, 331, 377, 382, 342-->, 
+1997 <!--192, 421, 294, 310, 270, 283, 227-->, 2443 <!--346, 300, 336, 417, 375, 377, 292-->, 
+2513 <!--259, 345, 367, 311, 451, 323, 457-->, 2251 <!--266, 229, 313, 328, 374, 413, 328-->,
+2615 <!--232, 287, 443, 418, 602, 342, 291-->, 2124 <!--306, 233, 375, 339, 312, 313, 246-->, 
+1528 <!--135, 127, 252, 229, 313, 263, 209-->, 1299 <!--135, 111, 203, 255, 204, 238, 153-->, 
+1205 <!--106, 112, 167, 213, 290, 186, 131-->, 1115 <!--157, 120, 278, 325, 235-->
+|y1Title=New cases per week
+|yGrid=
+}}
+</div>
+
+"""
+
+def weekly_deaths():
+    return """
+<div style="max-width: 900px; overflow-x: scroll;>
+=== New deaths per week ===
+{{Graph:Chart
+|type=rect
+|width=800
+|colors={{Medical cases chart/Bar colors|1}}
+|xAxisAngle=-60
+|showValues= offset:2
+|xAxisTitle=Week
+|x= 2 Mar - 8 Mar, 9 Mar - 15 Mar, 16 Mar - 22 Mar, 23 Mar - 29 Mar, 30 Mar -5 Apr, 
+6 Apr - 12 Apr, 13 Apr - 19 Apr, 20 Apr - 26 Apr, 27 Apr - 3 May, 4 May - 10 May, 
+11 May - 17 May, 18 May - 24 May, 25 May - 31 May, 1 Jun - 7 Jun, 8 Jun - 14 Jun, 
+15 Jun - 21 Jun, 22 Jun - 28 Jun, 29 Jun - 5 Jul, 6 Jul - 12 Jul, 13 Jul - 19 Jul, 
+20 Jul - 26 Jul, 27 Jul - 2 Aug, 3 Aug - 9 Aug, 10 Aug - 16 Aug (5 days)
+|yAxisTitle=New deaths
+|y1=  0 <!--0, 0, 0, 0, 0, 0, 0-->, 0 <!--0, 0, 0, 0, 0, 0, 0-->, 
+14 <!--1, 0, 1, 2, 2, 6, 2-->, 105 <!--9, 10, 10, 17, 16, 24, 19-->, 
+176 <!--21, 20, 27, 22, 37, 20, 29-->, 209 <!--16, 34, 35, 29, 26, 35, 34-->, 
+210 <!--31, 32, 32, 30, 28, 30, 27-->, 189 <!--21, 27, 23, 35, 34, 26, 23-->,
+140 <!--25, 20, 25, 16, 18, 16, 20-->, 92 <!--20, 11, 15, 16, 9, 12, 9-->, 
+83 <!--9, 19, 12, 9, 6, 13, 15-->, 98 <!--13, 16, 16, 14, 12, 13, 14-->, 
+94 <!--14, 12, 14, 13, 14, 13, 14-->, 69 <!--14, 12, 11, 8, 10, 9, 5-->, 
+38 <!--6, 7, 5, 7, 1, 7, 5-->, 13 <!--3, 2, 1, 1, 3, 1, 2-->, 
+34 <!--4, 6, 3, 6, 6, 6, 3-->, 50 <!--4, 8, 3, 8, 11, 7, 9-->,
+47 <!--6, 9, 3, 13, 2, 8, 6-->, 29 <!--2, 6, 8, 3, 3, 2, 5-->, 
+28 <!--2, 6, 5, 3, 7, 4, 1-->, 21 <!--2, 3, 3, 2, 8, 2, 1-->, 
+18 <!--0, 1, 1, 3, 3, 4, 6-->, 16 <!--3, 2, 3, 6, 2-->
+|y1Title=New deaths per week
+|yGrid=
+}}
+</div>    
+    
+"""
+
 def cases_deaths_by_region():
-    return """=== Confirmed cases and deaths, by region===
+    return """
+=== Confirmed cases and deaths, by region===
 {{COVID-19_pandemic_data/Portugal_medical_cases}}
 
 
@@ -442,7 +511,7 @@ def footer():
 def age_and_gender_graphs_portuguese(cases, deaths):
     print('Generating cases by age and gender graphs in portuguese...')
     result="""=== Casos por idade e sexo ===
-    
+Dados do último relatório da DGS em que estes dados estavam disponívels(17 de agosto de 2020).    
 {{Gráfico
 |width=450
 |colors=blue,orange
@@ -453,8 +522,8 @@ def age_and_gender_graphs_portuguese(cases, deaths):
 |x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+, Desconhecido
 |yAxisTitle=Número de casos
 |legend=Legenda
-|y1= """+cases['men']+"""
-|y2= """+cases['women']+"""
+|y1= 
+|y2= 
 |y1Title=Men
 |y1Title=Homens
 |y2Title=Mulheres
@@ -471,8 +540,8 @@ def age_and_gender_graphs_portuguese(cases, deaths):
 |x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+ 
 |yAxisTitle=Número de mortes
 |legend=Legenda
-|y1= """+deaths['men']+"""
-|y2= """+deaths['women']+"""
+|y1= 
+|y2= 
 |y1Title=Homens
 |y2Title=Mulheres
 |yGrid= |xGrid=

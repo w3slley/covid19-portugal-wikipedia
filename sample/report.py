@@ -27,105 +27,59 @@ def download(REPORT_PATH):
 
 #I need to find a way to only call the convert_pdf_to_txt() function only once (for efficiency reasons)
 def get_summary_data(REPORT_PATH):
-    page_summary = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[0])
-    lines = page_summary.splitlines()
-    fields = ['confirmed_cases', 'active', 'recovered','deaths','under_surveillance']
+    data = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[0])
+    lines = format.remove_empty_str(data.splitlines())
+    fields = ['active', 'recovered','deaths','under_surveillance', 'confirmed_cases']
+    report_values = ['ATIVOS', 'RECUPERADOS', 'ÓBITOS', 'EM VIGILÂNCIA', 'CONTACTOS EM VIGILÂNCIA', 'CONFIRMADOS']
     results=[]
-    on = False
-    for line in lines:
-        if len(results)==7:#results list already has all values
+    for index, value in enumerate(lines):
+        if len(results) == 5:
             break
-        first_char=line[0] if line !='' else ''
-        if on and first_char>='0' and first_char<='9':
-            results.append(format.remove_chars(line))
-        if line == '2020) ':#getting total suspected cases data
-            on = True
+        #checking for each item on pdf(change in format could break this though)
+        if value in report_values:
+            result_str = lines[index-1] #getting string two positions before curr value (based on format)
+            operator = format.get_operator(result_str)#getting the operator (+ or -) which separates data from change in increase/decrease
+            results.append(format.get_digits(result_str.split(operator)[0]))#getting only the digits from the leftmost part of string (where the correct values are)
     obj = {}
     for i in range(len(results)):
-        obj[fields[i]] = results[i] 
+        obj[fields[i]] = results[i]
+    data_age_gender = get_data_by_age_and_gender(REPORT_PATH)    
+    obj.update(data_age_gender)
     return obj
 
-
-def get_data_from_list(l, start, end):
-    data_points = []
-    on = False
-    for line in l:
-        if on:
-            data_points.append(line)
-        if line == start:
-            on = True
-        if line == end:
-            break
-    return data_points
     
-def get_data_by_age_and_gender(option, REPORT_PATH):
-    #config for each option
-    if option == 'cases':
-        txt = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[1]).splitlines()
-        start = 'Total'
-        end = 'Dados até dia'
-        distance = 10 #distance between male and female data points (on pdf formatting) for confirmed cases
-    elif option == 'deaths':
-        txt = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[3]).splitlines()
-        start = 'Total'
-        end = 'Saiba mais em https://covid19.min-saude.pt/'
-        distance = 10 #different from the cases one due to change in the format of the PDF (by DGS)
-    else:
-        raise TypeError('option must be either "cases" or "deaths"')
-    #returning data as string
-    men = ''
-    women = ''
-    n = 10 #number of fields in the graph (ranging from age group 0-09 to unknown)
-    list_of_data = get_data_from_list(txt, start, end)
-    cases = []
-    #removing empty strings from list
-    for i in list_of_data:
-        if i!='':cases.append(i)
-    for i in range(n):
-        if i == n-1: 
-            men+=cases[i] 
-            women+=cases[i+distance]
-        else:
-            men+=str(cases[i])+', '
-            women+=str(cases[i+distance])+', '
-    return {'men': men, 'women': women}
+def get_data_by_age_and_gender(REPORT_PATH):
+    data = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[1])
+    lines = format.remove_empty_str(data.splitlines())
+    result = {}
+    for index, value in enumerate(lines):
+        if value == 'TOTAL DE CASOS':
+            result['cases_men'] = format.get_digits(lines[index+1])
+            result['cases_women'] = format.get_digits(lines[index+2])
+        if value == 'TOTAL DE ÓBITOS':
+            result['deaths_men'] = format.get_digits(lines[index+1])
+            result['deaths_women'] = format.get_digits(lines[index+2])
+    return result
+
 
 def get_hospitalized_data(REPORT_PATH):
-    page_hospitalized = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[3]).splitlines()
-    
-    txt = get_data_from_list(page_hospitalized, 'COVID-19', 'FEBRE')
-    data = []
-    #parsing only the desired data (which are numbers and in that interval they are the only ones)
-    for i in txt:
-        #there are empty strings in the list and they should be ignored
-        if i=='': continue 
-        if i[0]>='0' and i[0]<='9':
-            data.append(i)
-    hospital_stable = data[0] if len(data)!=0 else '0'
-    hospital_icu = data[1] if len(data)!=0 else '0'
-    return {'hospital_stable':hospital_stable, 'hospital_icu': hospital_icu}
+    data = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[0])
+    lines = format.remove_empty_str(data.splitlines())
+    values = []
+    init = 0
 
+    #getting index where data starts
+    for index, value in enumerate(lines):
+        if value == 'DISTRIBUIÇÃO DOS CASOS EM INTERNAMENTO':
+            init = index+1
 
-def get_symptoms_data(REPORT_PATH):
-    page_deaths = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[3]).splitlines()
-    data = get_data_from_list(page_deaths, 'FEBRE', 'GRUPO ETÁRIO')
-    percentages = []
-    phrase_occurance = []
-    for i in data:
-        #there are empty strings in the list and they should be ignored
-        if i=='': continue
-        #getting all percentages
-        #in case it's a one digit number, add to array and continue
-        if i[1]=='%':
-            percentages.append(i)
-            continue
-        #in case it's a two digit number, add to array
-        if i[2]=='%':
-            percentages.append(i)
-        #getting occurrence data
-        elif i[:10]=='Informação':
-            phrase_occurance.append(i)
-    occurrence = phrase_occurance[0].split('em ')[1].split(' dos')[0]
+    for i in range(4):
+        op = format.get_operator(lines[init+i])
+        value = format.get_digits(lines[init+i].split(op)[0])
+        if op != '|':
+            values.append(value)
     
-    return {'occurrence': occurrence, 'percentages': percentages}
+    return {'hospital_stable': values[0], 'hospital_icu': values[1]}
+    
+
 

@@ -1,27 +1,26 @@
-import unittest
+import pytest
 import sample.format as format
 import sample.report as report
 
-class TestFormat(unittest.TestCase):
-    def test_one(self):
-        self.assertEqual(1,1)
+class TestReportMethods:
+	def test_get_summary_data(self):
+		result = report.get_summary_data('var/22-08-2020.pdf')
+		assert result == {
+			'confirmed_cases': '55452',
+			'active': '13006',
+			'recovered': '40652',
+			'deaths': '1794',
+			'under_surveillance': '34182',
+			'cases_men': '24939',
+			'cases_women': '30513',
+			'deaths_men': '903',
+			'deaths_women': '891'
+		}
 
-    def test_add_commas(self):
-    	number = '12345'
-    	self.assertEqual(format.add_commas(number), '12,345')
+	def test_get_hospitalized_data(self):
+		result = report.get_hospitalized_data('var/17-08-2020.pdf')
+		assert result == {
+			'hospital_stable': '336',
+			'hospital_icu': '39'
+		}
 
-    def test_date_symptom(self):
-    	self.assertEqual(format.date_symptom('26/07/2020'), '2020-07-26')
-
-
-class TestReport(unittest.TestCase):
-	def test_info(self):
-		self.assertEqual(report.info()['link'][:29],'https://covid19.min-saude.pt/')
-
-	def test_get_data_by_age_and_gender(self):
-		filename = 'var/25-07-2020.pdf'
-		self.assertEqual(len(report.get_data_by_age_and_gender('cases', filename)['men'].split(',')), 10)
-		self.assertEqual(len(report.get_data_by_age_and_gender('cases', filename)['women'].split(',')), 10)
-
-if __name__ == '__main__':
-    unittest.main()

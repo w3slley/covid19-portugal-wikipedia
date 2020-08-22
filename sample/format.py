@@ -55,9 +55,23 @@ def data_for_timeline(data):
             res+='\n'
     return res
 
-def remove_chars(number):
+def get_digits(number):
     res = ''
     for i in number:
         if i>='0' and i<='9':
             res+=i
+    return res
+
+def get_operator(string):
+    ops = ['+','-','|']
+    for i in string:
+        if i in ops:
+            return i
+        
+
+#Removes empty string in a list of strings
+def remove_empty_str(l):
+    res = []
+    for i in l:
+        if i != '': res.append(i)
     return res
