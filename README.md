@@ -17,19 +17,15 @@ This project has the goal of automating the process of updating tables and graph
 - If you want to contribute to the portuguese article, you can do the same thing as before, but the text files are now in the folder `output/portuguese` and the link to the Wikipedia article is https://pt.wikipedia.org/wiki/Pandemia_de_COVID-19_em_Portugal.
 
 ## Example of graphs
-Daily cases:
 ![](images/daily_cases.png)
 
-Cases by age and gender:
 ![](images/cases_age_gender.png)
 
-Summary:
 ![](images/summary.png)
 
-Hospital admitted information:
 ![](images/hospital_admitted.png)
 
-
+![](images/total_recoveries.png)
 ## Contributions
 Thanks to [hagnat](https://github.com/hagnat/) for the inspiration (he did something similar [here](https://github.com/hagnat/covid) but for the Brazilian wikipedia page).
 
