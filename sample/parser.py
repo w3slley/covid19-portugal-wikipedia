@@ -143,7 +143,7 @@ def new_cases(data):
 def cases_by_age_and_gender_english():
     return"""<div style='display: inline-block; width: 800px; vertical-align: top; margin-top:50px'>
 === Total confirmed cases by age and gender ===
-The following chart present the data from the last published DGS report where information regarding the total number of cases by age and gender was available (August 17th 2020).
+The following chart present the data from the last published DGS report where information regarding the total number of cases by age and gender was available<ref>{{citeweb |url=https://covid19.min-saude.pt/wp-content/uploads/2020/08/167_DGS_boletim_20200816.pdf |title= DGS report from August 16th 2020}}</ref>.
 {{Graph:Chart
 |width=650
 |colors=blue,orange
@@ -154,8 +154,8 @@ The following chart present the data from the last published DGS report where in
 |x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+, Unknown 
 |yAxisTitle=No. of cases
 |legend=Legend
-|y1= 
-|y2= 
+|y1= 1073, 1199, 3897, 4214, 4028, 3515, 2550, 1761, 1982, 44
+|y2= 932, 1357, 4467, 4640, 4904, 4601, 2842, 1972, 4092, 32
 |y1Title=Men
 |y2Title=Women
 |yGrid= |xGrid=
@@ -238,7 +238,7 @@ def new_deaths(data):
 def deaths_by_age_and_gender_english():
     return"""<div style='display: inline-block; width: 800px; vertical-align: top; margin-top:50px'>
 === Total confirmed deaths by age and gender ===
-The following chart present the data from the last published DGS report where information regarding the total number of deaths by age and gender was available (August 17th 2020).
+The following chart present the data from the last published DGS report where information regarding the total number of deaths by age and gender was available<ref>{{citeweb |url=https://covid19.min-saude.pt/wp-content/uploads/2020/08/167_DGS_boletim_20200816.pdf |title= DGS report from August 16th 2020}}</ref>.
 {{Graph:Chart
 |width=650
 |colors=blue,orange
@@ -249,8 +249,8 @@ The following chart present the data from the last published DGS report where in
 |x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+ 
 |yAxisTitle=No. of deaths
 |legend=Legend
-|y1= 
-|y2= 
+|y1= 0, 0, 1, 1, 11, 40, 110, 212, 520, 895
+|y2= 0, 0, 1, 3, 10, 17, 49, 135, 668, 883
 |y1Title=Men
 |y2Title=Women
 |yGrid= |xGrid=
@@ -508,10 +508,11 @@ def footer():
 [[Category:COVID-19 pandemic in Portugal|statistics]]"""
 
 #portuguese graphs
-def age_and_gender_graphs_portuguese(cases, deaths):
+def age_and_gender_graphs_portuguese():
     print('Generating cases by age and gender graphs in portuguese...')
     result="""=== Casos por idade e sexo ===
-Dados do último relatório da DGS em que estes dados estavam disponívels(17 de agosto de 2020).    
+Os gráficos a seguir refletem dados do último relatório da DGS em que tais informações estavam disponíveis (16 de agosto de 2020).  
+
 {{Gráfico
 |width=450
 |colors=blue,orange
@@ -522,8 +523,8 @@ Dados do último relatório da DGS em que estes dados estavam disponívels(17 de
 |x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+, Desconhecido
 |yAxisTitle=Número de casos
 |legend=Legenda
-|y1= 
-|y2= 
+|y1= 1073, 1199, 3897, 4214, 4028, 3515, 2550, 1761, 1982, 44
+|y2= 932, 1357, 4467, 4640, 4904, 4601, 2842, 1972, 4092, 32
 |y1Title=Men
 |y1Title=Homens
 |y2Title=Mulheres
@@ -540,8 +541,8 @@ Dados do último relatório da DGS em que estes dados estavam disponívels(17 de
 |x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+ 
 |yAxisTitle=Número de mortes
 |legend=Legenda
-|y1= 
-|y2= 
+|y1= 0, 0, 1, 1, 11, 40, 110, 212, 520, 895
+|y2= 0, 0, 1, 3, 10, 17, 49, 135, 668, 883
 |y1Title=Homens
 |y2Title=Mulheres
 |yGrid= |xGrid=
@@ -572,12 +573,10 @@ def timeline_graphs_portuguese():
 <!-- Total casos confirmados -->
 {{Gráfico
 |type=line
-|linewidth=1
-|showSymbols=1.5
+|linewidth=2
 |width=700
 |colors=#F46D43,#A50026,#C4ADA0,#C4ADB0,#C4ADC0
 |showValues= 
-|xAxisAngle=-40
 |xAxisTitle=Data
 |xType=date
 |xAxisFormat=%b %e
@@ -592,12 +591,10 @@ def timeline_graphs_portuguese():
 <!-- Mortes  -->
 {{Gráfico
 |type=line
-|linewidth=1.5
-|showSymbols=1
+|linewidth=2
 |width=700
 |colors=#262626
 |showValues=
-|xAxisAngle=-40
 |xAxisTitle=Data
 |xType=date
 |xAxisFormat=%b %e
@@ -615,12 +612,10 @@ def timeline_graphs_portuguese():
 
 {{Gráfico
 |type=line
-|linewidth=1.5
-|showSymbols=1
+|linewidth=2
 |width=700
 |colors=#87CEEB
 |showValues=
-|xAxisAngle=-40
 |xAxisTitle=Data
 |xType=date
 |xAxisFormat=%b %e
@@ -637,12 +632,10 @@ def timeline_graphs_portuguese():
 <!-- Internados -->
 {{Gráfico
 |type=line
-|linewidth=1.5
-|showSymbols=1
+|linewidth=2
 |width=700
 |colors=#FF0000, #FF4080
 |showValues=
-|xAxisAngle=-40
 |xAxisTitle=Date
 |xType=date
 |xAxisFormat=%b %e
@@ -663,12 +656,10 @@ def timeline_graphs_portuguese():
 <!-- Novos casos por dia -->
 {{Gráfico
 |type=line
-|linewidth=1.5
-|showSymbols=1
+|linewidth=2
 |width=700
 |colors=#F46D43
 |showValues=
-|xAxisAngle=-40
 |xAxisTitle=Data
 |xType=date
 |xAxisFormat=%b %e
@@ -684,12 +675,10 @@ def timeline_graphs_portuguese():
 <!-- Mortes por dia -->
 {{Gráfico
 |type=line
-|linewidth=1.5
-|showSymbols=1
+|linewidth=2
 |width=700
 |colors=#000000
 |showValues=
-|xAxisAngle=-40
 |xAxisTitle=Data
 |xType=date
 |xAxisFormat=%b %e
