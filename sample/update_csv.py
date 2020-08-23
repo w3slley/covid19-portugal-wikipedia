@@ -34,20 +34,18 @@ def update():#method that updates csv file with data from reports until the most
     report_urls= get_urls_missing_reports()
     n = len(report_urls)
     if n == 0:
-        print('The portugal_data.csv file is up to date with all DGS reports.')
-        print('Most current PDF report was already downloaded! There is nothing else to do.')
+        print('The portugal_data.csv file is up to date with all DGS reports')
+        print('Most current PDF report was already downloaded, nothing else to do')
     else:
-        print('Data from '+str(n)+' DGS report(s) need to be parsed into the .csv file!')
+        print('Data from '+str(n)+' DGS report(s) need to be parsed into the .csv file')
     #download PDFs and updates csv file
     for i in report_urls:
         # encode to urlencoded to prevent errors from acentos and other portuguese specific characters
         url = urllib.parse.quote(i['url']).replace('%3A', ':') # %3A is : in urlencoded. I had to replace it because for some reason the browser (and urllib) was not recognizing %3A as ":".
 
-        print('Updating portugal_data.csv file with data from the '+i['date']+' DGS report...')
+        print('Updating portugal_data.csv file with data from the '+i['date']+' DGS report')
         filepath = 'var/'+i['date'].replace('/','-')+'.pdf'
-        if not os.path.isfile(filepath):
-            print('Downloading PDF file...')
-            urllib.request.urlretrieve(url,filepath)#download pdf report
+        report.download(url, filepath)#downloading report
         old_df = pd.read_csv('portugal_data.csv')
         latest_index = old_df.tail(1).index.start
         old_total_cases = old_df.iloc[latest_index].total_cases
@@ -75,4 +73,4 @@ def update():#method that updates csv file with data from reports until the most
         new_df = pd.DataFrame([new_data], columns=list(new_data.keys()))
         updated_df = pd.concat([old_df, new_df]) #concatenate the two dataframes
         updated_df.to_csv('portugal_data.csv', index=False) #save
-        print('.csv file updated successfully!')
+        print('.csv file updated successfully')

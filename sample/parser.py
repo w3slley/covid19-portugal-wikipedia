@@ -4,7 +4,7 @@ import sample.format as format
 import pandas as pd
 
 def graphs_english(summary):
-    print('Generating tables and graphs for the english statistics page...')
+    print('Generating tables and graphs for the english statistics page')
     
     df = pd.read_csv('portugal_data.csv')
     columns = list(df.columns)
@@ -22,9 +22,9 @@ def graphs_english(summary):
     
     f = open('output/PortugalCovid-19-Statistics.txt', 'w+')
     result = ""
-    print('Generating Summary table...')
+    print('Generating Summary table')
     result += summary_table(summary)
-    print('Generating Statistics charts...')
+    print('Generating Statistics charts')
     result += total_cases(data)
     result += new_cases(data)
     result += cases_by_age_and_gender_english()
@@ -49,8 +49,8 @@ def summary_table(summary):
     for k,v in summary.items(): 
         summary[k] = format.add_commas(v)
 
-    link = report.info()['link']
-    date_summary = format.date_symptom(report.info()['report_date'])
+    link = report.info_latest()['link']
+    date_summary = format.date_symptom(report.info_latest()['report_date'])
 
     return """{{main|COVID-19 pandemic in Portugal}}
 
@@ -59,7 +59,7 @@ def summary_table(summary):
 <div style='width: 400px;margin: 0 auto;'>
 {| class="wikitable" 
 |+COVID-19 Summary
-! colspan="2" |DGS latest Covid-19 report: ["""+link+""" """+report.info()['report_date']+"""]
+! colspan="2" |DGS latest Covid-19 report: ["""+link+""" """+report.info_latest()['report_date']+"""]
 |-
 !Total confirmed cases
 |"""+summary['confirmed_cases']+"""
@@ -509,7 +509,7 @@ def footer():
 
 #portuguese graphs
 def age_and_gender_graphs_portuguese():
-    print('Generating cases by age and gender graphs in portuguese...')
+    print('Generating cases by age and gender graphs in portuguese')
     result="""=== Casos por idade e sexo ===
 Os gráficos a seguir refletem dados do último relatório da DGS em que tais informações estavam disponíveis (16 de agosto de 2020).  
 
@@ -554,7 +554,7 @@ Os gráficos a seguir refletem dados do último relatório da DGS em que tais in
 
 
 def timeline_graphs_portuguese():
-    print('Generating portuguese timeline graphs...')
+    print('Generating portuguese timeline graphs')
     df = pd.read_csv('portugal_data.csv')
     columns = list(df.columns)
     date = [format.date_timeline(i) for i in list(df.date)]

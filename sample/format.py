@@ -55,6 +55,12 @@ def data_for_timeline(data):
             res+='\n'
     return res
 
+def is_digit(string):
+    for i in string:
+        if i <'0' or i>'9':
+            return False
+    return True
+    
 def get_digits(number):
     res = ''
     for i in number:
@@ -68,10 +74,16 @@ def get_operator(string):
         if i in ops:
             return i
         
-
 #Removes empty string in a list of strings
 def remove_empty_str(l):
     res = []
     for i in l:
         if i != '': res.append(i)
     return res
+
+#Valid results must be digits and non-empty string 
+def are_values_valid(obj):
+    for i in list(obj.values()):
+        if i == '' or (not is_digit(i)): #every value has to be a valid digit (non-empty)
+            return False 
+    return True

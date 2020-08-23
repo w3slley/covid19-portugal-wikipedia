@@ -5,7 +5,7 @@ import sample.date as date
 import sample.pdf as pdf
 import sample.format as format
 
-def info(): #of the latest DGS report on Covid-19
+def info_latest(): #of the latest DGS report on Covid-19
     li_tags = web.get_li_items()
     link = li_tags[0].a.get('href') #get the url from the upmost link (which is the most recent report)
     most_recent_pdf_date = str(li_tags[0].text[-10:])
@@ -13,17 +13,20 @@ def info(): #of the latest DGS report on Covid-19
     return {'link': link, 'report_date':most_recent_pdf_date}
 
 #if there is no report on DGS' website for the current day, download latest report (previous day).If not, there is a report for today and the date will be the current one for the path
-def download(REPORT_PATH):
-    #Checking if the latest report was downloaded
+def download(url, REPORT_PATH):
     if os.path.isfile(REPORT_PATH):
-        print('Most current PDF report was already downloaded')
+        print('PDF report was already downloaded')
     else:
-        print('Downloading latest DGS report as a PDF file...')
-        urllib.request.urlretrieve(info()['link'], REPORT_PATH)
-        print('PDF file downloaded successfuly!')
-     
-    return True
+        print('Downloading PDF file')
+        urllib.request.urlretrieve(url, REPORT_PATH)
 
+
+def delete(REPORT_PATH):
+    if os.path.isfile(REPORT_PATH):
+        os.remove(REPORT_PATH)
+        
+    else:
+        print('No file in directory '+REPORT_PATH) 
 
 #I need to find a way to only call the convert_pdf_to_txt() function only once (for efficiency reasons)
 def get_summary_data(REPORT_PATH):
