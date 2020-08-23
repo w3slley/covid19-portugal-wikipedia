@@ -15,8 +15,8 @@ This project has the goal of automating the process of updating tables and graph
 - Run tests with `pytest -v tests/test_global.py` to check if the script works with the format from the latest DGS report.
 - If all the tests pass, run the command `python3 setup.py`.
 - Go to the folder `output/` and:
-    - copy the content of the file `PortugalCovid-19-Statistics.txt` to https://en.wikipedia.org/w/index.php?title=COVID-19_pandemic_in_Portugal/Statistics&action=edit.
-- If you want to contribute to the portuguese article, you can do the same thing as before, but the text files are now in the folder `output/portuguese` and the link to the Wikipedia article is https://pt.wikipedia.org/wiki/Pandemia_de_COVID-19_em_Portugal.
+    - copy the content of the file `PortugalCovid-19-Statistics.txt` to [Portugal's Covid-19 pandemic english wikipedia page](https://en.wikipedia.org/w/index.php?title=COVID-19_pandemic_in_Portugal/Statistics&action=edit).
+- To contribute to the portuguese page, go to the folder `output/portuguese` and copy the content of the files `GraphsCasesByAgeAndGender.txt` and `TimelineGraphs.txt` to the sections [Casos por idade e sexo](https://pt.wikipedia.org/w/index.php?title=Pandemia_de_COVID-19_em_Portugal&action=edit&section=27) and [Gráfico da evolução dos casos](https://pt.wikipedia.org/w/index.php?title=Pandemia_de_COVID-19_em_Portugal&action=edit&section=28), respectively.
 
 ## Example of charts
 ![](images/daily_cases.png)
@@ -33,7 +33,7 @@ This project has the goal of automating the process of updating tables and graph
 Thanks to [hagnat](https://github.com/hagnat/) for the inspiration (he did something similar [here](https://github.com/hagnat/covid) but for the Brazilian wikipedia page).
 
 ## Change in report format (August 16th 2020)
-Due to the change in the DGS report format (from August 16th onwards), a new method for parsing the PDF files and retrieving data had to be implemented. That was effectively done on August 22th, requiring the creation of a new git branch to implement the changes (the new one has name `new-branch` and I created another branch called `old-format-16-08-20` for the state before the changes).
+Due to the change in the DGS report format (from August 16th onwards), a new method for parsing the PDF files and retrieving data had to be implemented. That was effectively done on August 22nd, requiring the creation of a new git branch to implement the changes (the new one has name `new-branch` and I created another branch called `old-format-16-08-20` for the state before the changes).
 
 ## To do:
 - Implement testing (DONE)
