@@ -4,7 +4,7 @@ import sample.parser as parser
 import sample.date as date
 import sample.update_csv as csv
 
-"""
+
 REPORT_PATH = 'var/'+report.info_latest()['report_date'].replace('/','-')+'.pdf' #path for latest pdf report
 csv.update()
 
@@ -17,4 +17,4 @@ parser.timeline_graphs_portuguese()
 
 print('Graphs and tables generated succesfuly')
 print('The text files were saved in the directory output/')
-"""
+

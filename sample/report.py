@@ -70,7 +70,6 @@ def get_hospitalized_data(REPORT_PATH):
     lines = format.remove_empty_str(data.splitlines())
     values = []
     init = 0
-
     #getting index where data starts
     for index, value in enumerate(lines):
         if value == 'DISTRIBUIÇÃO DOS CASOS EM INTERNAMENTO':
