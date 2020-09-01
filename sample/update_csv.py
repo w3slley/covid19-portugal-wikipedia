@@ -67,7 +67,8 @@ def update():#method that updates csv file with data from reports until the most
             'recovered': recovered,
             'hospital_stable': h['hospital_stable'],
             'hospital_icu': h['hospital_icu'],
-            'icu_variation': int(h['hospital_icu'])-old_hospital_icu
+            'icu_variation': int(h['hospital_icu'])-old_hospital_icu,
+            'active_cases': total_cases - total_deaths - recovered
         }
         new_data_values = list(new_data.values())
         new_df = pd.DataFrame([new_data], columns=list(new_data.keys()))
