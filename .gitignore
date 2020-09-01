@@ -4,3 +4,4 @@ tests/__pycache__
 sample/__pycache__
 sample/create_csv.py
 sample/search.py
+*.ipynb
