@@ -54,16 +54,26 @@ def get_summary_data(REPORT_PATH):
 def get_data_by_age_and_gender(REPORT_PATH):
     data = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[1])
     lines = format.remove_empty_str(data.splitlines())
-    result = {}
+    #initial index for cases and deaths numbers
+    cases_index = 0
+    deaths_index = 0
+    #array which stores data to be returned
+    data = []
     for index, value in enumerate(lines):
         if value == 'TOTAL DE CASOS':
-            result['cases_men'] = format.get_digits(lines[index+1])
-            result['cases_women'] = format.get_digits(lines[index+2])
+            cases_index = index+1
         if value == 'TOTAL DE ÓBITOS':
-            result['deaths_men'] = format.get_digits(lines[index+1])
-            result['deaths_women'] = format.get_digits(lines[index+2])
-    return result
-
+            deaths_index = index+1
+    labels = ['homens', 'mulheres','875'] #875 is somehow hidden in the pdf but is displayed when we get the text from it, so one needs to ignore it to get correct values (in this case for the death numbers). If it changes in future reports, one should update it here
+    for i in range(4):
+        content_case = lines[cases_index+i]
+        content_death = lines[deaths_index+i]
+        if content_case.lower() not in labels:
+            data.append(format.get_digits(content_case))
+        if content_death.lower() not in labels:
+            data.append(format.get_digits(content_death))
+ 
+    return {'cases_men': data[0], 'deaths_men': data[1], 'cases_women': data[2], 'deaths_women': data[3]}
 
 def get_hospitalized_data(REPORT_PATH):
     data = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[0])
@@ -75,10 +85,10 @@ def get_hospitalized_data(REPORT_PATH):
         if value == 'DISTRIBUIÇÃO DOS CASOS EM INTERNAMENTO':
             init = index+1
 
-    for i in range(4):
+    for i in range(6):#going through the next 6 items in the list from the DISTRIB.. text
         op = format.get_operator(lines[init+i])
-        value = format.get_digits(lines[init+i].split(op)[0])
-        if op != '|':
+        if op != '|' and lines[init+i].lower() != 'internamento':
+            value = format.get_digits(lines[init+i].split(op)[0])
             values.append(value)
     
     return {'hospital_stable': values[0], 'hospital_icu': values[1]}

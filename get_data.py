@@ -11,7 +11,8 @@ csv.update()
 print('Parsing data from latest DGS report')
 
 summary = report.get_summary_data(REPORT_PATH)
-parser.graphs_english(summary)
+hospital = report.get_hospitalized_data(REPORT_PATH)
+parser.graphs_english(summary, hospital)
 parser.age_and_gender_graphs_portuguese()
 parser.timeline_graphs_portuguese()
 

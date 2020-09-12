@@ -21,22 +21,22 @@ def test_get_data_by_age_and_gender():
     }
 
 def test_get_summary_data():
-    result = report.get_summary_data('var/25-08-2020.pdf')
+    result = report.get_summary_data('var/09-09-2020.pdf')
     assert result == {
-        'confirmed_cases': '55912',
-        'active': '13086',
-        'recovered': '41021',
-        'deaths': '1805',
-        'under_surveillance': '33821',
-        'cases_men': '25151',
-        'cases_women': '30761',
-        'deaths_men': '910',
-        'deaths_women': '895'
+        'confirmed_cases': '61541',
+        'active': '16408',
+        'recovered': '43284',
+        'deaths': '1849',
+        'under_surveillance': '35151',
+        'cases_men': '27744',
+        'cases_women': '33797',
+        'deaths_men': '930',
+        'deaths_women': '919'
     }
 
 def test_get_hospitalized_data():
-    result = report.get_hospitalized_data('var/25-08-2020.pdf')
+    result = report.get_hospitalized_data('var/09-09-2020.pdf')
     assert result == {
-        'hospital_stable': '325',
-        'hospital_icu': '41'
+        'hospital_stable': '391',
+        'hospital_icu': '52'
     }
