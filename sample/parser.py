@@ -53,6 +53,7 @@ def summary_table(summary, hospital):
     date_summary = format.date_symptom(report.info_latest()['report_date'])
 
     return """{{main|COVID-19 pandemic in Portugal}}
+{{Current COVID}}
 
 == Statistics ==
 <section begin="Statistics"/>
