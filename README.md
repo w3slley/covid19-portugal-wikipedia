@@ -19,11 +19,11 @@ This project has the goal of automating the process of updating tables and graph
 - To contribute to the portuguese page, go to the folder `output/portuguese` and copy the content of the files `GraphsCasesByAgeAndGender.txt` and `TimelineGraphs.txt` into the sections [Casos por idade e sexo](https://pt.wikipedia.org/w/index.php?title=Pandemia_de_COVID-19_em_Portugal&action=edit&section=27) and [Gráfico da evolução dos casos](https://pt.wikipedia.org/w/index.php?title=Pandemia_de_COVID-19_em_Portugal&action=edit&section=28), respectively.
 
 ## Example of charts
+![](images/summary.png)
+
 ![](images/daily_cases.png)
 
 ![](images/cases_age_gender.png)
-
-![](images/summary.png)
 
 ![](images/hospital_admitted.png)
 
