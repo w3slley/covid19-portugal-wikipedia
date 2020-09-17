@@ -37,4 +37,5 @@ Due to the change in the DGS report format (from August 16th onwards), a new met
 
 ## To do:
 - Implement testing (DONE)
+- Keep track of more information over time in the .csv file - things like the evolution of cases and deaths by gender and age and by location, just to name a few
 

@@ -436,7 +436,7 @@ def footer():
 def age_and_gender_graphs_portuguese():
     print('Generating cases by age and gender graphs in portuguese')
     result="""=== Casos por idade e sexo ===
-Os gráficos a seguir refletem dados do último relatório da DGS em que tais informações estavam disponíveis (16 de agosto de 2020).  
+Os gráficos a seguir refletem dados do último relatório da DGS em que tais informações estavam disponíveis (16 de agosto de 2020).<ref>{{citeweb |url=https://covid19.min-saude.pt/wp-content/uploads/2020/08/167_DGS_boletim_20200816.pdf |title= Relatório da DGS do dia 16 de agosto de 2020}}</ref>  
 
 {{Gráfico
 |width=450
