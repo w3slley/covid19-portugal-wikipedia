@@ -435,7 +435,7 @@ def footer():
 #portuguese graphs
 def age_and_gender_graphs_portuguese():
     print('Generating cases by age and gender graphs in portuguese')
-    result="""=== Casos por idade e sexo ===
+    result="""=== Casos por idade e género ===
 Os gráficos a seguir refletem dados do último relatório da DGS em que tais informações estavam disponíveis (16 de agosto de 2020).<ref>{{citeweb |url=https://covid19.min-saude.pt/wp-content/uploads/2020/08/167_DGS_boletim_20200816.pdf |title= Relatório da DGS do dia 16 de agosto de 2020}}</ref>  
 
 {{Gráfico
@@ -490,10 +490,9 @@ def timeline_graphs_portuguese():
         else:
             data[i] = format.data_for_timeline(list(df[i]))
 
-    result = """
-=== Gráficos da evolução dos casos ===
+    result = """=== Gráficos da evolução dos casos ===
 <div style="float:left;margin-right:12px;">{{Dados da pandemia de COVID-19/Gráfico de casos médicos em Portugal}}
-</div>[[Imagem:CoViD-19 PT.svg|left|thumb|500px|Evolução diária do número de casos (a azul {{caixa cor|#004586}}) e de óbitos — totais acumulado (a vermelho {{caixa cor|#FF420E}}) e dos últimos 10 dias (a tracejado preto e branco <span style="font-size:175%;">◨</span>) —, em escala logarítmica (dados até 30 de Agosto)]]<div style="clear:left;" />
+</div>[[Imagem:CoViD-19 PT.svg|left|thumb|500px|Evolução diária do número de casos (a azul {{caixa cor|#004586}}) e de óbitos — totais acumulado (a vermelho {{caixa cor|#FF420E}}) e dos últimos 10 dias (a tracejado preto e branco <span style="font-size:175%;">◨</span>) —, em escala logarítmica.]]<div style="clear:left;" />
 
 <!-- Total casos confirmados -->
 {{Gráfico
