@@ -35,10 +35,10 @@ def graphs_english(summary, hospital):
     result += deaths_by_age_and_gender_english()
     result += hospital_admitted(data)
     result += icu_variation(data)
+    result += cases_deaths_by_region()
     result += growth()
     result += weekly_cases()
     result += weekly_deaths()
-    result += cases_deaths_by_region()
     result += deaths_cases_comparison()
     result += footer()
     f.write(result)
@@ -103,7 +103,7 @@ def total_cases(data):
     return"""
 The following graphs show the evolution of the pandemic starting from 2 March 2020, the day the first cases were confirmed in the country.<ref>{{Cite web|url=https://www.publico.pt/2020/03/02/sociedade/noticia/coronavirus-ha-dois-infectados-portugal-1905823|title=Coronavírus: há dois casos confirmados em Portugal|date=March 2, 2020|website=Público|url-status=live}}</ref>
 
-<div style='display: inline-block; width: 800px; vertical-align: top;'>
+<div style='display: inline-block; width: 750px; vertical-align: top;'>
 === Total confirmed cases ===
 {{Graph:Chart
 |type=line
@@ -126,32 +126,34 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 """
 
 def new_cases(data):
-    return"""<div style="max-width: 850px; overflow-x: scroll;">
+    return"""
 === New cases per day ===
 {{Graph:Chart
-|type=rect
-|width=1300
+|type=line
+|linewidth=1.5
+|showSymbols=1
+|width=750
 |colors=#F46D43
-|xAxisAngle=-90
 |showValues= offset:2
 |xAxisTitle=Date
-|x= """+data['date_daily']+"""
+|xType=date
+|xAxisFormat=%b %e
+|x= """+data['date']+"""
 |yAxisTitle=New cases
 |y1= """+data['daily_cases']+"""
 |y1Title=New cases per day
 |yGrid=
 }}
-</div>
 
 """
 
 
 def cases_by_age_and_gender_english():
-    return"""<div style='display: inline-block; width: 800px; vertical-align: top; margin-top:50px'>
+    return"""<div style='display: inline-block; width: 750px; vertical-align: top; margin-top:50px'>
 === Total confirmed cases by age and gender ===
 The following chart present the data from the last published DGS report where information regarding the total number of cases by age and gender was available.<ref name=DGS-2020-08-16>{{citeweb |url=https://covid19.min-saude.pt/wp-content/uploads/2020/08/167_DGS_boletim_20200816.pdf |title= DGS report from August 16th 2020}}</ref>
 {{Graph:Chart
-|width=650
+|width=750
 |colors=blue,orange
 |showValues=offset:2
 |xAxisTitle=Age
@@ -178,13 +180,13 @@ def total_cases_log():
 
 """
 def total_deaths(data):
-    return"""<div style='display: inline-block; width: 800px; vertical-align: top;'>
+    return"""<div style='display: inline-block; width: 750px; vertical-align: top;'>
 === Total confirmed deaths ===
 {{Graph:Chart
 |type=line
 |linewidth=1.5
 |showSymbols=1
-|width=650
+|width=750
 |colors={{Medical cases chart/Bar colors|1}}
 |showValues=
 |xAxisTitle=Date
@@ -200,13 +202,13 @@ def total_deaths(data):
 """
 
 def total_recoveries(data):
-    return"""<div style='display: inline-block; width: 800px; vertical-align: top;'>
+    return"""<div style='display: inline-block; width: 750px; vertical-align: top;'>
 === Total confirmed recoveries ===
 {{Graph:Chart
 |type=line
 |linewidth=1.5
 |showSymbols=1
-|width=650
+|width=750
 |colors={{Medical cases chart/Bar colors|2}}
 |showValues=
 |xAxisTitle=Date
@@ -222,16 +224,19 @@ def total_recoveries(data):
 """
 
 def new_deaths(data):
-    return"""<div style="max-width: 850px; overflow-x: scroll;">
+    return"""<div style='display: inline-block; width: 750px; vertical-align: top;'>
 === New deaths per day ===
 {{Graph:Chart
-|type=rect
-|width=1300
+|type=line
+|linewidth=1.5
+|showSymbols=1
+|width=750
 |colors={{Medical cases chart/Bar colors|1}}
 |showValues=offset:2
-|xAxisAngle=-90
 |xAxisTitle=Date
-|x= """+data['date_daily']+"""
+|xType=date
+|xAxisFormat=%b %e
+|x= """+data['date']+"""
 |yAxisTitle=New deaths
 |y1=  """+data['daily_deaths']+"""
 |y1Title=New deaths per day
@@ -242,11 +247,11 @@ def new_deaths(data):
 """
 
 def deaths_by_age_and_gender_english():
-    return"""<div style='display: inline-block; width: 800px; vertical-align: top; margin-top:50px'>
+    return"""<div style='display: inline-block; width: 750px; vertical-align: top; margin-top:50px'>
 === Total confirmed deaths by age and gender ===
 The following chart present the data from the last published DGS report where information regarding the total number of deaths by age and gender was available.<ref name=DGS-2020-08-16/>
 {{Graph:Chart
-|width=650
+|width=750
 |colors=blue,orange
 |showValues=offset:2
 |xAxisTitle=Age
@@ -271,11 +276,10 @@ def hospital_admitted(data):
 |type=line
 |linewidth=1.5
 |showSymbols=1
-|width=650
+|width=750
 |colors={{Medical cases chart/Bar colors|4}},{{Medical cases chart/Bar colors|5}}
 |showValues=
 |xAxisTitle=Date
-|xAxisAngle=-40
 |xType=date
 |xAxisFormat=%b %e
 |x= """+data['date']+"""
@@ -296,11 +300,11 @@ def icu_variation(data):
 {{Graph:Chart
 |type=line
 |linewidth=1.5
-|width=650
+|showSymbols=1
+|width=750
 |colors={{Medical cases chart/Bar colors|4}}
 |showValues=offset:2
 |xAxisTitle=Date
-|xAxisAngle=-40
 |xType=date
 |xAxisFormat=%b %e
 |x= """+data['date']+"""
@@ -308,7 +312,7 @@ def icu_variation(data):
 |legend=Legend
 |y1= """+data['icu_variation']+"""
 |y1Title = Cases in ICU variation per day
-|yGrid= |xGrid= 
+|yGrid=
 }}
 """
 
@@ -325,11 +329,11 @@ The following graph presents the total number of COVID-19 cases per day for the 
 
 def weekly_cases():
     return """
-<div style="max-width: 900px; overflow-x: scroll;">
+<div style="max-width: 750px; overflow-x: scroll;">
 === New cases per week ===
 {{Graph:Chart
 |type=rect
-|width=800
+|width=750
 |colors=#F46D43
 |xAxisAngle=-60
 |showValues= offset:2
@@ -359,11 +363,11 @@ def weekly_cases():
 
 def weekly_deaths():
     return """
-<div style="max-width: 900px; overflow-x: scroll;>
+<div style="max-width: 750px; overflow-x: scroll;>
 === New deaths per week ===
 {{Graph:Chart
 |type=rect
-|width=800
+|width=750
 |colors={{Medical cases chart/Bar colors|1}}
 |xAxisAngle=-60
 |showValues= offset:2
@@ -415,10 +419,10 @@ According to the Portuguese mortality surveillance (EVM<ref>{{cite web|url=https
 {{clear}}
 
 In the following two graphs, the total deaths per day and by age group are presented for the years 2019 and 2020.<ref>{{Cite web|url=https://evm.min-saude.pt/#shiny-tab-a_idade|title=SICO - eVM {{!}} Mortalidade por grupo etário |publisher=Evm.min-saude.pt}}</ref>
-<div style='display: inline-block; width: 800px; vertical-align: top;'>
+<div style='display: inline-block; width: 750px; vertical-align: top;'>
 [[File:Deaths_per_age_group_2019.png|thumb|left|720px|Total number of deaths per day for Portugal per age group for the year 2019.]]
 </div>
-<div style='display: inline-block; width: 800px; vertical-align: top;'>
+<div style='display: inline-block; width: 750px; vertical-align: top;'>
 [[File:Deaths_per_age_group_2020.png|thumb|left|720px|Total number of deaths per day for Portugal per age group for the year 2020.]]
 </div>
 {{clear}}
