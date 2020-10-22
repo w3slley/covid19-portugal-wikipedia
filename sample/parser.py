@@ -53,7 +53,6 @@ def summary_table(summary, hospital):
     date_summary = format.date_symptom(report.info_latest()['report_date'])
 
     return """{{main|COVID-19 pandemic in Portugal}}
-{{Current COVID}}
 
 == Statistics ==
 <section begin="Statistics"/>
@@ -151,7 +150,7 @@ def new_cases(data):
 def cases_by_age_and_gender_english():
     return"""<div style='display: inline-block; width: 750px; vertical-align: top; margin-top:50px'>
 === Total confirmed cases by age and gender ===
-The following chart present the data from the last published DGS report where information regarding the total number of cases by age and gender was available.<ref name=DGS-2020-08-16>{{citeweb |url=https://covid19.min-saude.pt/wp-content/uploads/2020/08/167_DGS_boletim_20200816.pdf |title= DGS report from August 16th 2020}}</ref>
+The following chart present the data from the last published DGS report where information regarding the total number of cases by age and gender was available.<ref name=DGS-2020-08-16>{{cite web |url=https://covid19.min-saude.pt/wp-content/uploads/2020/08/167_DGS_boletim_20200816.pdf |title= DGS report from August 16th 2020}}</ref>
 {{Graph:Chart
 |width=750
 |colors=blue,orange
