@@ -13,6 +13,7 @@ def test_PDF_format():
     data_summary = report.get_summary_data(filename)
     data_hospt = report.get_hospitalized_data(filename)
     age_and_gender = report.get_data_by_age_and_gender(filename)
+    print(data_summary)
     #deleting report
     report.delete(filename)
     #assertion

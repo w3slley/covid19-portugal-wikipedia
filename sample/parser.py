@@ -89,10 +89,10 @@ def summary_table(summary, hospital):
 |"""+summary['deaths']+"""
 |-
 !Currently admitted to hospital
-|"""+hospital['hospital_stable']+"""
+|"""+format.add_commas(hospital['hospital_stable'])+"""
 |-
 !Currently admitted to ICU (Intensive Care Unit)
-|"""+hospital['hospital_icu']+"""
+|"""+format.add_commas(hospital['hospital_icu'])+"""
 |-
 |}
 </div>
