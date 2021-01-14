@@ -73,15 +73,22 @@ def get_operator(string):
     for i in string:
         if i in ops:
             return i
-        
+
+#Removes space from a string of numbers
+def remove_space(str):
+    ans = ""
+    for i in range(len(str)):
+        if(str[i]!=' '): ans+=str[i]
+    return ans
+
 #Removes empty string in a list of strings
 def remove_empty_str(l):
     res = []
     for i in l:
-        if i != '': res.append(i)
+        if i != '' and i!=' ': res.append(i)
     return res
 
-#Valid results must be digits and non-empty string 
+#Method that checks if all values in a dictionary are valid (which in this case means they are digits) 
 def are_values_valid(obj):
     for i in list(obj.values()):
         if i == '' or (not is_digit(i)): #every value has to be a valid digit (non-empty)

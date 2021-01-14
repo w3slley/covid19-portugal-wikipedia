@@ -54,24 +54,26 @@ def get_summary_data(REPORT_PATH):
 def get_data_by_age_and_gender(REPORT_PATH):
     data = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[1])
     lines = format.remove_empty_str(data.splitlines())
+    print(lines)
     #initial index for cases and deaths numbers
     cases_index = 0
     deaths_index = 0
     #array which stores data to be returned
     data = []
     for index, value in enumerate(lines):
-        if value == 'TOTAL DE CASOS':
+        #looking for total cases/deaths numbers in txt file (actual data is one index after the words TOTAL DE CASOS e TOTAL DE ÓBITOS)
+        #strip_empty_str removes all ' ' characters in a string
+        if format.remove_space(value.lower()) == 'totaldecasos':
             cases_index = index+1
-        if value == 'TOTAL DE ÓBITOS':
+        if format.remove_space(value.lower()) == 'totaldeóbitos':
             deaths_index = index+1
-    labels = ['homens', 'mulheres','875'] #875 is somehow hidden in the pdf but is displayed when we get the text from it, so one needs to ignore it to get correct values (in this case for the death numbers). If it changes in future reports, one should update it here
-    for i in range(4):
-        content_case = lines[cases_index+i]
-        content_death = lines[deaths_index+i]
-        if content_case.lower() not in labels:
-            data.append(format.get_digits(content_case))
-        if content_death.lower() not in labels:
-            data.append(format.get_digits(content_death))
+    
+    #appending number of cases/deaths to list data
+    for i in range(2):
+        cases = lines[cases_index+i]
+        deaths = lines[deaths_index+i]
+        data.append(format.get_digits(cases))
+        data.append(format.get_digits(deaths))
  
     return {'cases_men': data[0], 'deaths_men': data[1], 'cases_women': data[2], 'deaths_women': data[3]}
 

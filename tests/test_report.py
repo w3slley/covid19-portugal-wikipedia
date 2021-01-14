@@ -11,32 +11,24 @@ def test_download():
     assert os.path.isfile(filename)
     report.delete(filename)
 
-def test_get_data_by_age_and_gender():
-    result = report.get_data_by_age_and_gender('var/17-08-2020.pdf')
-    assert result == {
-        'cases_men': '24335',
-        'cases_women': '29899',
-        'deaths_men': '896',
-        'deaths_women': '883'
-    }
-
 def test_get_summary_data():
-    result = report.get_summary_data('var/09-09-2020.pdf')
+    result = report.get_summary_data('var/22-12-2020.pdf')
+    print(result)
     assert result == {
-        'confirmed_cases': '61541',
-        'active': '16408',
-        'recovered': '43284',
-        'deaths': '1849',
-        'under_surveillance': '35151',
-        'cases_men': '27744',
-        'cases_women': '33797',
-        'deaths_men': '930',
-        'deaths_women': '919'
+        'confirmed_cases': '378656',
+        'active': '67577',
+        'recovered': '304825',
+        'deaths': '6254',
+        'under_surveillance': '86334',
+        'cases_men': '170035',
+        'cases_women': '208484',
+        'deaths_men': '3258',
+        'deaths_women': '2996'
     }
 
 def test_get_hospitalized_data():
-    result = report.get_hospitalized_data('var/09-09-2020.pdf')
+    result = report.get_hospitalized_data('var/22-12-2020.pdf')
     assert result == {
-        'hospital_stable': '391',
-        'hospital_icu': '52'
+        'hospital_stable': '3095',
+        'hospital_icu': '508'
     }
