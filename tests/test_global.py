@@ -12,10 +12,10 @@ def test_PDF_format():
     report.download(report.info_latest()['link'], filename)
     #getting data
     data_summary = report.get_summary_data(filename)
-    print(data_summary)
     data_hospt = report.get_hospitalized_data(filename)
     age_and_gender = report.get_data_by_age_and_gender(filename)
-    
+    print(data_summary,data_hospt)
+
     #deleting report
     report.delete(filename)
     #assertion

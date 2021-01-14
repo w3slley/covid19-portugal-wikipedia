@@ -28,33 +28,50 @@ def delete(REPORT_PATH):
     else:
         print('No file in directory '+REPORT_PATH) 
 
+#given the inputs one or two positions before the "report_values" tags, select the correct one
+def choose_valid_input(lines,index):
+    ans = ""
+    #loop through the two valid positions where the valid data should be
+    for i in range(1,3):
+        data = format.remove_space(lines[index-i])
+        #getting the operator (+ or -) which separates data from change in increase/decrease
+        operator = format.get_operator(data)
+        if format.is_digit(data):
+            return data
+        elif len(data.split(operator)[0])!=0: 
+            return format.remove_space(data.split('+')[0])
+
 #I need to find a way to only call the convert_pdf_to_txt() function only once (for efficiency reasons)
 def get_summary_data(REPORT_PATH):
     data = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[0])
     lines = format.remove_empty_str(data.splitlines())
     fields = ['active', 'recovered','deaths','under_surveillance', 'confirmed_cases']
-    report_values = ['ATIVOS', 'RECUPERADOS', 'ÓBITOS', 'EM VIGILÂNCIA', 'CONTACTOS EM VIGILÂNCIA', 'CONFIRMADOS']
+    #added a ' ' at the end of the fields (due to change in the PDF format)
+    report_values = ['ATIVOS ', 'RECUPERADOS ', 'ÓBITOS ', 'EM VIGILÂNCIA ', 'CONTACTOS EM VIGILÂNCIA ', 'CONFIRMADOS ']
     results=[]
     for index, value in enumerate(lines):
         if len(results) == 5:
             break
         #checking for each item on pdf(change in format could break this though)
         if value in report_values:
-            result_str = lines[index-1] #getting string two positions before curr value (based on format)
-            operator = format.get_operator(result_str)#getting the operator (+ or -) which separates data from change in increase/decrease
-            results.append(format.get_digits(result_str.split(operator)[0]))#getting only the digits from the leftmost part of string (where the correct values are)
+            #adding to results list only valid data from pdf
+            results.append(choose_valid_input(lines,index))
+
     obj = {}
     for i in range(len(results)):
         obj[fields[i]] = results[i]
     data_age_gender = get_data_by_age_and_gender(REPORT_PATH)    
     obj.update(data_age_gender)
+
+    if format.are_values_valid(obj)==False:
+         raise Exception("An error has occured while parsing the data in the method get_summary_data()")
+
     return obj
 
     
 def get_data_by_age_and_gender(REPORT_PATH):
     data = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[1])
     lines = format.remove_empty_str(data.splitlines())
-    print(lines)
     #initial index for cases and deaths numbers
     cases_index = 0
     deaths_index = 0
@@ -70,11 +87,23 @@ def get_data_by_age_and_gender(REPORT_PATH):
     
     #appending number of cases/deaths to list data
     for i in range(2):
-        cases = lines[cases_index+i]
-        deaths = lines[deaths_index+i]
-        data.append(format.get_digits(cases))
-        data.append(format.get_digits(deaths))
- 
+        cases = format.get_digits(lines[cases_index+i])
+
+        #fixing problem with data on women's death out of order
+        if i == 1:
+            pos = i
+            for j in range(-5,6):#loop through neighbor positions and check if they are valid
+                d = format.get_digits(lines[deaths_index+j])
+                if len(d)>=4 and not(d in data): 
+                    pos = j
+        else:
+            pos = i
+        deaths = format.get_digits(lines[deaths_index+pos])
+        if cases=='' or deaths=='': 
+            raise Exception("An error has occured while parsing the data in the get_data_by_age_and_gender() method")
+        data.append(cases)
+        data.append(deaths)
+    
     return {'cases_men': data[0], 'deaths_men': data[1], 'cases_women': data[2], 'deaths_women': data[3]}
 
 def get_hospitalized_data(REPORT_PATH):
@@ -82,17 +111,16 @@ def get_hospitalized_data(REPORT_PATH):
     lines = format.remove_empty_str(data.splitlines())
     values = []
     init = 0
-    #getting index where data starts
+    #getting index where data starts (using method remove_space to prevent future changes in the format - like adding a ' ' at the end of the words like in this case)
     for index, value in enumerate(lines):
-        if value == 'DISTRIBUIÇÃO DOS CASOS EM INTERNAMENTO':
+        if format.remove_space(value.lower()) == 'distribuiçãodoscasoseminternamento':
             init = index+1
+    #Data regarding patients in hospital and in ICU are in positions init+0 e init+2
+    for i in range(2):
+        number = format.remove_space(lines[init+(2*i)])
+        if(format.is_digit(number)):
+            values.append(number)
 
-    for i in range(6):#going through the next 6 items in the list from the DISTRIB.. text
-        op = format.get_operator(lines[init+i])
-        if op != '|' and lines[init+i].lower() != 'internamento':
-            value = format.get_digits(lines[init+i].split(op)[0])
-            values.append(value)
-    
     return {'hospital_stable': values[0], 'hospital_icu': values[1]}
     
 

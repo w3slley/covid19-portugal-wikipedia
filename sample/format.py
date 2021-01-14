@@ -55,6 +55,7 @@ def data_for_timeline(data):
             res+='\n'
     return res
 
+#Method that checks if a string is a valid number (to check if the data being gathered from the pdf is actual a valid number of a string or something else)
 def is_digit(string):
     for i in string:
         if i <'0' or i>'9':
@@ -91,6 +92,6 @@ def remove_empty_str(l):
 #Method that checks if all values in a dictionary are valid (which in this case means they are digits) 
 def are_values_valid(obj):
     for i in list(obj.values()):
-        if i == '' or (not is_digit(i)): #every value has to be a valid digit (non-empty)
+        if i == '' or i==' ' or (not is_digit(i)): #every value has to be a valid digit (non-empty)
             return False 
     return True

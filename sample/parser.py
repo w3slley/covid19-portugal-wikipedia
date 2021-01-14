@@ -113,7 +113,7 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 |showValues=
 |xAxisTitle=Date
 |xType=date
-|xAxisFormat=%b %e
+|xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
 |yAxisTitle=No. of cases
 |y1= """+data['total_cases']+"""
@@ -136,7 +136,7 @@ def new_cases(data):
 |showValues= offset:2
 |xAxisTitle=Date
 |xType=date
-|xAxisFormat=%b %e
+|xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
 |yAxisTitle=New cases
 |y1= """+data['daily_cases']+"""
@@ -190,7 +190,7 @@ def total_deaths(data):
 |showValues=
 |xAxisTitle=Date
 |xType=date
-|xAxisFormat=%b %e
+|xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
 |yAxisTitle=No. of confirmed deaths
 |y= """+data['total_deaths']+"""
@@ -212,7 +212,7 @@ def total_recoveries(data):
 |showValues=
 |xAxisTitle=Date
 |xType=date
-|xAxisFormat=%b %e
+|xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
 |yAxisTitle=No. of confirmed recoveries
 |y= """+data['recovered']+"""
@@ -234,7 +234,7 @@ def new_deaths(data):
 |showValues=offset:2
 |xAxisTitle=Date
 |xType=date
-|xAxisFormat=%b %e
+|xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
 |yAxisTitle=New deaths
 |y1=  """+data['daily_deaths']+"""
@@ -280,7 +280,7 @@ def hospital_admitted(data):
 |showValues=
 |xAxisTitle=Date
 |xType=date
-|xAxisFormat=%b %e
+|xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
 |yAxisTitle=No. of cases
 |legend=Legend
@@ -305,7 +305,7 @@ def icu_variation(data):
 |showValues=offset:2
 |xAxisTitle=Date
 |xType=date
-|xAxisFormat=%b %e
+|xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
 |yAxisTitle=Cases in ICU variation
 |legend=Legend
@@ -433,7 +433,8 @@ def footer():
 {{reflist|colwidth=30em}}
 
 {{2019-nCoV|state=expanded}}
-[[Category:COVID-19 pandemic in Portugal|statistics]]"""
+[[Category:COVID-19 pandemic in Portugal|statistics]]
+[[Category:Statistics of the COVID-19 pandemic|Portugal]]"""
 
 #portuguese graphs
 def age_and_gender_graphs_portuguese():
@@ -506,7 +507,7 @@ def timeline_graphs_portuguese():
 |showValues= 
 |xAxisTitle=Data
 |xType=date
-|xAxisFormat=%b %e
+|xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
 |yAxisTitle=Nº de casos
 |y1= """+data['total_cases']+"""
@@ -524,7 +525,7 @@ def timeline_graphs_portuguese():
 |showValues=
 |xAxisTitle=Data
 |xType=date
-|xAxisFormat=%b %e
+|xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
 |yAxisTitle=Nº de casos
 |y1= """+data['total_deaths']+""" 
@@ -545,7 +546,7 @@ def timeline_graphs_portuguese():
 |showValues=
 |xAxisTitle=Data
 |xType=date
-|xAxisFormat=%b %e
+|xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
 |yAxisTitle=Nº de casos
 |y1= """+data['recovered']+"""
@@ -565,7 +566,7 @@ def timeline_graphs_portuguese():
 |showValues=
 |xAxisTitle=Data
 |xType=date
-|xAxisFormat=%b %e
+|xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
 |yAxisTitle=Nº de casos ativos
 |y1= """+data['active_cases']+"""
@@ -585,7 +586,7 @@ def timeline_graphs_portuguese():
 |showValues=
 |xAxisTitle=Date
 |xType=date
-|xAxisFormat=%b %e
+|xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
 |yAxisTitle=Nº de casos
 |y1Title=UCI
@@ -609,7 +610,7 @@ def timeline_graphs_portuguese():
 |showValues=
 |xAxisTitle=Data
 |xType=date
-|xAxisFormat=%b %e
+|xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
 |yAxisTitle=Novos casos
 |y1= """+data['daily_cases']+"""
@@ -628,7 +629,7 @@ def timeline_graphs_portuguese():
 |showValues=
 |xAxisTitle=Data
 |xType=date
-|xAxisFormat=%b %e
+|xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
 |yAxisTitle=Novas mortes
 |y1= """+data['daily_deaths']+"""
