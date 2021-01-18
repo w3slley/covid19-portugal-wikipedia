@@ -30,8 +30,8 @@ def graphs_english(summary, hospital):
     result += cases_by_age_and_gender_english()
     result += total_cases_log()
     result += total_deaths(data)
-    result += total_recoveries(data)
     result += new_deaths(data)
+    result += total_recoveries(data)
     result += deaths_by_age_and_gender_english()
     result += hospital_admitted(data)
     result += icu_variation(data)
@@ -186,7 +186,7 @@ def total_deaths(data):
 |linewidth=1.5
 |showSymbols=1
 |width=750
-|colors={{Medical cases chart/Bar colors|1}}
+|colors=purple
 |showValues=
 |xAxisTitle=Date
 |xType=date
@@ -200,27 +200,6 @@ def total_deaths(data):
 
 """
 
-def total_recoveries(data):
-    return"""<div style='display: inline-block; width: 750px; vertical-align: top;'>
-=== Total confirmed recoveries ===
-{{Graph:Chart
-|type=line
-|linewidth=1.5
-|showSymbols=1
-|width=750
-|colors={{Medical cases chart/Bar colors|2}}
-|showValues=
-|xAxisTitle=Date
-|xType=date
-|xAxisFormat=%d/%m/%y
-|x= """+data['date']+"""
-|yAxisTitle=No. of confirmed recoveries
-|y= """+data['recovered']+"""
-|yGrid= |xGrid=
-}}
-</div>
-
-"""
 
 def new_deaths(data):
     return"""<div style='display: inline-block; width: 750px; vertical-align: top;'>
@@ -230,7 +209,7 @@ def new_deaths(data):
 |linewidth=1.5
 |showSymbols=1
 |width=750
-|colors={{Medical cases chart/Bar colors|1}}
+|colors=purple
 |showValues=offset:2
 |xAxisTitle=Date
 |xType=date
@@ -244,6 +223,29 @@ def new_deaths(data):
 </div>
 
 """
+
+def total_recoveries(data):
+    return"""<div style='display: inline-block; width: 750px; vertical-align: top;'>
+=== Total confirmed recoveries ===
+{{Graph:Chart
+|type=line
+|linewidth=1.5
+|showSymbols=1
+|width=750
+|colors=aqua
+|showValues=
+|xAxisTitle=Date
+|xType=date
+|xAxisFormat=%d/%m/%y
+|x= """+data['date']+"""
+|yAxisTitle=No. of confirmed recoveries
+|y= """+data['recovered']+"""
+|yGrid= |xGrid=
+}}
+</div>
+
+"""
+
 
 def deaths_by_age_and_gender_english():
     return"""<div style='display: inline-block; width: 750px; vertical-align: top; margin-top:50px'>
@@ -276,7 +278,7 @@ def hospital_admitted(data):
 |linewidth=1.5
 |showSymbols=1
 |width=750
-|colors={{Medical cases chart/Bar colors|4}},{{Medical cases chart/Bar colors|5}}
+|colors=yellow,orange
 |showValues=
 |xAxisTitle=Date
 |xType=date
