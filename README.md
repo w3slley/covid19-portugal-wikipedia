@@ -12,8 +12,8 @@ This project has the goal of automating the process of updating data charts for 
 ## Usage
 - Clone this repository and `cd` into it.
 - Download the required packages with `pip3 install -r requirements.txt`.
-- Run tests with `pytest -v tests/test_global.py` to check if the script works with the format from the latest DGS report.
-- If all the tests pass, run the command `python3 get_data.py`.
+- Run tests with `pytest -v tests/test_global.py` to check whether the script works with the format from the latest DGS report.
+- If all tests are successful, run the command `python3 get_data.py`.
 - Go to the folder `output/` and:
     - copy the content of the file `PortugalCovid-19-Statistics.txt` into [Portugal's Covid-19 pandemic english wikipedia page](https://en.wikipedia.org/w/index.php?title=Statistics_of_the_COVID-19_pandemic_in_Portugal&action=edit)
 - To contribute to the portuguese page, go to the folder `output/portuguese` and copy the content of the files `GraphsCasesByAgeAndGender.txt` and `TimelineGraphs.txt` into the sections [Casos por idade e sexo](https://pt.wikipedia.org/w/index.php?title=Pandemia_de_COVID-19_em_Portugal&action=edit&section=27) and [Gráfico da evolução dos casos](https://pt.wikipedia.org/w/index.php?title=Pandemia_de_COVID-19_em_Portugal&action=edit&section=28), respectively.
