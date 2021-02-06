@@ -38,7 +38,7 @@ def date_timeline_daily_stats(date): #DD-MM-YY
     }
     d = date.split('-')
     day = d[0][1] if d[0][0]=='0' else d[0] #getting only the day number (remove preceding zero)
-    return day+' '+months[d[1]] #15 May
+    return day+' '+months[d[1]]+' '+d[2] #15 May 20
 
 def date_timeline(date): #DD-MM-YY
     d = date.split('-')

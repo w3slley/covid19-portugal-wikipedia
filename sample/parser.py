@@ -20,6 +20,9 @@ def graphs_english(summary, hospital):
         if i!='date':#because date key was already assigned
             data[i] = format.data_for_timeline(list(df[i]))
     
+    #getting data regarding cases/deaths by age and gender from DSSG/Vost
+    age_gender = report.get_recent_data_age_gender()
+
     f = open('output/PortugalCovid-19-Statistics.txt', 'w+')
     result = ""
     print('Generating Summary table')
@@ -27,14 +30,13 @@ def graphs_english(summary, hospital):
     print('Generating Statistics charts')
     result += total_cases(data)
     result += new_cases(data)
-    result += cases_by_age_and_gender_english()
+    result += cases_by_age_and_gender_english(age_gender)
     result += total_cases_log()
     result += total_deaths(data)
     result += new_deaths(data)
-    result += total_recoveries(data)
-    result += deaths_by_age_and_gender_english()
+    result += deaths_by_age_and_gender_english(age_gender)
     result += hospital_admitted(data)
-    result += icu_variation(data)
+    result += icu_admitted(data)
     result += cases_deaths_by_region()
     result += growth()
     result += weekly_cases()
@@ -66,17 +68,17 @@ def summary_table(summary, hospital):
 !Active cases
 |"""+summary['active']+"""
 |-
-!Total cases (men)
-|"""+summary['cases_men']+"""
-|-
 !Total cases (women)
 |"""+summary['cases_women']+"""
 |-
-!Total deaths (men)
-|"""+summary['deaths_men']+"""
+!Total cases (men)
+|"""+summary['cases_men']+"""
 |-
 !Total deaths (women)
 |"""+summary['deaths_women']+"""
+|-
+!Total deaths (men)
+|"""+summary['deaths_men']+"""
 |-
 !Under surveillance
 |"""+summary['under_surveillance']+"""
@@ -102,14 +104,15 @@ def total_cases(data):
 The following graphs show the evolution of the pandemic starting from 2 March 2020, the day the first cases were confirmed in the country.<ref>{{Cite web|url=https://www.publico.pt/2020/03/02/sociedade/noticia/coronavirus-ha-dois-infectados-portugal-1905823|title=Coronavírus: há dois casos confirmados em Portugal|date=March 2, 2020|website=Público|url-status=live}}</ref>
 
 <div style='display: inline-block; width: 750px; vertical-align: top;'>
-=== Total confirmed cases ===
+=== Total confirmed and recovered cases ===
 {{Graph:Chart
 |type=line
 |linewidth=1.5
 |showSymbols=1
 |width=750
-|colors=#F46D43
+|colors=#F46D43,aqua
 |showValues=
+|legend=Legend
 |xAxisTitle=Date
 |xType=date
 |xAxisFormat=%d/%m/%y
@@ -117,6 +120,8 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 |yAxisTitle=No. of cases
 |y1= """+data['total_cases']+"""
 |y1Title=Total confirmed cases
+|y2= """+data['recovered']+"""
+|y2Title=Total recovered cases
 |yGrid= |xGrid=
 }}
 </div>
@@ -146,22 +151,21 @@ def new_cases(data):
 """
 
 
-def cases_by_age_and_gender_english():
+def cases_by_age_and_gender_english(age_gender):
     return"""<div style='display: inline-block; width: 750px; vertical-align: top; margin-top:50px'>
 === Total confirmed cases by age and gender ===
-The following chart present the data from the last published DGS report where information regarding the total number of cases by age and gender was available.<ref name=DGS-2020-08-16>{{cite web |url=https://covid19.min-saude.pt/wp-content/uploads/2020/08/167_DGS_boletim_20200816.pdf |title= DGS report from August 16th 2020}}</ref>
+The following chart displays the proportion of total cases by age and gender on """+format.date_timeline_daily_stats(age_gender['date'])+""".<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |title= Github - Data Science for Social Good (DSSG)}}</ref>
 {{Graph:Chart
 |width=750
 |colors=blue,orange
 |showValues=offset:2
 |xAxisTitle=Age
-|xAxisAngle=-50
 |type=rect
-|x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+, Unknown 
+|x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+
 |yAxisTitle=No. of cases
 |legend=Legend
-|y1= 1073, 1199, 3897, 4214, 4028, 3515, 2550, 1761, 1982, 44
-|y2= 932, 1357, 4467, 4640, 4904, 4601, 2842, 1972, 4092, 32
+|y1= """+age_gender['cases_men']+"""
+|y2= """+age_gender['cases_women']+"""
 |y1Title=Men
 |y2Title=Women
 |yGrid= |xGrid=
@@ -223,45 +227,21 @@ def new_deaths(data):
 
 """
 
-def total_recoveries(data):
-    return"""<div style='display: inline-block; width: 750px; vertical-align: top;'>
-=== Total confirmed recoveries ===
-{{Graph:Chart
-|type=line
-|linewidth=1.5
-|showSymbols=1
-|width=750
-|colors=aqua
-|showValues=
-|xAxisTitle=Date
-|xType=date
-|xAxisFormat=%d/%m/%y
-|x= """+data['date']+"""
-|yAxisTitle=No. of confirmed recoveries
-|y= """+data['recovered']+"""
-|yGrid= |xGrid=
-}}
-</div>
-
-"""
-
-
-def deaths_by_age_and_gender_english():
+def deaths_by_age_and_gender_english(age_gender):
     return"""<div style='display: inline-block; width: 750px; vertical-align: top; margin-top:50px'>
 === Total confirmed deaths by age and gender ===
-The following chart present the data from the last published DGS report where information regarding the total number of deaths by age and gender was available.<ref name=DGS-2020-08-16/>
+The following chart displays the proportion of total deaths by age and gender on """+format.date_timeline_daily_stats(age_gender['date'])+""".<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |title= Github - Data Science for Social Good (DSSG)}}</ref>
 {{Graph:Chart
 |width=750
 |colors=blue,orange
 |showValues=offset:2
 |xAxisTitle=Age
-|xAxisAngle=-50
 |type=rect
 |x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+ 
 |yAxisTitle=No. of deaths
 |legend=Legend
-|y1= 0, 0, 1, 1, 11, 40, 110, 212, 520, 895
-|y2= 0, 0, 1, 3, 10, 17, 49, 135, 668, 883
+|y1= """+age_gender['deaths_men']+"""
+|y2= """+age_gender['deaths_women']+"""
 |y1Title=Men
 |y2Title=Women
 |yGrid= |xGrid=
@@ -271,50 +251,48 @@ The following chart present the data from the last published DGS report where in
 """
 
 def hospital_admitted(data):
-    return"""=== Hospital admitted cases ===
+    return"""=== Hospital admitted cases - Stable ===
 {{Graph:Chart
 |type=line
 |linewidth=1.5
 |showSymbols=1
 |width=750
-|colors=yellow,orange
+|colors=orange
 |showValues=
 |xAxisTitle=Date
 |xType=date
 |xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
 |yAxisTitle=No. of cases
-|legend=Legend
-|y1Title=ICU
+|y1= """+data['hospital_stable']+"""
+|yGrid= |xGrid=
+}}
+
+
+"""
+
+def icu_admitted(data):
+    return"""=== Hospital admitted cases - ICU ===
+{{Graph:Chart
+|type=line
+|linewidth=1.5
+|showSymbols=1
+|width=750
+|colors=maroon
+|showValues=
+|xAxisTitle=Date
+|xType=date
+|xAxisFormat=%d/%m/%y
+|x= """+data['date']+"""
+|yAxisTitle=No. of cases
 |y1= """+data['hospital_icu']+"""
-|y2Title=Stable
-|y2= """+data['hospital_stable']+"""
 |yGrid= |xGrid=
 }}
 <section end="Statistics"/>
 
 """
 
-def icu_variation(data):
-    return"""=== ICU Variation ===
-{{Graph:Chart
-|type=line
-|linewidth=1.5
-|showSymbols=1
-|width=750
-|colors={{Medical cases chart/Bar colors|4}}
-|showValues=offset:2
-|xAxisTitle=Date
-|xType=date
-|xAxisFormat=%d/%m/%y
-|x= """+data['date']+"""
-|yAxisTitle=Cases in ICU variation
-|legend=Legend
-|y1= """+data['icu_variation']+"""
-|y1Title = Cases in ICU variation per day
-|yGrid=
-}}
-"""
+
 
 def growth(): #right now this is only the static version. I need to implement this using data from the csv file
     return """

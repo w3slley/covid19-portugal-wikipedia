@@ -1,5 +1,6 @@
 import sample.website as web
 import urllib.request
+import json
 import os
 import sample.date as date
 import sample.pdf as pdf
@@ -122,6 +123,32 @@ def get_hospitalized_data(REPORT_PATH):
             values.append(number)
 
     return {'hospital_stable': values[0], 'hospital_icu': values[1]}
-    
 
+def get_recent_data_age_gender():
+    req = urllib.request.Request('https://covid19-api.vost.pt/Requests/get_last_update')
+    req.add_header('User-Agent','Mozilla/5.0')
+    url = urllib.request.urlopen(req)
+    data_request = url.read()
+    data = json.loads(data_request.decode('utf-8'))
+    response={
+        'date':data['data'],
+        'cases_women':[],
+        'deaths_women':[],
+        'cases_men':[],
+        'deaths_men':[]
+    }
+    for i in range(9):
+        c = i
+        if i==0: c=''
+        ans = '_'+str(c)+'0_'+str(c)+'9_'
+        if i==8: ans = '_80_plus_'
+        response['cases_women'].append(int(data['confirmados'+ans+'f']))
+        response['deaths_women'].append(int(data['obitos'+ans+'f']))
+        response['cases_men'].append(int(data['confirmados'+ans+'m']))
+        response['deaths_men'].append(int(data['obitos'+ans+'m']))
+        
+    keys = list(response.keys())   
+    for k in keys[1:]:
+        response[k]=format.data_for_timeline(response[k])
 
+    return response

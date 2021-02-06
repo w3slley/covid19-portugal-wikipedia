@@ -21,13 +21,16 @@ This project has the goal of automating the process of updating data charts for 
 ## Example of charts
 ![](images/summary.png)
 
+![](images/total_cases.png)
+
 ![](images/daily_cases.png)
 
 ![](images/cases_age_gender.png)
 
 ![](images/hospital_admitted.png)
 
-![](images/total_recoveries.png)
+![](images/hospital_admitted_ICU.png)
+
 
 ## Contributions
 Thanks to [hagnat](https://github.com/hagnat/) for the inspiration (he did something similar [here](https://github.com/hagnat/covid) but for the Brazilian wikipedia page).
@@ -37,5 +40,5 @@ Due to the change in the DGS report format (from August 16th onwards), a new met
 
 ## To do:
 - Implement testing (DONE)
-- Keep track of more information over time in the .csv file - things like the evolution of cases and deaths by gender and age and by location, just to name a few
+- Keep track of more information over time in the .csv file - things like the evolution of cases and deaths by gender and age and by location, just to name a few.
 
