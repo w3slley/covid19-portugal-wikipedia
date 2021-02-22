@@ -6,8 +6,7 @@ import sample.report as report
 
 def test_PDF_format():
     latest_report_date = report.info_latest()['report_date'].replace('/','-')
-    #latest_report_date = '22-12-20'
-    filename = 'var/'+latest_report_date+'.pdf'
+    filename = latest_report_date+'.pdf' #moved file from var/ to ./ to prevent deleting report that was already parsed
     #downloading DGS report
     report.download(report.info_latest()['link'], filename)
     #getting data
