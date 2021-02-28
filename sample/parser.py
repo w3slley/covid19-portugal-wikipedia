@@ -151,7 +151,7 @@ def new_cases(data):
 def cases_by_age_and_gender_english(age_gender):
     return"""
 === Total confirmed cases by age and gender ===
-The following chart displays the proportion of total cases by age and gender on """+format.date_timeline_daily_stats(age_gender['date'])+""".<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |title= Github - Data Science for Social Good (DSSG)}}</ref>
+The following chart displays the proportion of total cases by age and gender on """+format.date_timeline_daily_stats(age_gender['date'])+""".<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |title= Github - Data Science for Social Good (DSSG)}}</ref><ref>{{cite web |url=https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal/ |title=Dashboard DGS}}</ref>
 {{Graph:Chart
 |width=750
 |colors=blue,orange
@@ -219,7 +219,7 @@ def new_deaths(data):
 def deaths_by_age_and_gender_english(age_gender):
     return"""
 === Total confirmed deaths by age and gender ===
-The following chart displays the proportion of total deaths by age and gender on """+format.date_timeline_daily_stats(age_gender['date'])+""".<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |title= Github - Data Science for Social Good (DSSG)}}</ref>
+The following chart displays the proportion of total deaths by age and gender on """+format.date_timeline_daily_stats(age_gender['date'])+""".<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |title= Github - Data Science for Social Good (DSSG)}}</ref><ref>{{cite web |url=https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal/ |title=Dashboard DGS}}</ref>
 {{Graph:Chart
 |width=750
 |colors=blue,orange
@@ -405,23 +405,23 @@ def footer():
 [[Category:Statistics of the COVID-19 pandemic|Portugal]]"""
 
 #portuguese graphs
-def age_and_gender_graphs_portuguese():
+def age_and_gender_graphs_portuguese(age_gender):
     print('Generating cases by age and gender graphs in portuguese')
     result="""=== Casos por idade e género ===
-Os gráficos a seguir refletem dados do último relatório da DGS em que tais informações estavam disponíveis (16 de agosto de 2020).<ref>{{citeweb |url=https://covid19.min-saude.pt/wp-content/uploads/2020/08/167_DGS_boletim_20200816.pdf |title= Relatório da DGS do dia 16 de agosto de 2020}}</ref>  
+Os gráficos a seguir refletem a proporção dos casos e mortes por idade e sexo divulgados no dia """+format.date_timeline_daily_stats(age_gender['date'])+""".<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |title= Github - Data Science for Social Good (DSSG)}}</ref><ref>{{cite web |url=https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal |title=Dashboard da DGS}}</ref>
 
 {{Gráfico
-|width=450
+|width=750
 |colors=blue,orange
 |showValues=offset:2
 |xAxisTitle=Idade
 |xAxisAngle=-50
 |type=rect
-|x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+, Desconhecido
+|x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+
 |yAxisTitle=Número de casos
 |legend=Legenda
-|y1= 1073, 1199, 3897, 4214, 4028, 3515, 2550, 1761, 1982, 44
-|y2= 932, 1357, 4467, 4640, 4904, 4601, 2842, 1972, 4092, 32
+|y1= """+age_gender['cases_men']+"""
+|y2= """+age_gender['cases_women']+"""
 |y1Title=Men
 |y1Title=Homens
 |y2Title=Mulheres
@@ -429,7 +429,7 @@ Os gráficos a seguir refletem dados do último relatório da DGS em que tais in
 }}
 <br>
 {{Gráfico
-|width=450
+|width=750
 |colors=blue,orange
 |showValues=offset:2
 |xAxisTitle=Idade
@@ -438,8 +438,8 @@ Os gráficos a seguir refletem dados do último relatório da DGS em que tais in
 |x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+ 
 |yAxisTitle=Número de mortes
 |legend=Legenda
-|y1= 0, 0, 1, 1, 11, 40, 110, 212, 520, 895
-|y2= 0, 0, 1, 3, 10, 17, 49, 135, 668, 883
+|y1= """+age_gender['deaths_men']+"""
+|y2= """+age_gender['deaths_women']+"""
 |y1Title=Homens
 |y2Title=Mulheres
 |yGrid= |xGrid=
@@ -466,13 +466,14 @@ def timeline_graphs_portuguese():
 <div style="float:left;margin-right:12px;">{{Dados da pandemia de COVID-19/Gráfico de casos médicos em Portugal}}
 </div>[[Imagem:CoViD-19 PT.svg|left|thumb|500px|Evolução diária do número de casos (a azul {{caixa cor|#004586}}) e de óbitos — totais acumulado (a vermelho {{caixa cor|#FF420E}}) e dos últimos 10 dias (a tracejado preto e branco <span style="font-size:175%;">◨</span>) —, em escala logarítmica.]]<div style="clear:left;" />
 
-<!-- Total casos confirmados -->
+==== Evolução do número total de casos e recuperações confirmadas ====
 {{Gráfico
 |type=line
 |linewidth=2
 |width=700
-|colors=#F46D43,#A50026,#C4ADA0,#C4ADB0,#C4ADC0
+|colors=#F46D43,aqua
 |showValues= 
+|legend=Legenda
 |xAxisTitle=Data
 |xType=date
 |xAxisFormat=%d/%m/%y
@@ -480,96 +481,12 @@ def timeline_graphs_portuguese():
 |yAxisTitle=Nº de casos
 |y1= """+data['total_cases']+"""
 |y1Title=casos totais confirmados
+|y2= """+data['recovered']+"""
+|y2Title=total de recuperações confirmadas
 |yGrid= |xGrid=
-}}<small>
-* {{caixa cor|#F46D43}} casos totais confirmados</small>
-
-<!-- Mortes  -->
-{{Gráfico
-|type=line
-|linewidth=2
-|width=700
-|colors=#262626
-|showValues=
-|xAxisTitle=Data
-|xType=date
-|xAxisFormat=%d/%m/%y
-|x= """+data['date']+"""
-|yAxisTitle=Nº de casos
-|y1= """+data['total_deaths']+""" 
-|yGrid= |xGrid=
-|y1Title=total de mortes confirmadas
 }}
-<small>{{div col|2}}
-* {{caixa cor|#262626}} total de mortes confirmadas
-{{div col fim}}</small><br />
 
-<!-- Recuperações -->
-
-{{Gráfico
-|type=line
-|linewidth=2
-|width=700
-|colors=#87CEEB
-|showValues=
-|xAxisTitle=Data
-|xType=date
-|xAxisFormat=%d/%m/%y
-|x= """+data['date']+"""
-|yAxisTitle=Nº de casos
-|y1= """+data['recovered']+"""
-|yGrid= |xGrid=
-|y1Title=total de recuperações confirmadas
-}}
-<small>{{div col|2}}
-* {{caixa cor|#87CEEB}} total de recuperações confirmadas
-{{div col fim}}</small><br />
-
-<!-- Ativos  -->
-{{Gráfico
-|type=line
-|linewidth=2
-|width=700
-|colors=#22BB66
-|showValues=
-|xAxisTitle=Data
-|xType=date
-|xAxisFormat=%d/%m/%y
-|x= """+data['date']+"""
-|yAxisTitle=Nº de casos ativos
-|y1= """+data['active_cases']+"""
-|yGrid= |xGrid=
-|y1Title=total de casos ativos
-}}
-<small>{{div col|2}}
-* {{caixa cor|#22BB66}} total de casos ativos (#''confirmados'' − #''óbitos'' − #''recuperados'')<ref name="dgs" />
-{{div col fim}}</small><br />
-
-<!-- Internados -->
-{{Gráfico
-|type=line
-|linewidth=2
-|width=700
-|colors=#FF0000, #FF4080
-|showValues=
-|xAxisTitle=Date
-|xType=date
-|xAxisFormat=%d/%m/%y
-|x= """+data['date']+"""
-|yAxisTitle=Nº de casos
-|y1Title=UCI
-|y1= """+data['hospital_icu']+"""
-|y2Title=Internados
-|y2= """+data['hospital_stable']+"""
-|yGrid= 
-|xGrid=
-}}
-<small>{{div col|2}}
-* {{caixa cor|#FF0000}} total de casos internados em UCI (Unidade de Cuidados Intensivos)
-* {{caixa cor|#FF4080}} total de casos internados
-{{div col fim}}</small>
-
-<!-- Novos casos por dia -->
+==== Evolução do número diário de casos confirmadas ====
 {{Gráfico
 |type=line
 |linewidth=2
@@ -585,15 +502,31 @@ def timeline_graphs_portuguese():
 |y1Title=total de novos casos confirmados por dia
 |yGrid= 
 |xGrid=
-}}<small>
-* {{caixa cor|#F46D43}} total de novos casos confirmados por dia</small>
+}}
 
-<!-- Mortes por dia -->
+==== Evolução do número total de mortes confirmadas ====
 {{Gráfico
 |type=line
 |linewidth=2
 |width=700
-|colors=#000000
+|colors=purple
+|showValues=
+|xAxisTitle=Data
+|xType=date
+|xAxisFormat=%d/%m/%y
+|x= """+data['date']+"""
+|yAxisTitle=Nº de casos
+|y1= """+data['total_deaths']+""" 
+|yGrid= |xGrid=
+|y1Title=total de mortes confirmadas
+}}
+
+==== Evolução do número diário de mortes confirmadas ====
+{{Gráfico
+|type=line
+|linewidth=2
+|width=700
+|colors=purple
 |showValues=
 |xAxisTitle=Data
 |xType=date
@@ -603,8 +536,62 @@ def timeline_graphs_portuguese():
 |y1= """+data['daily_deaths']+"""
 |y1Title=total de mortes confirmadas por dia
 |yGrid= |xGrid=
-}}<small>
-* {{caixa cor|#000000}} total de mortes confirmadas por dia</small>
+}} 
+
+==== Evolução do número de casos ativos ====
+{{Gráfico
+|type=line
+|linewidth=2
+|width=700
+|colors=#22BB66
+|showValues=
+|xAxisTitle=Data
+|xType=date
+|xAxisFormat=%d/%m/%y
+|x= """+data['date']+"""
+|yAxisTitle=Nº de casos ativos
+|y1= """+data['active_cases']+"""
+|yGrid= |xGrid=
+|y1Title=total de casos ativos
+}}
+
+
+==== Evolução do número de internações ====
+{{Gráfico
+|type=line
+|linewidth=2
+|width=700
+|colors=orange
+|showValues=
+|xAxisTitle=Date
+|xType=date
+|xAxisFormat=%d/%m/%y
+|x= """+data['date']+"""
+|yAxisTitle=Nº de casos
+|y1= """+data['hospital_stable']+"""
+|yGrid= 
+|xGrid=
+}}
+
+==== Evolução do número de internações em UCI ====
+{{Gráfico
+|type=line
+|linewidth=2
+|width=700
+|colors=maroon,
+|showValues=
+|xAxisTitle=Date
+|xType=date
+|xAxisFormat=%d/%m/%y
+|x= """+data['date']+"""
+|yAxisTitle=Nº de casos
+|y1Title=UCI
+|y1= """+data['hospital_icu']+"""
+|y2Title=Internados
+|yGrid= 
+|xGrid=
+}}
+
 """
     with open('output/portuguese/TimelineGraphs.txt', 'w+') as f:
         f.write(result)
