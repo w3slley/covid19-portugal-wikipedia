@@ -31,7 +31,6 @@ def graphs_english(summary, hospital):
     result += total_cases(data)
     result += new_cases(data)
     result += cases_by_age_and_gender_english(age_gender)
-    result += total_cases_log()
     result += total_deaths(data)
     result += new_deaths(data)
     result += deaths_by_age_and_gender_english(age_gender)
@@ -103,7 +102,6 @@ def total_cases(data):
     return"""
 The following graphs show the evolution of the pandemic starting from 2 March 2020, the day the first cases were confirmed in the country.<ref>{{Cite web|url=https://www.publico.pt/2020/03/02/sociedade/noticia/coronavirus-ha-dois-infectados-portugal-1905823|title=Coronavírus: há dois casos confirmados em Portugal|date=March 2, 2020|website=Público|url-status=live}}</ref>
 
-<div style='display: inline-block; width: 750px; vertical-align: top;'>
 === Total confirmed and recovered cases ===
 {{Graph:Chart
 |type=line
@@ -124,7 +122,6 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 |y2Title=Total recovered cases
 |yGrid= |xGrid=
 }}
-</div>
 
 """
 
@@ -152,7 +149,7 @@ def new_cases(data):
 
 
 def cases_by_age_and_gender_english(age_gender):
-    return"""<div style='display: inline-block; width: 750px; vertical-align: top; margin-top:50px'>
+    return"""
 === Total confirmed cases by age and gender ===
 The following chart displays the proportion of total cases by age and gender on """+format.date_timeline_daily_stats(age_gender['date'])+""".<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |title= Github - Data Science for Social Good (DSSG)}}</ref>
 {{Graph:Chart
@@ -170,19 +167,12 @@ The following chart displays the proportion of total cases by age and gender on 
 |y2Title=Women
 |yGrid= |xGrid=
 }}
-</div>
+
 
 """
 
-def total_cases_log():
-    return"""<noinclude>
-=== Total cases on logarithmic scale ===
-[[File:CoViD-19 PT.svg|left|Number of cases (blue) and number of deaths (red) on a [[logarithmic scale]].]]
-</noinclude>
-
-"""
 def total_deaths(data):
-    return"""<div style='display: inline-block; width: 750px; vertical-align: top;'>
+    return"""
 === Total confirmed deaths ===
 {{Graph:Chart
 |type=line
@@ -199,13 +189,12 @@ def total_deaths(data):
 |y= """+data['total_deaths']+"""
 |yGrid= |xGrid=
 }}
-</div>
 
 """
 
 
 def new_deaths(data):
-    return"""<div style='display: inline-block; width: 750px; vertical-align: top;'>
+    return"""
 === New deaths per day ===
 {{Graph:Chart
 |type=line
@@ -223,12 +212,12 @@ def new_deaths(data):
 |y1Title=New deaths per day
 |yGrid=
 }}
-</div>
+
 
 """
 
 def deaths_by_age_and_gender_english(age_gender):
-    return"""<div style='display: inline-block; width: 750px; vertical-align: top; margin-top:50px'>
+    return"""
 === Total confirmed deaths by age and gender ===
 The following chart displays the proportion of total deaths by age and gender on """+format.date_timeline_daily_stats(age_gender['date'])+""".<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |title= Github - Data Science for Social Good (DSSG)}}</ref>
 {{Graph:Chart
@@ -246,7 +235,6 @@ The following chart displays the proportion of total deaths by age and gender on
 |y2Title=Women
 |yGrid= |xGrid=
 }}
-</div>
 
 """
 
@@ -288,6 +276,7 @@ def icu_admitted(data):
 |y1= """+data['hospital_icu']+"""
 |yGrid= |xGrid=
 }}
+
 <section end="Statistics"/>
 
 """
