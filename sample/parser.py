@@ -415,14 +415,12 @@ Os gráficos a seguir refletem a proporção dos casos e mortes por idade e sexo
 |colors=blue,orange
 |showValues=offset:2
 |xAxisTitle=Idade
-|xAxisAngle=-50
 |type=rect
 |x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+
 |yAxisTitle=Número de casos
 |legend=Legenda
 |y1= """+age_gender['cases_men']+"""
 |y2= """+age_gender['cases_women']+"""
-|y1Title=Men
 |y1Title=Homens
 |y2Title=Mulheres
 |yGrid= |xGrid=
@@ -433,7 +431,6 @@ Os gráficos a seguir refletem a proporção dos casos e mortes por idade e sexo
 |colors=blue,orange
 |showValues=offset:2
 |xAxisTitle=Idade
-|xAxisAngle=-50
 |type=rect
 |x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+ 
 |yAxisTitle=Número de mortes
