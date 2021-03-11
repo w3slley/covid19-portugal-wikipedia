@@ -14,10 +14,10 @@ def get_latest_csv_date():
     d = raw_date.split('-')
     #taking care of formatting issues
     day = d[0] if len(d[0])!=1 else '0'+d[0] #if day is like 4, turn into 04
-    month = d[1] if len(d[1])!=1 else '0'+d[1] #if month is 8 (august), turn to 08
+    month = d[1] if len(d[1])!=1 else '0'+d[1] #if month is 8 (august), turns it to 08
     year = d[2]
     
-    return day+'/'+month+'/20'+year#returns DD-MM-YYYY for formatted
+    return day+'/'+month+'/20'+year#returns DD/MM/YYYY
         
 def get_urls_missing_reports(): #aka reports whose data are not in the csv file
     latest_date = get_latest_csv_date()
