@@ -40,7 +40,8 @@ Due to changes in the DGS report format (from August 16th onwards), a new method
 
 ## Another change in report format (December 20th 2020)
 Since the format was again changed, the script which dealt with that format was preserved on `format-before-20-12-20`
+## Links
+[Blog post](https://w3slley.github.io/projects/covid-charts-generator) explaining the project a little bit further.
 
 ## To do:
-- Implement testing (DONE)
 - Keep track of more information over time in the .csv file - things like the evolution of cases and deaths by gender and age and by location, just to name a few.
