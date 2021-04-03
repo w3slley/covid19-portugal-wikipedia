@@ -36,7 +36,10 @@ This project has the goal of automating the process of updating data charts for 
 Thanks to [hagnat](https://github.com/hagnat/) for the inspiration (he did something similar [here](https://github.com/hagnat/covid) but for the Brazilian wikipedia page).
 
 ## Change in report format (August 16th 2020)
-Due to the change in the DGS report format (from August 16th onwards), a new method for parsing the PDF files and retrieving data had to be implemented. That was effectively done on August 22nd, requiring the creation of a new git branch to implement the changes (the new one has name `new-branch` and I created another branch called `old-format-16-08-20` for the state before the changes).
+Due to changes in the DGS report format (from August 16th onwards), a new method for parsing the PDF files and retrieving data had to be implemented. That was effectively done on August 22nd. To be able to gather data from reports before this date, a branch called `old-format-16-08-20` was created.
+
+## Another change in report format (December 20th 2020)
+Since the format was again changed, the script which dealt with that format was preserved on `format-before-20-12-20`
 
 ## To do:
 - Implement testing (DONE)
