@@ -3,7 +3,7 @@ import sample.date as date
 import sample.format as format
 import pandas as pd
 
-def graphs_english(summary, hospital):
+def graphs_english():
     print('Generating tables and graphs for the english statistics page')
     
     df = pd.read_csv('portugal_data.csv')
@@ -26,7 +26,7 @@ def graphs_english(summary, hospital):
     f = open('output/PortugalCovid-19-Statistics.txt', 'w+')
     result = ""
     print('Generating Summary table')
-    result += summary_table(summary, hospital)
+    result += summary_table()
     print('Generating Statistics charts')
     result += total_cases(data)
     result += new_cases(data)
@@ -45,54 +45,49 @@ def graphs_english(summary, hospital):
     f.write(result)
     f.close()
 
-def summary_table(summary, hospital):
-    #adding comma formatting to numbers in results array
-    for k,v in summary.items(): 
-        summary[k] = format.add_commas(v)
+def get_last_datapoint(column_name):
+    df = pd.read_csv('portugal_data.csv')
+    data = list(df[column_name])
+    #Obtaining data variation by subtracting value from most recent day to the day before that
+    int_variation = data[-1] - data[-2]
+    #Constructing variation string
+    formatted_variation = format.add_commas(str(int_variation))
+    variation = '+'+formatted_variation if int_variation > 0 else formatted_variation
+
+    return format.add_commas(str(list(df[column_name])[-1])) + " (" + variation + ")"
+
+def summary_table():
 
     link = report.info_latest()['link']
-    date_summary = format.date_symptom(report.info_latest()['report_date'])
-
+    report_date = report.info_latest()['report_date']
     return """{{main|COVID-19 pandemic in Portugal}}
 == Statistics ==
 <section begin="Statistics"/>
-<div style='width: 400px;margin: 0 auto;'>
+<div style='display:flex;justify-content:center'>
 {| class="wikitable" 
 |+COVID-19 Summary
-! colspan="2" |DGS latest COVID-19 report: ["""+link+""" """+report.info_latest()['report_date']+"""]
+! colspan="2" |Latest COVID-19 report from DGS: ["""+link+""" """+report_date+"""]
 |-
 !Total confirmed cases
-|"""+summary['confirmed_cases']+"""
+|"""+get_last_datapoint('total_cases')+"""
+|-
+!Total confirmed deaths
+|"""+get_last_datapoint('total_deaths')+"""
 |-
 !Active cases
-|"""+summary['active']+"""
-|-
-!Total cases (women)
-|"""+summary['cases_women']+"""
-|-
-!Total cases (men)
-|"""+summary['cases_men']+"""
-|-
-!Total deaths (women)
-|"""+summary['deaths_women']+"""
-|-
-!Total deaths (men)
-|"""+summary['deaths_men']+"""
+|"""+get_last_datapoint('active_cases')+"""
 |-
 !Under surveillance
-|"""+summary['under_surveillance']+"""
+|"""+get_last_datapoint('under_surveillance')+"""
 |-
 !Recovered
-|"""+summary['recovered']+"""
-|-
-!Deaths
-|"""+summary['deaths']+"""
+|"""+get_last_datapoint('recovered')+"""
 |-
 !Currently admitted to hospital
-|"""+format.add_commas(hospital['hospital_stable'])+"""
+|"""+get_last_datapoint('hospital_stable')+"""
 |-
-!Currently admitted to ICU (Intensive Care Unit)
-|"""+format.add_commas(hospital['hospital_icu'])+"""
+!Currently admitted to ICU
+|"""+get_last_datapoint('hospital_icu')+"""
 |-
 |}
 </div>

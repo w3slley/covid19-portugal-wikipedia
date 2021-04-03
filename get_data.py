@@ -4,17 +4,13 @@ import sample.parser as parser
 import sample.date as date
 import sample.update_csv as csv
 
-#running tests
-os.system('pytest -v --disable-warnings tests/test_global.py');
-
 REPORT_PATH = 'var/'+report.info_latest()['report_date'].replace('/','-')+'.pdf' #path for latest pdf report
 csv.update()
 
 print('Parsing data from latest DGS report')
 
-summary = report.get_summary_data(REPORT_PATH)
-hospital = report.get_hospitalized_data(REPORT_PATH)
-parser.graphs_english(summary, hospital)
+
+parser.graphs_english()
 parser.age_and_gender_graphs_portuguese(report.get_recent_data_age_gender())
 parser.timeline_graphs_portuguese()
 
