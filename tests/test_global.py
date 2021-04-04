@@ -3,6 +3,8 @@ import sys,os
 sys.path.append(os.path.abspath(os.path.join('.', '')))
 import sample.format as format
 import sample.report as report
+import urllib.request
+import json
 
 def test_PDF_format():
     latest_report_date = report.info_latest()['report_date'].replace('/','-')
@@ -19,3 +21,12 @@ def test_PDF_format():
     report.delete(filename)
     #assertion
     assert format.are_values_valid(data_summary) and format.are_values_valid(data_hospt) and format.are_values_valid(age_and_gender) and len(data_summary) == 9 and len(data_hospt) == 2 and len(age_and_gender) == 4
+
+def test_get_recent_data_age_gender():
+    req = urllib.request.Request('https://covid19-api.vost.pt/Requests/get_last_update')
+    req.add_header('User-Agent','Mozilla/5.0')
+    url = urllib.request.urlopen(req)
+    data_request = url.read()
+    data = json.loads(data_request.decode('utf-8'))
+
+    assert data['confirmados_0_9_f'] != None and data['obitos_0_9_f'] != None
