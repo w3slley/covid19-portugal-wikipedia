@@ -72,7 +72,7 @@ def update():#method that updates csv file with data from reports until the most
             'icu_variation': int(h['hospital_icu'])-old_hospital_icu,
             'active_cases': total_cases - total_deaths - recovered,
             'hospital_variation': int(h['hospital_stable'])-old_hospital_stable,
-            'under_surveillance ': under_surveillance
+            'under_surveillance': under_surveillance
         }
         new_df = pd.DataFrame([new_data], columns=list(new_data.keys()))
         updated_df = pd.concat([old_df, new_df]) #concatenate the two dataframes
