@@ -59,7 +59,7 @@ def update():#method that updates csv file with data from reports until the most
         recovered = int(summary['recovered'])
         h = report.get_hospitalized_data(filepath)
         under_surveillance = int(summary['under_surveillance'])
-
+        
         new_data = {
             'date': format.date_for_csv(i['date']),
             'total_cases': total_cases,
