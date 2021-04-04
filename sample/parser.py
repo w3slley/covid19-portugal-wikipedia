@@ -54,7 +54,7 @@ def get_last_datapoint(column_name):
     formatted_variation = format.add_commas(str(int_variation))
     variation = '+'+formatted_variation if int_variation > 0 else formatted_variation
 
-    return format.add_commas(str(list(df[column_name])[-1])) + " (" + variation + ")"
+    return format.add_commas(str(data[-1])) + " (" + variation + ")"
 
 def summary_table():
 
