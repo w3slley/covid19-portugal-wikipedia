@@ -12,7 +12,7 @@ def add_commas(digit_str: str):
         ans+=str(number[j])
         if j in pos:
             ans+=','
-    return ans if int(digit_str) > 0 else '-'+ans
+    return ans if int(digit_str) >= 0 else '-'+ans
 
 def date_symptom(date):
     d = date.split('/')
