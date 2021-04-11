@@ -52,7 +52,7 @@ def get_last_datapoint(column_name):
     int_variation = data[-1] - data[-2]
     #Constructing variation string
     formatted_variation = format.add_commas(str(int_variation))
-    variation = '+'+formatted_variation if int_variation > 0 else formatted_variation
+    variation = '+'+formatted_variation if int_variation >= 0 else formatted_variation
 
     return format.add_commas(str(data[-1])) + " (" + variation + ")"
 
