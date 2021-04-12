@@ -8,12 +8,10 @@ def graphs_english():
     
     df = pd.read_csv('portugal_data.csv')
     columns = list(df.columns)
-    #dates for new cases/deaths graphs
-    date_daily = [format.date_timeline_daily_stats(i) for i in list(df.date)]
     #dates for scatter plots
     date = [format.date_timeline(i) for i in list(df.date)]
     #objects which stores all data from portugal_data.csv file
-    data = {'date':format.data_for_timeline(date), 'date_daily':format.data_for_timeline(date_daily)}
+    data = {'date':format.data_for_timeline(date)}
     
     #Formatting data from .csv file and putting into the dictionary 'data'
     for i in columns:
@@ -48,13 +46,16 @@ def graphs_english():
 def get_last_datapoint(column_name):
     df = pd.read_csv('portugal_data.csv')
     data = list(df[column_name])
-    #Obtaining data variation by subtracting value from most recent day to the day before that
-    int_variation = data[-1] - data[-2]
-    #Constructing variation string
-    formatted_variation = format.add_commas(str(int_variation))
-    variation = '+'+formatted_variation if int_variation >= 0 else formatted_variation
+    if column_name.find('national') != -1 or column_name.find('continental') != -1:
+        return str(data[-1])
+    else:
+        #Obtaining data variation by subtracting value from most recent day to the day before that
+        int_variation = data[-1] - data[-2]
+        #Constructing variation string
+        formatted_variation = format.add_commas(str(int_variation))
+        variation = '+'+formatted_variation if int_variation >= 0 else formatted_variation
 
-    return format.add_commas(str(data[-1])) + " (" + variation + ")"
+        return format.add_commas(str(data[-1])) + " (" + variation + ")"
 
 def summary_table():
 
@@ -88,6 +89,12 @@ def summary_table():
 |-
 !Currently admitted to ICU
 |"""+get_last_datapoint('hospital_icu')+"""
+|-
+!Cases per 100 000 (national/continental)
+|"""+get_last_datapoint('national_incidence')+""" / """+get_last_datapoint('continental_incidence')+"""
+|-
+!R(t) (national/continental)
+|"""+get_last_datapoint('national_r(t)')+""" / """+get_last_datapoint('continental_r(t)')+"""
 |-
 |}
 </div>
@@ -146,7 +153,7 @@ def new_cases(data):
 def cases_by_age_and_gender_english(age_gender):
     return"""
 === Total confirmed cases by age and gender ===
-The following chart displays the proportion of total cases by age and gender on """+format.date_timeline_daily_stats(age_gender['date'])+""".<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |title= Github - Data Science for Social Good (DSSG)}}</ref><ref>{{cite web |url=https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal/ |title=Dashboard DGS}}</ref>
+The following chart displays the proportion of total cases by age and gender on """+format.date_display_english(age_gender['date'])+""".<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |title= Github - Data Science for Social Good (DSSG)}}</ref><ref>{{cite web |url=https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal/ |title=Dashboard DGS}}</ref>
 {{Graph:Chart
 |width=750
 |colors=blue,orange
@@ -214,7 +221,7 @@ def new_deaths(data):
 def deaths_by_age_and_gender_english(age_gender):
     return"""
 === Total confirmed deaths by age and gender ===
-The following chart displays the proportion of total deaths by age and gender on """+format.date_timeline_daily_stats(age_gender['date'])+""".<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |title= Github - Data Science for Social Good (DSSG)}}</ref><ref>{{cite web |url=https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal/ |title=Dashboard DGS}}</ref>
+The following chart displays the proportion of total deaths by age and gender on """+format.date_display_english(age_gender['date'])+""".<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |title= Github - Data Science for Social Good (DSSG)}}</ref><ref>{{cite web |url=https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal/ |title=Dashboard DGS}}</ref>
 {{Graph:Chart
 |width=750
 |colors=blue,orange
@@ -403,7 +410,7 @@ def footer():
 def age_and_gender_graphs_portuguese(age_gender):
     print('Generating cases by age and gender graphs in portuguese')
     result="""=== Casos por idade e género ===
-Os gráficos a seguir refletem a proporção dos casos e mortes por idade e sexo divulgados no dia """+format.date_timeline_daily_stats(age_gender['date'])+""".<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |title= Github - Data Science for Social Good (DSSG)}}</ref><ref>{{cite web |url=https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal |title=Dashboard da DGS}}</ref>
+Os gráficos a seguir refletem a proporção dos casos e mortes por idade e sexo divulgados no dia """+format.date_display_portuguese(age_gender['date'])+""".<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |title= Github - Data Science for Social Good (DSSG)}}</ref><ref>{{cite web |url=https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal |title=Dashboard da DGS}}</ref>
 
 {{Gráfico
 |width=750
