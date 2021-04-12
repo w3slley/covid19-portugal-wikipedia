@@ -54,6 +54,7 @@ def update():#method that updates csv file with data from reports until the most
         old_hospital_stable = old_df.iloc[latest_index].hospital_stable
 
         summary = report.get_summary_data(filepath)
+        data_coefficients = report.get_incidence_and_transmissibility(filepath)
         total_cases = int(summary['confirmed_cases'])
         total_deaths = int(summary['deaths'])
         recovered = int(summary['recovered'])
@@ -72,7 +73,11 @@ def update():#method that updates csv file with data from reports until the most
             'icu_variation': int(h['hospital_icu'])-old_hospital_icu,
             'active_cases': total_cases - total_deaths - recovered,
             'hospital_variation': int(h['hospital_stable'])-old_hospital_stable,
-            'under_surveillance': under_surveillance
+            'under_surveillance': under_surveillance,
+            'national_incidence': data_coefficients['national_incidence'],
+            'continental_incidence': data_coefficients['continental_incidence'],
+            'national_r(t)': data_coefficients['national_r(t)'],
+            'continental_r(t)': data_coefficients['continental_r(t)']
         }
         new_df = pd.DataFrame([new_data], columns=list(new_data.keys()))
         updated_df = pd.concat([old_df, new_df]) #concatenate the two dataframes
