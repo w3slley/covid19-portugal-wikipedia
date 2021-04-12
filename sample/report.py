@@ -152,3 +152,23 @@ def get_recent_data_age_gender():
         response[k]=format.data_for_timeline(response[k])
 
     return response
+
+def get_incidence_and_transmissibility(REPORT_PATH):
+    data = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[2])
+    d = format.remove_empty_str(data.splitlines())
+    keywords = ['Portugal:', 'Nacional:', 'Continente:']
+    obj = {}
+    for i,line in enumerate(d):
+        if format.remove_space(line.lower()) == 'incidência':
+            for word in keywords:
+                if d[i+1].find(word) != -1:
+                    obj['national_incidence'] = format.convert_string_to_float(format.remove_space(d[i+1].split(word)[1].split('casos')[0]))
+                if d[i+2].find(word) != -1:
+                    obj['continental_incidence'] = format.convert_string_to_float(format.remove_space(d[i+2].split(word)[1].split('casos')[0]))
+        if format.remove_space(line.lower()) == 'r(t)':
+            for word in keywords:
+                if d[i+1].find(word) != -1:
+                    obj['national_r(t)'] = format.convert_string_to_float(format.remove_space(d[i+1].split(word)[1]))
+                if d[i+2].find(word) != -1:
+                    obj['continental_r(t)'] = format.convert_string_to_float(format.remove_space(d[i+2].split(word)[1]))
+    return obj
