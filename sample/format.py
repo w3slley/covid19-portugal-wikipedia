@@ -22,24 +22,43 @@ def date_for_csv(date): #DD/MM/YYYY
     d = date.split('/')
     return d[0]+'-'+d[1]+'-'+d[2][2:] #DD-MM-YY
 
-def date_timeline_daily_stats(date): #DD-MM-YY
+def date_display_english(date): #DD-MM-YY
     months = {
-        '01':'Jan',
-        '02':'Feb',
-        '03':'Mar',
-        '04':'Apr',
+        '01':'January',
+        '02':'February',
+        '03':'March',
+        '04':'April',
         '05':'May',
-        '06':'Jun',
-        '07':'Jul',
-        '08':'Aug',
-        '09':'Sep',
-        '10':'Oct',
-        '11':'Nov',
-        '12':'Dec'
+        '06':'June',
+        '07':'July',
+        '08':'August',
+        '09':'September',
+        '10':'October',
+        '11':'November',
+        '12':'December'
     }
     d = date.split('-')
     day = d[0][1] if d[0][0]=='0' else d[0] #getting only the day number (remove preceding zero)
-    return day+' '+months[d[1]]+' '+d[2] #15 May 20
+    return months[d[1]]+' '+day+', '+d[2] #December 22, 2021
+
+def date_display_portuguese(date): #DD-MM-YY
+    months = {
+        '01':'Janeiro',
+        '02':'Fevereiro',
+        '03':'Março',
+        '04':'Abril',
+        '05':'Maio',
+        '06':'Junho',
+        '07':'Julho',
+        '08':'Agosto',
+        '09':'Setembro',
+        '10':'Outubro',
+        '11':'Novembro',
+        '12':'Dezembro'
+    }
+    d = date.split('-')
+    day = d[0][1] if d[0][0]=='0' else d[0] #getting only the day number (remove preceding zero)
+    return day+' de '+ months[d[1]]+' de '+d[2] #15 de Maio de 2021
 
 def date_timeline(date): #DD-MM-YY
     d = date.split('-')
@@ -96,3 +115,12 @@ def are_values_valid(obj):
         if i == '' or i==' ' or (not is_digit(i)): #every value has to be a valid digit (non-empty)
             return False 
     return True
+
+def convert_string_to_float(string):
+    ans = '';
+    for i in string:
+        if i == ',':
+            ans+='.'
+        else:
+            ans+=i
+    return float(ans)   
