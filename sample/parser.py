@@ -107,14 +107,12 @@ The following graphs show the evolution of the pandemic starting from 2 March 20
 === Total confirmed and recovered cases ===
 {{Graph:Chart
 |type=line
-|linewidth=1.5
-|showSymbols=1
-|width=750
+|height = 300
+|width=1000
 |colors=#F46D43,aqua
 |showValues=
 |legend=Legend
 |xAxisTitle=Date
-|xAxisAngle=15
 |xType=date
 |xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
@@ -133,13 +131,11 @@ def new_cases(data):
 === New cases per day ===
 {{Graph:Chart
 |type=line
-|linewidth=1.5
-|showSymbols=1
-|width=750
+|height=300
+|width=1000
 |colors=#F46D43
 |showValues= offset:2
 |xAxisTitle=Date
-|xAxisAngle=15
 |xType=date
 |xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
@@ -157,7 +153,8 @@ def cases_by_age_and_gender_english(age_gender):
 === Total confirmed cases by age and gender ===
 The following chart displays the proportion of total cases by age and gender on """+format.date_display_english(age_gender['date'])+""".<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |title= Github - Data Science for Social Good (DSSG)}}</ref><ref>{{cite web |url=https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal/ |title=Dashboard DGS}}</ref>
 {{Graph:Chart
-|width=750
+|height = 300
+|width=1000
 |colors=blue,orange
 |showValues=offset:2
 |xAxisTitle=Age
@@ -180,13 +177,11 @@ def total_deaths(data):
 === Total confirmed deaths ===
 {{Graph:Chart
 |type=line
-|linewidth=1.5
-|showSymbols=1
-|width=750
+|height=300
+|width=1000
 |colors=purple
 |showValues=
 |xAxisTitle=Date
-|xAxisAngle=15
 |xType=date
 |xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
@@ -203,14 +198,12 @@ def new_deaths(data):
 === New deaths per day ===
 {{Graph:Chart
 |type=line
-|linewidth=1.5
-|showSymbols=1
-|width=750
+|height=300
+|width=1000
 |colors=purple
 |showValues=offset:2
 |xAxisTitle=Date
 |xType=date
-|xAxisAngle=15
 |xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
 |yAxisTitle=New deaths
@@ -227,7 +220,8 @@ def deaths_by_age_and_gender_english(age_gender):
 === Total confirmed deaths by age and gender ===
 The following chart displays the proportion of total deaths by age and gender on """+format.date_display_english(age_gender['date'])+""".<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |title= Github - Data Science for Social Good (DSSG)}}</ref><ref>{{cite web |url=https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal/ |title=Dashboard DGS}}</ref>
 {{Graph:Chart
-|width=750
+|height=300
+|width=1000
 |colors=blue,orange
 |showValues=offset:2
 |xAxisTitle=Age
@@ -248,13 +242,11 @@ def hospital_admitted(data):
     return"""=== Hospital admitted cases - Stable ===
 {{Graph:Chart
 |type=line
-|linewidth=1.5
-|showSymbols=1
-|width=750
+|height = 300
+|width=1000
 |colors=orange
 |showValues=
 |xAxisTitle=Date
-|xAxisAngle=15
 |xType=date
 |xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
@@ -270,13 +262,11 @@ def icu_admitted(data):
     return"""=== Hospital admitted cases - ICU ===
 {{Graph:Chart
 |type=line
-|linewidth=1.5
-|showSymbols=1
-|width=750
+|height = 300
+|width=1000
 |colors=maroon
 |showValues=
 |xAxisTitle=Date
-|xAxisAngle=15
 |xType=date
 |xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
@@ -308,7 +298,8 @@ def weekly_cases():
 === New cases per week ===
 {{Graph:Chart
 |type=rect
-|width=750
+|height=300
+|width=1000
 |colors=#F46D43
 |xAxisAngle=-60
 |showValues= offset:2
@@ -342,7 +333,8 @@ def weekly_deaths():
 === New deaths per week ===
 {{Graph:Chart
 |type=rect
-|width=750
+|height=300
+|width=1000
 |colors={{Medical cases chart/Bar colors|1}}
 |xAxisAngle=-60
 |showValues= offset:2
