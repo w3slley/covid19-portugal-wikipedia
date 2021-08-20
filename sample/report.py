@@ -69,42 +69,47 @@ def get_summary_data(REPORT_PATH):
 
     return obj
 
+
+def assign_vaccination_data(results,age_range, a, i):
+    results['vaccination_age_group'][age_range]['one_dose'] = a[i+8] + " ("+a[i+14]+")"
+    results['vaccination_age_group'][age_range]['completed'] = a[i+20] + " ("+a[i+26]+")"
+
 def get_vaccine_data(VACCINE_REPORT_PATH):
     txt = pdf.convert_pdf_to_txt(VACCINE_REPORT_PATH)
     a=txt.splitlines()
     a=format.remove_empty_str(a)
     results = {}
-    results['vacinacao_faixa_etaria'] = {}
+    results['vaccination_age_group'] = {}
 
     list_age = ['0_17','18_24','25_49','50_64','65_79','greater_than_80']
     for i in list_age:
-        results['vacinacao_faixa_etaria'][i] = {}
+        results['vaccination_age_group'][i] = {}
     for i in range(len(a)):
         if 'pelo menos' in a[i]:
             if a[i+1] == 'vacinação iniciada 1':
-                results["vacinacao_uma_dose"] = a[i+2]
+                results["vaccinated_one_dose"] = a[i+2]
             else: 
-                results["vacinacao_uma_dose"] = a[i+1]
+                results["vaccinated_one_dose"] = a[i+1]
         if 'vacinação completa' in a[i]:
-            results["vacinacao_completa"] = a[i+1]
+            results["completely_vaccinated"] = a[i+1]
             break
     for i in range(len(a)):
         if 'Doses Recebidas' in a[i]:
-            results["doses_recebidas"] = a[i+2]
+            results["received_doses"] = a[i+2]
         if 'Doses Distribu' in a[i]: 
-            results["doses_distribuidas"] = a[i+2]  
+            results["distributed_doses"] = a[i+2]  
         if '0 – 17' in a[i]:
-            assign_vaccination_data(results,'0_17')    
+            assign_vaccination_data(results,'0_17',a,i)    
         if '18 – 24' in a[i]:
-            assign_vaccination_data(results,'18_24') 
+            assign_vaccination_data(results,'18_24',a,i) 
         if '25 – 49' in a[i]:
-            assign_vaccination_data(results,'25_49')
+            assign_vaccination_data(results,'25_49',a,i)
         if '50 – 64' in a[i]:
-            assign_vaccination_data(results,'50_64')
+            assign_vaccination_data(results,'50_64',a,i)
         if '65 – 79' in a[i]:
-            assign_vaccination_data(results,'65_79')
+            assign_vaccination_data(results,'65_79',a,i)
         if '≥ 80' in a[i]:
-            assign_vaccination_data(results,'greater_than_80')
+            assign_vaccination_data(results,'greater_than_80',a,i)
     return results
     
 def get_data_by_age_and_gender(REPORT_PATH):

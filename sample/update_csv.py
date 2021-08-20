@@ -33,8 +33,7 @@ def get_urls_missing_reports(filename): #aka reports whose data are not in the c
         
         if format.remove_space(report_date) == latest_date:#if it's equal to latest date on csv file, get out of loop
             break
-        urls.insert(0, {'url': i.a.get('href'), 'date':d})
-
+        urls.insert(0, {'url': i.a.get('href'), 'date':report_date})
     return urls
 
 def update_situation_reports():#method that updates csv file with data from reports until the most recent one on DGS' website
@@ -44,7 +43,7 @@ def update_situation_reports():#method that updates csv file with data from repo
         print('The portugal_data.csv file is up to date with all DGS reports')
         print('Most current PDF report was already downloaded, nothing else to do')
     else:
-        print('Data from '+str(n)+' DGS report(s) need to be parsed into the .csv file')
+        print('Data from '+str(n)+' DGS situation report(s) need to be parsed into the .csv file')
     #download PDFs and updates csv file
     for i in report_urls:
         # encode to urlencoded to prevent errors from acentos and other portuguese specific characters
@@ -60,13 +59,13 @@ def update_situation_reports():#method that updates csv file with data from repo
         old_hospital_icu = old_df.iloc[latest_index].hospital_icu
         old_hospital_stable = old_df.iloc[latest_index].hospital_stable
 
-        summary = report.get_summary_data(filepath)
+        summary_data = report.get_summary_data(filepath)
         data_coefficients = report.get_incidence_and_transmissibility(filepath)
-        total_cases = int(summary['confirmed_cases'])
-        total_deaths = int(summary['deaths'])
-        recovered = int(summary['recovered'])
+        total_cases = int(summary_data['confirmed_cases'])
+        total_deaths = int(summary_data['deaths'])
+        recovered = int(summary_data['recovered'])
         h = report.get_hospitalized_data(filepath)
-        under_surveillance = int(summary['under_surveillance'])
+        under_surveillance = int(summary_data['under_surveillance'])
         
         new_data = {
             'date': format.date_for_csv(i['date']),
@@ -89,11 +88,42 @@ def update_situation_reports():#method that updates csv file with data from repo
         new_df = pd.DataFrame([new_data], columns=list(new_data.keys()))
         updated_df = pd.concat([old_df, new_df]) #concatenate the two dataframes
         updated_df.to_csv('portugal_data.csv', index=False) #save
-        print('.csv file updated successfully')
-
-def assign_vaccination_data(results,age_range):
-    results['vacinacao_faixa_etaria'][age_range]['Pelo menos uma dose'] = a[i+8] + " ("+a[i+14]+")"
-    results['vacinacao_faixa_etaria'][age_range]['Vacinação completa'] = a[i+20] + " ("+a[i+26]+")"
+        print('portugal_data.csv file updated successfully')
 
 def update_vaccine_reports():
-    return
+    report_urls= get_urls_missing_reports('portugal_vaccine_data.csv')
+    n = len(report_urls)
+    if n == 0:
+        print('The portugal_vaccine_data.csv file is up to date with all DGS vaccine reports')
+        print('Most current PDF report was already downloaded, nothing else to do')
+    else:
+        print('Data from '+str(n)+' DGS vaccine report(s) need to be parsed into the .csv file')
+    #download PDFs and updates csv file
+    for i in report_urls:
+        # encode to urlencoded to prevent errors from acentos and other portuguese specific characters
+        url = urllib.parse.quote(i['url']).replace('%3A', ':') # %3A is : in urlencoded. I had to replace it because for some reason the browser (and urllib) was not recognizing %3A as ":".
+
+        print('Updating portugal_vaccine_data.csv file with data from the '+i['date']+' DGS vaccine report')
+        filepath = 'reports/vaccine/'+i['date'].replace('/','-')+'.pdf'
+        report.download(url, filepath)#downloading report
+        old_df = pd.read_csv('portugal_vaccine_data.csv')
+        latest_index = old_df.tail(1).index.start
+
+        vaccine_data = report.get_vaccine_data(filepath)
+        vaccination_age_group = vaccine_data['vaccination_age_group']
+        new_data = {
+            'date': format.date_for_csv(i['date']),
+            'vaccinated_one_dose': vaccine_data['vaccinated_one_dose'],
+            'completely_vaccinated': vaccine_data['completely_vaccinated'],
+            'received_doses': vaccine_data['received_doses'],
+            'distributed_doses': vaccine_data['distributed_doses']
+        }
+        age_groups = ['0_17','18_24','25_49','50_64','65_79','greater_than_80']
+        for age in age_groups:
+            new_data['one_dose_'+age] = vaccine_data['vaccination_age_group'][age]['one_dose']
+            new_data['completed_'+age] = vaccine_data['vaccination_age_group'][age]['completed']
+
+        new_df = pd.DataFrame([new_data], columns=list(new_data.keys()))
+        updated_df = pd.concat([old_df, new_df]) #concatenate the two dataframes
+        updated_df.to_csv('portugal_vaccine_data.csv', index=False) #save
+        print('portugal_vaccine_data.csv file updated successfully')

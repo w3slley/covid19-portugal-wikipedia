@@ -43,7 +43,7 @@ def graphs_english():
     f.write(result)
     f.close()
 
-def get_last_datapoint(column_name):
+def get_last_datapoint_situation(column_name):
     df = pd.read_csv('portugal_data.csv')
     data = list(df[column_name])
     if column_name.find('national') != -1 or column_name.find('continental') != -1:
@@ -57,6 +57,12 @@ def get_last_datapoint(column_name):
 
         return format.add_commas(str(data[-1])) + " (" + variation + ")"
 
+def get_last_datapoint_vaccine(column_name):
+    df = pd.read_csv('portugal_vaccine_data.csv')
+    data = list(df[column_name])
+    return str(data[-1])
+    
+
 def summary_table():
 
     link = report.info_latest()['link']
@@ -69,49 +75,49 @@ def summary_table():
 {| class="wikitable" 
 |+COVID-19 Summary (["""+link+""" """+report_date+"""])
 !Total confirmed cases
-|"""+get_last_datapoint('total_cases')+"""
+|"""+get_last_datapoint_situation('total_cases')+"""
 |-
 !Total confirmed deaths
-|"""+get_last_datapoint('total_deaths')+"""
+|"""+get_last_datapoint_situation('total_deaths')+"""
 |-
 !Active cases
-|"""+get_last_datapoint('active_cases')+"""
+|"""+get_last_datapoint_situation('active_cases')+"""
 |-
 !Under surveillance
-|"""+get_last_datapoint('under_surveillance')+"""
+|"""+get_last_datapoint_situation('under_surveillance')+"""
 |-
 !Recovered
-|"""+get_last_datapoint('recovered')+"""
+|"""+get_last_datapoint_situation('recovered')+"""
 |-
 !Currently admitted to hospital
-|"""+get_last_datapoint('hospital_stable')+"""
+|"""+get_last_datapoint_situation('hospital_stable')+"""
 |-
 !Currently admitted to ICU
-|"""+get_last_datapoint('hospital_icu')+"""
+|"""+get_last_datapoint_situation('hospital_icu')+"""
 |-
 !Cases per 100 000 (national/continental)
-|"""+get_last_datapoint('national_incidence')+""" / """+get_last_datapoint('continental_incidence')+"""
+|"""+get_last_datapoint_situation('national_incidence')+""" / """+get_last_datapoint_situation('continental_incidence')+"""
 |-
 !R(t) (national/continental)
-|"""+get_last_datapoint('national_r(t)')+""" / """+get_last_datapoint('continental_r(t)')+"""
+|"""+get_last_datapoint_situation('national_r(t)')+""" / """+get_last_datapoint_situation('continental_r(t)')+"""
 |}
 </div>
 
 <div style="display:flex;flex-direction:column;margin-left:10px">
 <div style='display:flex;justify-content:center'>
 {| class="wikitable"
-|+ Vaccine summary  ([https://covid19.min-saude.pt/wp-content/uploads/2021/08/Relato%CC%81rio-de-Vacinac%CC%A7a%CC%83o-n.o-27.pdf 15/08/2021])
+|+ Vaccine summary ([https://covid19.min-saude.pt/wp-content/uploads/2021/08/Relato%CC%81rio-de-Vacinac%CC%A7a%CC%83o-n.o-27.pdf 15/08/2021])
 ! People with at least one vaccine dose
-| 7 791 486 (76%)
+| """+get_last_datapoint_vaccine('vaccinated_one_dose')+"""
 |-
 ! People completely vaccinated
-| 6 760 777 (66%)
+| """+get_last_datapoint_vaccine('completely_vaccinated')+"""
 |-
 ! Doses received
-| 15 322 080
+| """+get_last_datapoint_vaccine('received_doses')+"""
 |-
 ! Doses distributed
-| 14 093 439
+| """+get_last_datapoint_vaccine('distributed_doses')+"""
 |-
 |}
 </div>
@@ -124,28 +130,28 @@ def summary_table():
 ! scope="col" | Complete vaccination
 |-
 ! scope="row" | 0 - 17
-| 152 292 (9%)
-| 3 780 (0%)
+| """+get_last_datapoint_vaccine('one_dose_0_17')+"""
+| """+get_last_datapoint_vaccine('completed_0_17')+"""
 |-
 ! scope="row" | 18 - 24
-| 421 136 (54%)
-| 232 291 (30%)
+| """+get_last_datapoint_vaccine('one_dose_18_24')+"""
+| """+get_last_datapoint_vaccine('completed_18_24')+"""
 |-
 ! scope="row" | 25 - 49
-| 2 777 811 (83%)
-| 2 322 567 (70%)
+| """+get_last_datapoint_vaccine('one_dose_25_49')+"""
+| """+get_last_datapoint_vaccine('completed_25_49')+"""
 |-
 ! scope="row" | 50 - 64
-| 2 094 267 (96%)
-| 1 960 482 (90%)
+| """+get_last_datapoint_vaccine('one_dose_50_64')+"""
+| """+get_last_datapoint_vaccine('completed_50_64')+"""
 |-
 ! scope="row" | 65 - 79
-| 1 659 217 (99%)
-| 1 582 795 (97%)
+| """+get_last_datapoint_vaccine('one_dose_65_79')+"""
+| """+get_last_datapoint_vaccine('completed_65_79')+"""
 |-
 ! scope="row" | ⩾80
-| 686 755 (99%)
-| 658 854 (97%)
+| """+get_last_datapoint_vaccine('one_dose_greater_than_80')+"""
+| """+get_last_datapoint_vaccine('completed_greater_than_80')+"""
 |-
 |}
 </div>
