@@ -7,7 +7,7 @@ import sample.pdf as pdf
 import sample.format as format
 
 def info_latest(): #of the latest DGS report on Covid-19
-    li_tags = web.get_li_items()
+    li_tags = web.get_li_items('portugal_data.csv')
     link = li_tags[0].a.get('href') #get the url from the upmost link (which is the most recent report)
     most_recent_pdf_date = str(li_tags[0].text[-10:])
     
@@ -69,6 +69,43 @@ def get_summary_data(REPORT_PATH):
 
     return obj
 
+def get_vaccine_data(VACCINE_REPORT_PATH):
+    txt = pdf.convert_pdf_to_txt(VACCINE_REPORT_PATH)
+    a=txt.splitlines()
+    a=format.remove_empty_str(a)
+    results = {}
+    results['vacinacao_faixa_etaria'] = {}
+
+    list_age = ['0_17','18_24','25_49','50_64','65_79','greater_than_80']
+    for i in list_age:
+        results['vacinacao_faixa_etaria'][i] = {}
+    for i in range(len(a)):
+        if 'pelo menos' in a[i]:
+            if a[i+1] == 'vacinação iniciada 1':
+                results["vacinacao_uma_dose"] = a[i+2]
+            else: 
+                results["vacinacao_uma_dose"] = a[i+1]
+        if 'vacinação completa' in a[i]:
+            results["vacinacao_completa"] = a[i+1]
+            break
+    for i in range(len(a)):
+        if 'Doses Recebidas' in a[i]:
+            results["doses_recebidas"] = a[i+2]
+        if 'Doses Distribu' in a[i]: 
+            results["doses_distribuidas"] = a[i+2]  
+        if '0 – 17' in a[i]:
+            assign_vaccination_data(results,'0_17')    
+        if '18 – 24' in a[i]:
+            assign_vaccination_data(results,'18_24') 
+        if '25 – 49' in a[i]:
+            assign_vaccination_data(results,'25_49')
+        if '50 – 64' in a[i]:
+            assign_vaccination_data(results,'50_64')
+        if '65 – 79' in a[i]:
+            assign_vaccination_data(results,'65_79')
+        if '≥ 80' in a[i]:
+            assign_vaccination_data(results,'greater_than_80')
+    return results
     
 def get_data_by_age_and_gender(REPORT_PATH):
     data = pdf.convert_pdf_to_txt(REPORT_PATH, pages=[1])

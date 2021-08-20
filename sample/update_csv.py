@@ -1,14 +1,16 @@
 import sample.date as date
 import sample.website as web
 import sample.report as report
+import sample.pdf as pdf
 import sample.format as format
 import pandas as pd
 import urllib
 import os
+import sys
 
-def get_latest_csv_date():
+def get_latest_csv_date(filename):
     #create test for this method later (if last line is an empty string, then false)
-    data = pd.read_csv('portugal_data.csv')
+    data = pd.read_csv(filename)
     last_index = data.tail(1).index.start
     raw_date = data.iloc[last_index].date #DD-MM-YY (with days like january first as 1-1-20)
     d = raw_date.split('-')
@@ -19,19 +21,24 @@ def get_latest_csv_date():
     
     return day+'/'+month+'/20'+year#returns DD/MM/YYYY
         
-def get_urls_missing_reports(): #aka reports whose data are not in the csv file
-    latest_date = get_latest_csv_date()
-    li_tags = web.get_li_items()
+def get_urls_missing_reports(filename): #aka reports whose data are not in the csv file
+    latest_date = get_latest_csv_date(filename)
+    li_tags = web.get_li_items(filename)
     urls = []
     for i in li_tags:
-        d = format.remove_space(i.text[-11:]) #date of each report
-        if d == latest_date:#if it's equal to latest date on csv file, get out of loop
+        if filename == 'portugal_data.csv':
+            report_date = i.text[-11:] 
+        else:
+            report_date = i.text[-11:-1]
+        
+        if format.remove_space(report_date) == latest_date:#if it's equal to latest date on csv file, get out of loop
             break
         urls.insert(0, {'url': i.a.get('href'), 'date':d})
+
     return urls
 
-def update():#method that updates csv file with data from reports until the most recent one on DGS' website
-    report_urls= get_urls_missing_reports()
+def update_situation_reports():#method that updates csv file with data from reports until the most recent one on DGS' website
+    report_urls= get_urls_missing_reports('portugal_data.csv')
     n = len(report_urls)
     if n == 0:
         print('The portugal_data.csv file is up to date with all DGS reports')
@@ -44,7 +51,7 @@ def update():#method that updates csv file with data from reports until the most
         url = urllib.parse.quote(i['url']).replace('%3A', ':') # %3A is : in urlencoded. I had to replace it because for some reason the browser (and urllib) was not recognizing %3A as ":".
 
         print('Updating portugal_data.csv file with data from the '+i['date']+' DGS report')
-        filepath = 'var/'+i['date'].replace('/','-')+'.pdf'
+        filepath = 'reports/situation/'+i['date'].replace('/','-')+'.pdf'
         report.download(url, filepath)#downloading report
         old_df = pd.read_csv('portugal_data.csv')
         latest_index = old_df.tail(1).index.start
@@ -83,3 +90,10 @@ def update():#method that updates csv file with data from reports until the most
         updated_df = pd.concat([old_df, new_df]) #concatenate the two dataframes
         updated_df.to_csv('portugal_data.csv', index=False) #save
         print('.csv file updated successfully')
+
+def assign_vaccination_data(results,age_range):
+    results['vacinacao_faixa_etaria'][age_range]['Pelo menos uma dose'] = a[i+8] + " ("+a[i+14]+")"
+    results['vacinacao_faixa_etaria'][age_range]['Vacinação completa'] = a[i+20] + " ("+a[i+26]+")"
+
+def update_vaccine_reports():
+    return

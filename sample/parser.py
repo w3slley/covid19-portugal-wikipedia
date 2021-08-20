@@ -65,10 +65,9 @@ def summary_table():
 == Statistics ==
 <section begin="Statistics"/>
 <div style='display:flex;justify-content:center'>
+<div style="margin-right:10px">
 {| class="wikitable" 
-|+COVID-19 Summary
-! colspan="2" |Latest COVID-19 report from DGS: ["""+link+""" """+report_date+"""]
-|-
+|+COVID-19 Summary (["""+link+""" """+report_date+"""])
 !Total confirmed cases
 |"""+get_last_datapoint('total_cases')+"""
 |-
@@ -95,8 +94,62 @@ def summary_table():
 |-
 !R(t) (national/continental)
 |"""+get_last_datapoint('national_r(t)')+""" / """+get_last_datapoint('continental_r(t)')+"""
+|}
+</div>
+
+<div style="display:flex;flex-direction:column;margin-left:10px">
+<div style='display:flex;justify-content:center'>
+{| class="wikitable"
+|+ Vaccine summary  ([https://covid19.min-saude.pt/wp-content/uploads/2021/08/Relato%CC%81rio-de-Vacinac%CC%A7a%CC%83o-n.o-27.pdf 15/08/2021])
+! People with at least one vaccine dose
+| 7 791 486 (76%)
+|-
+! People completely vaccinated
+| 6 760 777 (66%)
+|-
+! Doses received
+| 15 322 080
+|-
+! Doses distributed
+| 14 093 439
 |-
 |}
+</div>
+
+<div style='display:flex;justify-content:center;margin-left:15px'>
+{| class="wikitable"
+|+ Vaccination by age group
+! scope="col" | 
+! scope="col" | At least one vaccine dose
+! scope="col" | Complete vaccination
+|-
+! scope="row" | 0 - 17
+| 152 292 (9%)
+| 3 780 (0%)
+|-
+! scope="row" | 18 - 24
+| 421 136 (54%)
+| 232 291 (30%)
+|-
+! scope="row" | 25 - 49
+| 2 777 811 (83%)
+| 2 322 567 (70%)
+|-
+! scope="row" | 50 - 64
+| 2 094 267 (96%)
+| 1 960 482 (90%)
+|-
+! scope="row" | 65 - 79
+| 1 659 217 (99%)
+| 1 582 795 (97%)
+|-
+! scope="row" | ⩾80
+| 686 755 (99%)
+| 658 854 (97%)
+|-
+|}
+</div>
+</div>
 </div>
 """
 
