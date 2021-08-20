@@ -47,7 +47,7 @@ def update_situation_reports():#method that updates csv file with data from repo
     #download PDFs and updates csv file
     for i in report_urls:
         # encode to urlencoded to prevent errors from acentos and other portuguese specific characters
-        url = urllib.parse.quote(i['url']).replace('%3A', ':') # %3A is : in urlencoded. I had to replace it because for some reason the browser (and urllib) was not recognizing %3A as ":".
+        url = format.parse_url(i['url'])
 
         print('Updating portugal_data.csv file with data from the '+i['date']+' DGS report')
         filepath = 'reports/situation/'+i['date'].replace('/','-')+'.pdf'
@@ -101,7 +101,7 @@ def update_vaccine_reports():
     #download PDFs and updates csv file
     for i in report_urls:
         # encode to urlencoded to prevent errors from acentos and other portuguese specific characters
-        url = urllib.parse.quote(i['url']).replace('%3A', ':') # %3A is : in urlencoded. I had to replace it because for some reason the browser (and urllib) was not recognizing %3A as ":".
+        url = format.parse_url(i['url'])
 
         print('Updating portugal_vaccine_data.csv file with data from the '+i['date']+' DGS vaccine report')
         filepath = 'reports/vaccine/'+i['date'].replace('/','-')+'.pdf'

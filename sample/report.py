@@ -6,10 +6,13 @@ import sample.date as date
 import sample.pdf as pdf
 import sample.format as format
 
-def info_latest(): #of the latest DGS report on Covid-19
-    li_tags = web.get_li_items('portugal_data.csv')
+def info_latest(filename): #of the latest DGS report on Covid-19
+    li_tags = web.get_li_items(filename)
     link = li_tags[0].a.get('href') #get the url from the upmost link (which is the most recent report)
-    most_recent_pdf_date = str(li_tags[0].text[-10:])
+    if filename == 'portugal_data.csv':
+        most_recent_pdf_date = str(li_tags[0].text[-10:])
+    else:
+        most_recent_pdf_date = str(li_tags[0].text[-11:-1])
     
     return {'link': link, 'report_date':most_recent_pdf_date}
 

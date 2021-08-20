@@ -64,16 +64,13 @@ def get_last_datapoint_vaccine(column_name):
     
 
 def summary_table():
-
-    link = report.info_latest()['link']
-    report_date = report.info_latest()['report_date']
     return """{{main|COVID-19 pandemic in Portugal}}
 == Statistics ==
 <section begin="Statistics"/>
 <div style='display:flex;justify-content:center'>
 <div style="margin-right:10px">
 {| class="wikitable" 
-|+COVID-19 Summary (["""+link+""" """+report_date+"""])
+|+COVID-19 Summary (["""+format.parse_url(report.info_latest('portugal_data.csv')['link'])+""" """+report.info_latest('portugal_data.csv')['report_date']+"""])
 !Total confirmed cases
 |"""+get_last_datapoint_situation('total_cases')+"""
 |-
@@ -106,7 +103,7 @@ def summary_table():
 <div style="display:flex;flex-direction:column;margin-left:10px">
 <div style='display:flex;justify-content:center'>
 {| class="wikitable"
-|+ Vaccine summary ([https://covid19.min-saude.pt/wp-content/uploads/2021/08/Relato%CC%81rio-de-Vacinac%CC%A7a%CC%83o-n.o-27.pdf 15/08/2021])
+|+ Vaccine summary (["""+format.parse_url(report.info_latest('portugal_vaccine_data.csv')['link'])+""" """+report.info_latest('portugal_vaccine_data.csv')['report_date']+"""])
 ! People with at least one vaccine dose
 | """+get_last_datapoint_vaccine('vaccinated_one_dose')+"""
 |-

@@ -1,3 +1,4 @@
+import urllib.request
 
 def add_commas(digit_str: str):
     number = get_digits(digit_str)
@@ -124,3 +125,6 @@ def convert_string_to_float(string):
         else:
             ans+=i
     return float(ans)   
+
+def parse_url(url):
+    return urllib.parse.quote(url).replace('%3A', ':') # %3A is : in urlencoded. I had to replace it because for some reason the browser (and urllib) was not recognizing %3A as ":".

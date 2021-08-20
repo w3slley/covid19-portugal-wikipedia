@@ -4,7 +4,6 @@ import sample.parser as parser
 import sample.date as date
 import sample.update_csv as csv
 
-REPORT_PATH = 'reports/situation/'+report.info_latest()['report_date'].replace('/','-')+'.pdf' #path for latest pdf report
 csv.update_situation_reports()
 csv.update_vaccine_reports()
 
