@@ -1,10 +1,10 @@
-import sample.website as web
+import src.website as web
 import urllib.request
 import json
 import os
-import sample.date as date
-import sample.pdf as pdf
-import sample.format as format
+import src.date as date
+import src.pdf as pdf
+import src.format as format
 
 def info_latest(filename): #of the latest DGS report on Covid-19
     li_tags = web.get_li_items(filename)

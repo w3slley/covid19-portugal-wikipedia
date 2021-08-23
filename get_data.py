@@ -1,8 +1,8 @@
 import os
-import sample.report as report
-import sample.parser as parser
-import sample.date as date
-import sample.update_csv as csv
+import src.report as report
+import src.parser as parser
+import src.date as date
+import src.update_csv as csv
 
 csv.update_situation_reports()
 csv.update_vaccine_reports()

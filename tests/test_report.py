@@ -1,8 +1,8 @@
 import pytest
 import sys,os
 sys.path.append(os.path.abspath(os.path.join('.', '')))
-import sample.format as format
-import sample.report as report 
+import src.format as format
+import src.report as report 
 
 def test_download():
     url = report.info_latest()['link']

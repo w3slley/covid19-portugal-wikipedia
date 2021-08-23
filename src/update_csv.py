@@ -1,8 +1,8 @@
-import sample.date as date
-import sample.website as web
-import sample.report as report
-import sample.pdf as pdf
-import sample.format as format
+import src.date as date
+import src.website as web
+import src.report as report
+import src.pdf as pdf
+import src.format as format
 import pandas as pd
 import urllib
 import os

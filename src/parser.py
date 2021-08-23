@@ -1,6 +1,6 @@
-import sample.report as report
-import sample.date as date
-import sample.format as format
+import src.report as report
+import src.date as date
+import src.format as format
 import pandas as pd
 
 def graphs_english():
