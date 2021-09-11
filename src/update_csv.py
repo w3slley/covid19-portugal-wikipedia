@@ -27,11 +27,11 @@ def get_urls_missing_reports(filename): #aka reports whose data are not in the c
     urls = []
     for i in li_tags:
         if filename == 'portugal_data.csv':
-            report_date = i.text[-11:] 
+            report_date = format.remove_space(i.text[-11:]) 
         else:
-            report_date = i.text[-11:-1]
+            report_date = format.remove_space(i.text[-11:-1])
         
-        if format.remove_space(report_date) == latest_date:#if it's equal to latest date on csv file, get out of loop
+        if report_date == format.remove_space(latest_date):#if it's equal to latest date on csv file, get out of loop
             break
         urls.insert(0, {'url': i.a.get('href'), 'date':report_date})
     return urls

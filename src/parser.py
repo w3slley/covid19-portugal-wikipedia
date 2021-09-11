@@ -126,23 +126,23 @@ def summary_table():
 ! scope="col" | At least one vaccine dose
 ! scope="col" | Complete vaccination
 |-
-! scope="row" | 0 - 17
+! scope="row" | 0–17
 | """+get_last_datapoint_vaccine('one_dose_0_17')+"""
 | """+get_last_datapoint_vaccine('completed_0_17')+"""
 |-
-! scope="row" | 18 - 24
+! scope="row" | 18–24
 | """+get_last_datapoint_vaccine('one_dose_18_24')+"""
 | """+get_last_datapoint_vaccine('completed_18_24')+"""
 |-
-! scope="row" | 25 - 49
+! scope="row" | 25–49
 | """+get_last_datapoint_vaccine('one_dose_25_49')+"""
 | """+get_last_datapoint_vaccine('completed_25_49')+"""
 |-
-! scope="row" | 50 - 64
+! scope="row" | 50–64
 | """+get_last_datapoint_vaccine('one_dose_50_64')+"""
 | """+get_last_datapoint_vaccine('completed_50_64')+"""
 |-
-! scope="row" | 65 - 79
+! scope="row" | 65–79
 | """+get_last_datapoint_vaccine('one_dose_65_79')+"""
 | """+get_last_datapoint_vaccine('completed_65_79')+"""
 |-
@@ -207,7 +207,7 @@ def new_cases(data):
 def cases_by_age_and_gender_english(age_gender):
     return"""
 === Total confirmed cases by age and gender ===
-The following chart displays the proportion of total cases by age and gender on """+format.date_display_english(age_gender['date'])+""".<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |title= Github - Data Science for Social Good (DSSG)}}</ref><ref>{{cite web |url=https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal/ |title=Dashboard DGS}}</ref>
+The following chart displays the proportion of total cases by age and gender on August 20, 2021.<ref name="auto">{{Cite web|url=https://github.com/dssg-pt/covid19pt-data|title=GitHub – dssg-pt/covid19pt-data: 😷️🇵🇹 Dados relativos à pandemia COVID-19 em Portugal|website=GitHub}}</ref><ref name="auto2">{{Cite web|url=https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal/|title=Ponto de Situação Atual em Portugal – COVID-19|website=covid19.min-saude.pt}}</ref>
 {{Graph:Chart
 |height = 300
 |width=1000
@@ -215,7 +215,7 @@ The following chart displays the proportion of total cases by age and gender on 
 |showValues=offset:2
 |xAxisTitle=Age
 |type=rect
-|x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+
+|x= 0–9, 10–19, 20–29, 30–39, 40–49, 50–59, 60–69, 70–79, 80+
 |yAxisTitle=No. of cases
 |legend=Legend
 |y1= """+age_gender['cases_men']+"""
@@ -274,7 +274,7 @@ def new_deaths(data):
 def deaths_by_age_and_gender_english(age_gender):
     return"""
 === Total confirmed deaths by age and gender ===
-The following chart displays the proportion of total deaths by age and gender on """+format.date_display_english(age_gender['date'])+""".<ref>{{cite web |url=https://github.com/dssg-pt/covid19pt-data |title= Github - Data Science for Social Good (DSSG)}}</ref><ref>{{cite web |url=https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal/ |title=Dashboard DGS}}</ref>
+The following chart displays the proportion of total deaths by age and gender on """+format.date_display_english(age_gender['date'])+""".<ref name="auto"/><ref name="auto2"/>
 {{Graph:Chart
 |height=300
 |width=1000
@@ -282,7 +282,7 @@ The following chart displays the proportion of total deaths by age and gender on
 |showValues=offset:2
 |xAxisTitle=Age
 |type=rect
-|x= 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80+ 
+|x= 0–9, 10–19, 20–29, 30–39, 40–49, 50–59, 60–69, 70–79, 80+
 |yAxisTitle=No. of deaths
 |legend=Legend
 |y1= """+age_gender['deaths_men']+"""
@@ -295,7 +295,7 @@ The following chart displays the proportion of total deaths by age and gender on
 """
 
 def hospital_admitted(data):
-    return"""=== Hospital admitted cases - Stable ===
+    return"""=== Hospital admitted cases – Stable ===
 {{Graph:Chart
 |type=line
 |height = 300
@@ -315,7 +315,7 @@ def hospital_admitted(data):
 """
 
 def icu_admitted(data):
-    return"""=== Hospital admitted cases - ICU ===
+    return"""=== Hospital admitted cases – ICU ===
 {{Graph:Chart
 |type=line
 |height = 300
@@ -360,11 +360,11 @@ def weekly_cases():
 |xAxisAngle=-60
 |showValues= offset:2
 |xAxisTitle=Week
-|x= 2 Mar - 8 Mar, 9 Mar - 15 Mar, 16 Mar - 22 Mar, 23 Mar - 29 Mar, 30 Mar -5 Apr, 
-6 Apr - 12 Apr, 13 Apr - 19 Apr, 20 Apr - 26 Apr, 27 Apr - 3 May, 4 May - 10 May, 
-11 May - 17 May, 18 May - 24 May, 25 May - 31 May, 1 Jun - 7 Jun, 8 Jun - 14 Jun, 
-15 Jun - 21 Jun, 22 Jun - 28 Jun, 29 Jun - 5 Jul, 6 Jul - 12 Jul, 13 Jul - 19 Jul, 
-20 Jul - 26 Jul, 27 Jul - 2 Aug, 3 Aug - 9 Aug, 10 Aug - 16 Aug (5 days)
+|x= 2 Mar – 8 Mar, 9 Mar – 15 Mar, 16 Mar – 22 Mar, 23 Mar – 29 Mar, 30 Mar −5 Apr,
+6 Apr – 12 Apr, 13 Apr – 19 Apr, 20 Apr – 26 Apr, 27 Apr – 3 May, 4 May – 10 May, 
+11 May – 17 May, 18 May – 24 May, 25 May – 31 May, 1 Jun – 7 Jun, 8 Jun – 14 Jun, 
+15 Jun – 21 Jun, 22 Jun – 28 Jun, 29 Jun – 5 Jul, 6 Jul – 12 Jul, 13 Jul – 19 Jul, 	
+20 Jul – 26 Jul, 27 Jul – 2 Aug, 3 Aug – 9 Aug, 10 Aug – 16 Aug (5 days)
 |yAxisTitle=New cases
 |y1=  30 <!--2, 2, 2, 3, 4, 8, 9-->, 215 <!--9, 2, 18, 19, 34, 57, 76-->, 
 1355 <!--86, 117, 194, 143, 235, 260, 320-->, 4362 <!--460, 302, 633, 549, 724, 902, 792-->, 
@@ -395,11 +395,11 @@ def weekly_deaths():
 |xAxisAngle=-60
 |showValues= offset:2
 |xAxisTitle=Week
-|x= 2 Mar - 8 Mar, 9 Mar - 15 Mar, 16 Mar - 22 Mar, 23 Mar - 29 Mar, 30 Mar -5 Apr, 
-6 Apr - 12 Apr, 13 Apr - 19 Apr, 20 Apr - 26 Apr, 27 Apr - 3 May, 4 May - 10 May, 
-11 May - 17 May, 18 May - 24 May, 25 May - 31 May, 1 Jun - 7 Jun, 8 Jun - 14 Jun, 
-15 Jun - 21 Jun, 22 Jun - 28 Jun, 29 Jun - 5 Jul, 6 Jul - 12 Jul, 13 Jul - 19 Jul, 
-20 Jul - 26 Jul, 27 Jul - 2 Aug, 3 Aug - 9 Aug, 10 Aug - 16 Aug (5 days)
+|x= 2 Mar – 8 Mar, 9 Mar – 15 Mar, 16 Mar – 22 Mar, 23 Mar – 29 Mar, 30 Mar −5 Apr,
+6 Apr – 12 Apr, 13 Apr – 19 Apr, 20 Apr – 26 Apr, 27 Apr – 3 May, 4 May – 10 May, 
+11 May – 17 May, 18 May – 24 May, 25 May – 31 May, 1 Jun – 7 Jun, 8 Jun – 14 Jun, 
+15 Jun – 21 Jun, 22 Jun – 28 Jun, 29 Jun – 5 Jul, 6 Jul – 12 Jul, 13 Jul – 19 Jul, 	
+20 Jul – 26 Jul, 27 Jul – 2 Aug, 3 Aug – 9 Aug, 10 Aug – 16 Aug (5 days)
 |yAxisTitle=New deaths
 |y1=  0 <!--0, 0, 0, 0, 0, 0, 0-->, 0 <!--0, 0, 0, 0, 0, 0, 0-->, 
 14 <!--1, 0, 1, 2, 2, 6, 2-->, 105 <!--9, 10, 10, 17, 16, 24, 19-->, 
@@ -424,24 +424,24 @@ def cases_deaths_by_region():
 === Confirmed cases and deaths, by region===
 {{COVID-19_pandemic_data/Portugal_medical_cases}}
 
-The following graph shows the daily cases of COVID-19 for each region of Portugal (updated on the 10th of June) according to DGS<ref>https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal/</ref> visualising the table above.
+The following graph shows the daily cases of COVID-19 for each region of Portugal (updated on the 10th of June) according to DGS<ref name="auto2"/> visualising the table above.
 [[File:Daily cases per region update 2.png|left|800px|thumb|Daily cases of COVID-19 per region in Portugal. The lines are smoothed for better visualisation and are coloured according to each region of Portugal. The negative values are not shown here for better visualisation.]]
 {{clear}}
 
 
-Similarly, the following graph presents the daily deaths by COVID-19 for each region of Portugal (updated on the 10th of June) according to DGS.<ref>https://covid19.min-saude.pt/ponto-de-situacao-atual-em-portugal/</ref>
+Similarly, the following graph presents the daily deaths by COVID-19 for each region of Portugal (updated on the 10th of June) according to DGS.<ref name="auto1"/>
 [[File:Daily deaths per region 2.png|left|800px|thumb|Daily deaths from COVID-19 per region in Portugal. The lines are smoothed for better visualisation and are coloured according to each region of Portugal. The negative values are not shown here for better visualisation.]]
 {{clear}}
 """
 
 def deaths_cases_comparison():
-    return"""=== 2009-20 deaths cases comparison ===
+    return"""=== 2009–20 deaths cases comparison ===
 
-According to the Portuguese mortality surveillance (EVM<ref>{{cite web|url=https://evm.min-saude.pt |title=SICO - eVM {{!}} Mortalidade em tempo real |publisher=Evm.min-saude.pt |date= |accessdate=2020-05-08}}</ref>), the following chart presents the total number of deaths per day in Portugal for the years 2009-2020 (updated on 10 June).
-[[File:Deaths_2009_2020.png|thumb|left|720px|The total number of deaths per day in Portugal for various years including all ages.<ref>{{Cite web|url=https://evm.min-saude.pt/#shiny-tab-a_total|title=SICO - eVM {{!}} Mortalidade geral |publisher=Evm.min-saude.pt}}</ref>]]
+According to the Portuguese mortality surveillance (EVM<ref>{{cite web|url=https://evm.min-saude.pt |title=SICO – eVM {{!}} Mortalidade em tempo real |publisher=Evm.min-saude.pt |date= |accessdate=2020-05-08}}</ref>), the following chart presents the total number of deaths per day in Portugal for the years 2009–2020 (updated on 10 June).
+[[File:Deaths_2009_2020.png|thumb|left|720px|The total number of deaths per day in Portugal for various years including all ages.<ref>{{Cite web|url=https://evm.min-saude.pt/#shiny-tab-a_total|title=SICO – eVM {{!}} Mortalidade geral |publisher=Evm.min-saude.pt}}</ref>]]
 {{clear}}
 
-In the following two graphs, the total deaths per day and by age group are presented for the years 2019 and 2020.<ref>{{Cite web|url=https://evm.min-saude.pt/#shiny-tab-a_idade|title=SICO - eVM {{!}} Mortalidade por grupo etário |publisher=Evm.min-saude.pt}}</ref>
+In the following two graphs, the total deaths per day and by age group are presented for the years 2019 and 2020.<ref>{{Cite web|url=https://evm.min-saude.pt/#shiny-tab-a_idade|title=SICO – eVM {{!}} Mortalidade por grupo etário |publisher=Evm.min-saude.pt}}</ref>
 <div style='display: inline-block; width: 750px; vertical-align: top;'>
 [[File:Deaths_per_age_group_2019.png|thumb|left|720px|Total number of deaths per day for Portugal per age group for the year 2019.]]
 </div>
