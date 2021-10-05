@@ -5,7 +5,7 @@ import src.date as date
 import src.update_csv as csv
 
 csv.update_situation_reports()
-csv.update_vaccine_reports()
+#csv.update_vaccine_reports()
 
 print('Parsing data from latest DGS report')
 
