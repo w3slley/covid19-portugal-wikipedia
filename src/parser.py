@@ -65,6 +65,7 @@ def get_last_datapoint_vaccine(column_name):
 
 def summary_table():
     return """{{main|COVID-19 pandemic in Portugal}}
+{{pp-protected|reason=Persistent [[WP:Disruptive editing|disruptive editing]]; requested at [[WP:RfPP]]|small=yes}}
 == Statistics ==
 <section begin="Statistics"/>
 <div style='display:flex;justify-content:center'>
