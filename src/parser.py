@@ -530,7 +530,6 @@ def timeline_graphs_portuguese():
 |legend=Legenda
 |xAxisTitle=Data
 |xType=date
-|xAxisAngle=15
 |xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
 |yAxisTitle=Nº de casos
@@ -550,7 +549,6 @@ def timeline_graphs_portuguese():
 |showValues=
 |xAxisTitle=Data
 |xType=date
-|xAxisAngle=15
 |xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
 |yAxisTitle=Novos casos
@@ -569,7 +567,6 @@ def timeline_graphs_portuguese():
 |showValues=
 |xAxisTitle=Data
 |xType=date
-|xAxisAngle=15
 |xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
 |yAxisTitle=Nº de casos
@@ -587,7 +584,6 @@ def timeline_graphs_portuguese():
 |showValues=
 |xAxisTitle=Data
 |xType=date
-|xAxisAngle=15
 |xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
 |yAxisTitle=Novas mortes
@@ -605,7 +601,6 @@ def timeline_graphs_portuguese():
 |showValues=
 |xAxisTitle=Data
 |xType=date
-|xAxisAngle=15
 |xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
 |yAxisTitle=Nº de casos ativos
@@ -623,7 +618,6 @@ def timeline_graphs_portuguese():
 |colors=orange
 |showValues=
 |xAxisTitle=Date
-|xAxisAngle=15
 |xType=date
 |xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
@@ -641,7 +635,6 @@ def timeline_graphs_portuguese():
 |colors=maroon,
 |showValues=
 |xAxisTitle=Date
-|xAxisAngle=15
 |xType=date
 |xAxisFormat=%d/%m/%y
 |x= """+data['date']+"""
